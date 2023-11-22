@@ -1,0 +1,2598 @@
+{
+	"en-debug": {
+		"20231121-2048-ABS-0wd7krjx": {
+			"1": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 1,
+				"blockidx": 1,
+				"answer": 81,
+				"color": "MB",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 1
+			},
+			"2": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 2,
+				"blockidx": 1,
+				"answer": 99,
+				"color": "SR",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 2
+			},
+			"3": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 3,
+				"blockidx": 1,
+				"answer": 50,
+				"color": "LY",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 3
+			},
+			"4": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 4,
+				"blockidx": 1,
+				"answer": 0.9999999999999998,
+				"color": "SB",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 4
+			},
+			"5": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 5,
+				"blockidx": 1,
+				"answer": 0,
+				"color": "MC",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 5
+			},
+			"6": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 6,
+				"blockidx": 1,
+				"answer": 73,
+				"color": "MR",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 6
+			},
+			"7": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 7,
+				"blockidx": 1,
+				"answer": 22,
+				"color": "MG",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 7
+			},
+			"8": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 8,
+				"blockidx": 1,
+				"answer": 40.99999999999999,
+				"color": "DB",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 8
+			},
+			"9": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 9,
+				"blockidx": 1,
+				"answer": 17.999999999999996,
+				"color": "SP",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 9
+			},
+			"10": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 10,
+				"blockidx": 1,
+				"answer": 83,
+				"color": "DY",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 10
+			},
+			"11": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 11,
+				"blockidx": 1,
+				"answer": 22.999999999999996,
+				"color": "SH",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 11
+			},
+			"12": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 12,
+				"blockidx": 1,
+				"answer": 26,
+				"color": "SC",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 12
+			},
+			"13": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 13,
+				"blockidx": 1,
+				"answer": 12,
+				"color": "DP",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 13
+			},
+			"14": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 14,
+				"blockidx": 1,
+				"answer": 27.999999999999996,
+				"color": "DO",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 14
+			},
+			"15": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 15,
+				"blockidx": 1,
+				"answer": 81.99999999999999,
+				"color": "MO",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 15
+			},
+			"16": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 16,
+				"blockidx": 1,
+				"answer": 13.999999999999998,
+				"color": "DH",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 16
+			},
+			"17": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 17,
+				"blockidx": 1,
+				"answer": 0.9999999999999998,
+				"color": "MY",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 17
+			},
+			"18": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 18,
+				"blockidx": 1,
+				"answer": 50,
+				"color": "A3",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 18
+			},
+			"19": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 19,
+				"blockidx": 1,
+				"answer": 16,
+				"color": "WH",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 19
+			},
+			"20": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 20,
+				"blockidx": 1,
+				"answer": 22.999999999999996,
+				"color": "LC",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 20
+			},
+			"21": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 21,
+				"blockidx": 1,
+				"answer": 33,
+				"color": "LP",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 21
+			},
+			"22": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 22,
+				"blockidx": 1,
+				"answer": 59,
+				"color": "DG",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 22
+			},
+			"23": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 23,
+				"blockidx": 1,
+				"answer": 71.99999999999999,
+				"color": "DC",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 23
+			},
+			"24": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 24,
+				"blockidx": 1,
+				"answer": 71,
+				"color": "LO",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 24
+			},
+			"25": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 25,
+				"blockidx": 1,
+				"answer": 26,
+				"color": "SO",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 25
+			},
+			"26": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 26,
+				"blockidx": 1,
+				"answer": 19,
+				"color": "A2",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 26
+			},
+			"27": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 27,
+				"blockidx": 1,
+				"answer": 13,
+				"color": "LB",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 27
+			},
+			"28": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 28,
+				"blockidx": 1,
+				"answer": 17.999999999999996,
+				"color": "BK",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 28
+			},
+			"29": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 29,
+				"blockidx": 1,
+				"answer": 8,
+				"color": "MH",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 29
+			},
+			"30": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 30,
+				"blockidx": 1,
+				"answer": 1.9999999999999996,
+				"color": "MP",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 30
+			},
+			"31": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 31,
+				"blockidx": 1,
+				"answer": 13.999999999999998,
+				"color": "DR",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 31
+			},
+			"32": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 32,
+				"blockidx": 1,
+				"answer": 16,
+				"color": "LG",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 32
+			},
+			"33": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 33,
+				"blockidx": 1,
+				"answer": 21,
+				"color": "A1",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 33
+			},
+			"34": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 34,
+				"blockidx": 1,
+				"answer": 28.999999999999996,
+				"color": "LR",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 34
+			},
+			"35": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 35,
+				"blockidx": 1,
+				"answer": 17,
+				"color": "SY",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 35
+			},
+			"36": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 36,
+				"blockidx": 1,
+				"answer": 30.999999999999996,
+				"color": "SG",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 36
+			},
+			"37": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 37,
+				"blockidx": 1,
+				"answer": 27.999999999999996,
+				"color": "LH",
+				"concept": "angry",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 37
+			},
+			"38": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 1,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "MB",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 38
+			},
+			"39": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 2,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "SR",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 39
+			},
+			"40": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 3,
+				"blockidx": 2,
+				"answer": 100,
+				"color": "LY",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 40
+			},
+			"41": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 4,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "SB",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 41
+			},
+			"42": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 5,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "MC",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 42
+			},
+			"43": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 6,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "MR",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 43
+			},
+			"44": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 7,
+				"blockidx": 2,
+				"answer": 74,
+				"color": "MG",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 44
+			},
+			"45": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 8,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "DB",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 45
+			},
+			"46": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 9,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "SP",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 46
+			},
+			"47": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 10,
+				"blockidx": 2,
+				"answer": 78,
+				"color": "DY",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 47
+			},
+			"48": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 11,
+				"blockidx": 2,
+				"answer": 50.99999999999999,
+				"color": "SH",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 48
+			},
+			"49": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 12,
+				"blockidx": 2,
+				"answer": 0.9999999999999998,
+				"color": "SC",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 49
+			},
+			"50": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 13,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "DP",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 50
+			},
+			"51": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 14,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "DO",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 51
+			},
+			"52": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 15,
+				"blockidx": 2,
+				"answer": 71,
+				"color": "MO",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 52
+			},
+			"53": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 16,
+				"blockidx": 2,
+				"answer": 50.99999999999999,
+				"color": "DH",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 53
+			},
+			"54": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 17,
+				"blockidx": 2,
+				"answer": 100,
+				"color": "MY",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 54
+			},
+			"55": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 18,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "A3",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 55
+			},
+			"56": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 19,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "WH",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 56
+			},
+			"57": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 20,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "LC",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 57
+			},
+			"58": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 21,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "LP",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 58
+			},
+			"59": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 22,
+				"blockidx": 2,
+				"answer": 75,
+				"color": "DG",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 59
+			},
+			"60": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 23,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "DC",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 60
+			},
+			"61": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 24,
+				"blockidx": 2,
+				"answer": 0.9999999999999998,
+				"color": "LO",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 61
+			},
+			"62": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 25,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "SO",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 62
+			},
+			"63": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 26,
+				"blockidx": 2,
+				"answer": 1.9999999999999996,
+				"color": "A2",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 63
+			},
+			"64": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 27,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "LB",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 64
+			},
+			"65": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 28,
+				"blockidx": 2,
+				"answer": 100,
+				"color": "BK",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 65
+			},
+			"66": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 29,
+				"blockidx": 2,
+				"answer": 57,
+				"color": "MH",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 66
+			},
+			"67": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 30,
+				"blockidx": 2,
+				"answer": 0.9999999999999998,
+				"color": "MP",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 67
+			},
+			"68": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 31,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "DR",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 68
+			},
+			"69": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 32,
+				"blockidx": 2,
+				"answer": 52.05,
+				"color": "LG",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 69
+			},
+			"70": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 33,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "A1",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 70
+			},
+			"71": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 34,
+				"blockidx": 2,
+				"answer": 0,
+				"color": "LR",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 71
+			},
+			"72": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 35,
+				"blockidx": 2,
+				"answer": 100,
+				"color": "SY",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 72
+			},
+			"73": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 36,
+				"blockidx": 2,
+				"answer": 78,
+				"color": "SG",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 73
+			},
+			"74": {
+				"firstConceptsSet": "abstract",
+				"trialidx": 37,
+				"blockidx": 2,
+				"answer": 79,
+				"color": "LH",
+				"concept": "banana",
+				"ID": "20231121-2048-ABS-0wd7krjx",
+				"idx": 74
+			}
+		},
+		"20231117-1618-CON-pbjvqyja": {
+			"1": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 1,
+				"blockidx": 1,
+				"answer": 55.25,
+				"color": "MC",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 1
+			},
+			"2": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 2,
+				"blockidx": 1,
+				"answer": -0.40000000000000036,
+				"color": "DG",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 2
+			},
+			"3": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 3,
+				"blockidx": 1,
+				"answer": -1.4500000000000002,
+				"color": "LG",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 3
+			},
+			"4": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 4,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "DP",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 4
+			},
+			"5": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 5,
+				"blockidx": 1,
+				"answer": 54.2,
+				"color": "MH",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 5
+			},
+			"6": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 6,
+				"blockidx": 1,
+				"answer": 67.85,
+				"color": "LY",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 6
+			},
+			"7": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 7,
+				"blockidx": 1,
+				"answer": 63.65,
+				"color": "SY",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 7
+			},
+			"8": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 8,
+				"blockidx": 1,
+				"answer": 80.45,
+				"color": "DO",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 8
+			},
+			"9": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 9,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "SP",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 9
+			},
+			"10": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 10,
+				"blockidx": 1,
+				"answer": 26.9,
+				"color": "MY",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 10
+			},
+			"11": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 11,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "A3",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 11
+			},
+			"12": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 12,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "LC",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 12
+			},
+			"13": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 13,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "LR",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 13
+			},
+			"14": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 14,
+				"blockidx": 1,
+				"answer": 25.85,
+				"color": "SO",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 14
+			},
+			"15": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 15,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "SC",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 15
+			},
+			"16": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 16,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "LB",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 16
+			},
+			"17": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 17,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "DC",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 17
+			},
+			"18": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 18,
+				"blockidx": 1,
+				"answer": 56.3,
+				"color": "SH",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 18
+			},
+			"19": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 19,
+				"blockidx": 1,
+				"answer": 51.05,
+				"color": "SG",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 19
+			},
+			"20": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 20,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "MR",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 20
+			},
+			"21": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 21,
+				"blockidx": 1,
+				"answer": 73.1,
+				"color": "LH",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 21
+			},
+			"22": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 22,
+				"blockidx": 1,
+				"answer": 61.55,
+				"color": "MO",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 22
+			},
+			"23": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 23,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "MG",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 23
+			},
+			"24": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 24,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "DB",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 24
+			},
+			"25": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 25,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "A2",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 25
+			},
+			"26": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 26,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "MP",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 26
+			},
+			"27": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 27,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "WH",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 27
+			},
+			"28": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 28,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "DR",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 28
+			},
+			"29": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 29,
+				"blockidx": 1,
+				"answer": 17.45,
+				"color": "DH",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 29
+			},
+			"30": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 30,
+				"blockidx": 1,
+				"answer": 78.35,
+				"color": "DY",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 30
+			},
+			"31": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 31,
+				"blockidx": 1,
+				"answer": 102.5,
+				"color": "BK",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 31
+			},
+			"32": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 32,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "SR",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 32
+			},
+			"33": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 33,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "SB",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 33
+			},
+			"34": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 34,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "A1",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 34
+			},
+			"35": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 35,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "LO",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 35
+			},
+			"36": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 36,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "MB",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 36
+			},
+			"37": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 37,
+				"blockidx": 1,
+				"answer": -2.5,
+				"color": "LP",
+				"concept": "banana",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 37
+			},
+			"38": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 1,
+				"blockidx": 2,
+				"answer": 32.15,
+				"color": "MC",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 38
+			},
+			"39": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 2,
+				"blockidx": 2,
+				"answer": 75.2,
+				"color": "DG",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 39
+			},
+			"40": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 3,
+				"blockidx": 2,
+				"answer": 32.15,
+				"color": "LG",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 40
+			},
+			"41": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 4,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "DP",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 41
+			},
+			"42": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 5,
+				"blockidx": 2,
+				"answer": 26.9,
+				"color": "MH",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 42
+			},
+			"43": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 6,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "LY",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 43
+			},
+			"44": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 7,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "SY",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 44
+			},
+			"45": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 8,
+				"blockidx": 2,
+				"answer": 102.5,
+				"color": "DO",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 45
+			},
+			"46": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 9,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "SP",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 46
+			},
+			"47": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 10,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "MY",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 47
+			},
+			"48": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 11,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "A3",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 48
+			},
+			"49": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 12,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "LC",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 49
+			},
+			"50": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 13,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "LR",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 50
+			},
+			"51": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 14,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "SO",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 51
+			},
+			"52": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 15,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "SC",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 52
+			},
+			"53": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 16,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "LB",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 53
+			},
+			"54": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 17,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "DC",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 54
+			},
+			"55": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 18,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "SH",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 55
+			},
+			"56": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 19,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "SG",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 56
+			},
+			"57": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 20,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "MR",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 57
+			},
+			"58": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 21,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "LH",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 58
+			},
+			"59": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 22,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "MO",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 59
+			},
+			"60": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 23,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "MG",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 60
+			},
+			"61": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 24,
+				"blockidx": 2,
+				"answer": 81.5,
+				"color": "DB",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 61
+			},
+			"62": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 25,
+				"blockidx": 2,
+				"answer": 76.25,
+				"color": "A2",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 62
+			},
+			"63": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 26,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "MP",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 63
+			},
+			"64": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 27,
+				"blockidx": 2,
+				"answer": -0.40000000000000036,
+				"color": "WH",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 64
+			},
+			"65": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 28,
+				"blockidx": 2,
+				"answer": 26.9,
+				"color": "DR",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 65
+			},
+			"66": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 29,
+				"blockidx": 2,
+				"answer": 15.35,
+				"color": "DH",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 66
+			},
+			"67": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 30,
+				"blockidx": 2,
+				"answer": 15.35,
+				"color": "DY",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 67
+			},
+			"68": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 31,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "BK",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 68
+			},
+			"69": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 32,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "SR",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 69
+			},
+			"70": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 33,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "SB",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 70
+			},
+			"71": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 34,
+				"blockidx": 2,
+				"answer": 83.6,
+				"color": "A1",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 71
+			},
+			"72": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 35,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "LO",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 72
+			},
+			"73": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 36,
+				"blockidx": 2,
+				"answer": -1.4500000000000002,
+				"color": "MB",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 73
+			},
+			"74": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 37,
+				"blockidx": 2,
+				"answer": -2.5,
+				"color": "LP",
+				"concept": "sad",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 74
+			},
+			"75": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 1,
+				"blockidx": 3,
+				"answer": 102.5,
+				"color": "MC",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 75
+			},
+			"76": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 2,
+				"blockidx": 3,
+				"answer": 102.5,
+				"color": "DG",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 76
+			},
+			"77": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 3,
+				"blockidx": 3,
+				"answer": 16.4,
+				"color": "LG",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 77
+			},
+			"78": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 4,
+				"blockidx": 3,
+				"answer": 102.5,
+				"color": "DP",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 78
+			},
+			"79": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 5,
+				"blockidx": 3,
+				"answer": -2.5,
+				"color": "MH",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 79
+			},
+			"80": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 6,
+				"blockidx": 3,
+				"answer": 102.5,
+				"color": "LY",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 80
+			},
+			"81": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 7,
+				"blockidx": 3,
+				"answer": -2.5,
+				"color": "SY",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 81
+			},
+			"82": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 8,
+				"blockidx": 3,
+				"answer": 1.6999999999999997,
+				"color": "DO",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 82
+			},
+			"83": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 9,
+				"blockidx": 3,
+				"answer": -2.5,
+				"color": "SP",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 83
+			},
+			"84": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 10,
+				"blockidx": 3,
+				"answer": 100.4,
+				"color": "MY",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 84
+			},
+			"85": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 11,
+				"blockidx": 3,
+				"answer": 99.35,
+				"color": "A3",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 85
+			},
+			"86": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 12,
+				"blockidx": 3,
+				"answer": 100.4,
+				"color": "LC",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 86
+			},
+			"87": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 13,
+				"blockidx": 3,
+				"answer": 100.4,
+				"color": "LR",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 87
+			},
+			"88": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 14,
+				"blockidx": 3,
+				"answer": 101.45,
+				"color": "SO",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 88
+			},
+			"89": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 15,
+				"blockidx": 3,
+				"answer": 23.75,
+				"color": "SC",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 89
+			},
+			"90": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 16,
+				"blockidx": 3,
+				"answer": 100.4,
+				"color": "LB",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 90
+			},
+			"91": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 17,
+				"blockidx": 3,
+				"answer": 101.45,
+				"color": "DC",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 91
+			},
+			"92": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 18,
+				"blockidx": 3,
+				"answer": 24.8,
+				"color": "SH",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 92
+			},
+			"93": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 19,
+				"blockidx": 3,
+				"answer": 23.75,
+				"color": "SG",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 93
+			},
+			"94": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 20,
+				"blockidx": 3,
+				"answer": 101.45,
+				"color": "MR",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 94
+			},
+			"95": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 21,
+				"blockidx": 3,
+				"answer": 20.6,
+				"color": "LH",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 95
+			},
+			"96": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 22,
+				"blockidx": 3,
+				"answer": 101.45,
+				"color": "MO",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 96
+			},
+			"97": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 23,
+				"blockidx": 3,
+				"answer": 101.45,
+				"color": "MG",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 97
+			},
+			"98": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 24,
+				"blockidx": 3,
+				"answer": 102.5,
+				"color": "DB",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 98
+			},
+			"99": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 25,
+				"blockidx": 3,
+				"answer": -2.5,
+				"color": "A2",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 99
+			},
+			"100": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 26,
+				"blockidx": 3,
+				"answer": -2.5,
+				"color": "MP",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 100
+			},
+			"101": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 27,
+				"blockidx": 3,
+				"answer": -1.4500000000000002,
+				"color": "WH",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 101
+			},
+			"102": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 28,
+				"blockidx": 3,
+				"answer": 100.4,
+				"color": "DR",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 102
+			},
+			"103": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 29,
+				"blockidx": 3,
+				"answer": -1.4500000000000002,
+				"color": "DH",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 103
+			},
+			"104": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 30,
+				"blockidx": 3,
+				"answer": -2.5,
+				"color": "DY",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 104
+			},
+			"105": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 31,
+				"blockidx": 3,
+				"answer": -1.4500000000000002,
+				"color": "BK",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 105
+			},
+			"106": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 32,
+				"blockidx": 3,
+				"answer": 100.4,
+				"color": "SR",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 106
+			},
+			"107": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 33,
+				"blockidx": 3,
+				"answer": 100.4,
+				"color": "SB",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 107
+			},
+			"108": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 34,
+				"blockidx": 3,
+				"answer": 102.5,
+				"color": "A1",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 108
+			},
+			"109": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 35,
+				"blockidx": 3,
+				"answer": -0.40000000000000036,
+				"color": "LO",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 109
+			},
+			"110": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 36,
+				"blockidx": 3,
+				"answer": 99.35,
+				"color": "MB",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 110
+			},
+			"111": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 37,
+				"blockidx": 3,
+				"answer": -2.5,
+				"color": "LP",
+				"concept": "comfort",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 111
+			},
+			"112": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 1,
+				"blockidx": 4,
+				"answer": 50,
+				"color": "MC",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 112
+			},
+			"113": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 2,
+				"blockidx": 4,
+				"answer": 50,
+				"color": "DG",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 113
+			},
+			"114": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 3,
+				"blockidx": 4,
+				"answer": 50,
+				"color": "LG",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 114
+			},
+			"115": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 4,
+				"blockidx": 4,
+				"answer": -2.5,
+				"color": "DP",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 115
+			},
+			"116": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 5,
+				"blockidx": 4,
+				"answer": 50,
+				"color": "MH",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 116
+			},
+			"117": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 6,
+				"blockidx": 4,
+				"answer": 100.4,
+				"color": "LY",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 117
+			},
+			"118": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 7,
+				"blockidx": 4,
+				"answer": 48.95,
+				"color": "SY",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 118
+			},
+			"119": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 8,
+				"blockidx": 4,
+				"answer": -1.4500000000000002,
+				"color": "DO",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 119
+			},
+			"120": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 9,
+				"blockidx": 4,
+				"answer": 0.6499999999999999,
+				"color": "SP",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 120
+			},
+			"121": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 10,
+				"blockidx": 4,
+				"answer": 21.65,
+				"color": "MY",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 121
+			},
+			"122": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 11,
+				"blockidx": 4,
+				"answer": 21.65,
+				"color": "A3",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 122
+			},
+			"123": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 12,
+				"blockidx": 4,
+				"answer": 81.5,
+				"color": "LC",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 123
+			},
+			"124": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 13,
+				"blockidx": 4,
+				"answer": 78.35,
+				"color": "LR",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 124
+			},
+			"125": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 14,
+				"blockidx": 4,
+				"answer": 78.35,
+				"color": "SO",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 125
+			},
+			"126": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 15,
+				"blockidx": 4,
+				"answer": 79.4,
+				"color": "SC",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 126
+			},
+			"127": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 16,
+				"blockidx": 4,
+				"answer": 78.35,
+				"color": "LB",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 127
+			},
+			"128": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 17,
+				"blockidx": 4,
+				"answer": 21.65,
+				"color": "DC",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 128
+			},
+			"129": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 18,
+				"blockidx": 4,
+				"answer": 22.7,
+				"color": "SH",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 129
+			},
+			"130": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 19,
+				"blockidx": 4,
+				"answer": 51.05,
+				"color": "SG",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 130
+			},
+			"131": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 20,
+				"blockidx": 4,
+				"answer": -2.5,
+				"color": "MR",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 131
+			},
+			"132": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 21,
+				"blockidx": 4,
+				"answer": 101.45,
+				"color": "LH",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 132
+			},
+			"133": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 22,
+				"blockidx": 4,
+				"answer": 102.5,
+				"color": "MO",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 133
+			},
+			"134": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 23,
+				"blockidx": 4,
+				"answer": 100.4,
+				"color": "MG",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 134
+			},
+			"135": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 24,
+				"blockidx": 4,
+				"answer": -1.4500000000000002,
+				"color": "DB",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 135
+			},
+			"136": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 25,
+				"blockidx": 4,
+				"answer": -1.4500000000000002,
+				"color": "A2",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 136
+			},
+			"137": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 26,
+				"blockidx": 4,
+				"answer": 38.45,
+				"color": "MP",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 137
+			},
+			"138": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 27,
+				"blockidx": 4,
+				"answer": 102.5,
+				"color": "WH",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 138
+			},
+			"139": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 28,
+				"blockidx": 4,
+				"answer": -0.40000000000000036,
+				"color": "DR",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 139
+			},
+			"140": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 29,
+				"blockidx": 4,
+				"answer": -0.40000000000000036,
+				"color": "DH",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 140
+			},
+			"141": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 30,
+				"blockidx": 4,
+				"answer": -1.4500000000000002,
+				"color": "DY",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 141
+			},
+			"142": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 31,
+				"blockidx": 4,
+				"answer": -2.5,
+				"color": "BK",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 142
+			},
+			"143": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 32,
+				"blockidx": 4,
+				"answer": 77.3,
+				"color": "SR",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 143
+			},
+			"144": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 33,
+				"blockidx": 4,
+				"answer": 82.55,
+				"color": "SB",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 144
+			},
+			"145": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 34,
+				"blockidx": 4,
+				"answer": -0.40000000000000036,
+				"color": "A1",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 145
+			},
+			"146": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 35,
+				"blockidx": 4,
+				"answer": 102.5,
+				"color": "LO",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 146
+			},
+			"147": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 36,
+				"blockidx": 4,
+				"answer": 76.25,
+				"color": "MB",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 147
+			},
+			"148": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 37,
+				"blockidx": 4,
+				"answer": 78.35,
+				"color": "LP",
+				"concept": "peace",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 148
+			},
+			"149": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 1,
+				"blockidx": 5,
+				"answer": -2.5,
+				"color": "MC",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 149
+			},
+			"150": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 2,
+				"blockidx": 5,
+				"answer": -1.4500000000000002,
+				"color": "DG",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 150
+			},
+			"151": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 3,
+				"blockidx": 5,
+				"answer": 77.3,
+				"color": "LG",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 151
+			},
+			"152": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 4,
+				"blockidx": 5,
+				"answer": -2.5,
+				"color": "DP",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 152
+			},
+			"153": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 5,
+				"blockidx": 5,
+				"answer": -1.4500000000000002,
+				"color": "MH",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 153
+			},
+			"154": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 6,
+				"blockidx": 5,
+				"answer": 101.45,
+				"color": "LY",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 154
+			},
+			"155": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 7,
+				"blockidx": 5,
+				"answer": 101.45,
+				"color": "SY",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 155
+			},
+			"156": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 8,
+				"blockidx": 5,
+				"answer": -2.5,
+				"color": "DO",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 156
+			},
+			"157": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 9,
+				"blockidx": 5,
+				"answer": 31.1,
+				"color": "SP",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 157
+			},
+			"158": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 10,
+				"blockidx": 5,
+				"answer": 80.45,
+				"color": "MY",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 158
+			},
+			"159": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 11,
+				"blockidx": 5,
+				"answer": 20.6,
+				"color": "A3",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 159
+			},
+			"160": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 12,
+				"blockidx": 5,
+				"answer": 102.5,
+				"color": "LC",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 160
+			},
+			"161": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 13,
+				"blockidx": 5,
+				"answer": 102.5,
+				"color": "LR",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 161
+			},
+			"162": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 14,
+				"blockidx": 5,
+				"answer": 79.4,
+				"color": "SO",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 162
+			},
+			"163": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 15,
+				"blockidx": 5,
+				"answer": 101.45,
+				"color": "SC",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 163
+			},
+			"164": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 16,
+				"blockidx": 5,
+				"answer": 102.5,
+				"color": "LB",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 164
+			},
+			"165": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 17,
+				"blockidx": 5,
+				"answer": -2.5,
+				"color": "DC",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 165
+			},
+			"166": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 18,
+				"blockidx": 5,
+				"answer": 102.5,
+				"color": "SH",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 166
+			},
+			"167": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 19,
+				"blockidx": 5,
+				"answer": 101.45,
+				"color": "SG",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 167
+			},
+			"168": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 20,
+				"blockidx": 5,
+				"answer": -1.4500000000000002,
+				"color": "MR",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 168
+			},
+			"169": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 21,
+				"blockidx": 5,
+				"answer": 77.3,
+				"color": "LH",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 169
+			},
+			"170": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 22,
+				"blockidx": 5,
+				"answer": 21.65,
+				"color": "MO",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 170
+			},
+			"171": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 23,
+				"blockidx": 5,
+				"answer": 25.85,
+				"color": "MG",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 171
+			},
+			"172": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 24,
+				"blockidx": 5,
+				"answer": 26.9,
+				"color": "DB",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 172
+			},
+			"173": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 25,
+				"blockidx": 5,
+				"answer": 23.75,
+				"color": "A2",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 173
+			},
+			"174": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 26,
+				"blockidx": 5,
+				"answer": 25.85,
+				"color": "MP",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 174
+			},
+			"175": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 27,
+				"blockidx": 5,
+				"answer": 25.85,
+				"color": "WH",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 175
+			},
+			"176": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 28,
+				"blockidx": 5,
+				"answer": 20.6,
+				"color": "DR",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 176
+			},
+			"177": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 29,
+				"blockidx": 5,
+				"answer": 24.8,
+				"color": "DH",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 177
+			},
+			"178": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 30,
+				"blockidx": 5,
+				"answer": 25.85,
+				"color": "DY",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 178
+			},
+			"179": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 31,
+				"blockidx": 5,
+				"answer": -2.5,
+				"color": "BK",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 179
+			},
+			"180": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 32,
+				"blockidx": 5,
+				"answer": 102.5,
+				"color": "SR",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 180
+			},
+			"181": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 33,
+				"blockidx": 5,
+				"answer": 102.5,
+				"color": "SB",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 181
+			},
+			"182": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 34,
+				"blockidx": 5,
+				"answer": -0.40000000000000036,
+				"color": "A1",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 182
+			},
+			"183": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 35,
+				"blockidx": 5,
+				"answer": 77.3,
+				"color": "LO",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 183
+			},
+			"184": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 36,
+				"blockidx": 5,
+				"answer": 79.4,
+				"color": "MB",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 184
+			},
+			"185": {
+				"firstConceptsSet": "concrete",
+				"trialidx": 37,
+				"blockidx": 5,
+				"answer": 101.45,
+				"color": "LP",
+				"concept": "justice",
+				"ID": "20231117-1618-CON-pbjvqyja",
+				"idx": 185
+			}
+		}
+	}
+}
