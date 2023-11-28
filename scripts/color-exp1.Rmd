@@ -13,10 +13,54 @@ library(tidyverse)
 library(dplyr)
 library(RColorBrewer)
 library(readr)
+library(tidytext)
+
+source(file = './utils/stimuli.R')
 ```
 
 ### Data loading and prep
 ```{r}
-en_debug <- read_csv("data/exp1/csv/en-20231121-debug.csv")
+en_debug <- read_csv("data/exp1/csv/en-20231122-debug.csv") %>% rename(code = color)
+
+df <- en_debug %>% select(concept, code, answer)
+df$answer[df$answer < 0 ] <- 0
+df$rating <- round(df$answer/100, digits = 2)
+df_weights <- df %>% group_by(concept, code) %>% summarize(
+  weight = round(mean(rating), digits = 2)
+)
+
+# adding color values to en_debug
+df_weights <- full_join(df_weights, bcp37, by = "code")
+```
+
+```{r}
+df_weights %>% 
+  # filter(concept %in% c("angry", "banana")) %>%
+  ggplot(aes(x = reorder(code, weight), y = weight, fill = code)) +
+  geom_bar(stat = 'identity', color = "black") +
+  scale_fill_manual(values = df_weights$hex) + 
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 1))+
+  facet_grid(rows = vars(concept)) + 
+  # facet_wrap(~concept, ncol = 1, scales = 'free_x') + 
+  labs(title = "mean color-concept association ratings", x = "color code in the BCP-37 library", ) +
+  theme_bw()
+```
+
+```{r using tidytext}
+plot <- df_weights %>%
+  # filter(concept %in% c("carrot","justice", "comfort")) %>%
+ggplot(aes(x = reorder_within(code, weight, concept), y = weight, fill = code)) + 
+    geom_bar(stat = 'identity', color = 'black', width = 0.75) + 
+    scale_x_reordered() +
+    scale_fill_manual(values = df_weights$hex) + 
+    # scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+    facet_wrap(~concept, scales = "free_x", ncol = 1) +
+    labs(title = "mean color-concept association ratings (5 participants - color library: BCP-37)", x = "color code in the BCP-37 library", ) +
+    theme_bw() +
+    theme(legend.position = "none")
+```
+
+```{r}
+ggsave(file="./fig/weights.png", plot = plot, width=10, height=20)
 ```
 
