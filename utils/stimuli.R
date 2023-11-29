@@ -1,6 +1,10 @@
-color_names <- c("SR", "LR", "MR", "DR", "SO", "LO", "MO", "DO", "SY", "LY", "MY", "DY", "SH", 
-                 "LH", "MH", "DH", "SG", "LG", "MG", "DG", "SC", "LC", "MC", "DC", "SB", "LB", 
-                 "MB", "DB", "SP", "LP", "MP", "DP", "BK", "A1", "A2", "A3", "WH")
+# color_codes <- c("SR", "LR", "MR", "DR", "SO", "LO", "MO", "DO", "SY", "LY", "MY", "DY",
+#                  "SH", "LH", "MH", "DH", "SG", "LG", "MG", "DG", "SC", "LC", "MC", "DC",
+#                  "SB", "LB", "MB", "DB", "SP", "LP", "MP", "DP", "BK", "A1", "A2", "A3", "WH")
+
+color_codes <- c("SR", "LR", "MR", "DR", "SP", "LP", "MP", "DP", "SB", "LB", "MB", "DB",
+                 "SC", "LC", "MC", "DC", "SG", "LG", "MG", "DG", "SH", "LH", "MH", "DH",
+                 "SY", "LY", "MY", "DY", "SO", "LO", "MO", "DO", "BK", "A1", "A2", "A3", "WH")
 
 # the RGB values in the color_values_bcp37.csv file should be manually derived using http://www.brucelindbloom.com/index.html?ColorCalculator.html
 # Ref. White D50
