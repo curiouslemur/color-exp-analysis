@@ -9,12 +9,8 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(dplyr)
-library(RColorBrewer)
-library(readr)
-library(tidytext)
 
+source(file = './utils/utils.R')  # loads all necessary packages
 source(file = './utils/stimuli.R')
 ```
 
@@ -26,14 +22,15 @@ df <- en_debug %>% select(concept, code, answer)
 df$answer[df$answer < 0 ] <- 0
 df$rating <- round(df$answer/100, digits = 2)
 df_weights <- df %>% group_by(concept, code) %>% summarize(
-  weight = round(mean(rating), digits = 2)
+  weight = round(mean(rating), digits = 2),
+  se = round(sd(rating)/sqrt(length(rating)), digits = 2)
 )
 
-# adding color values to en_debug
+# adding hex color values to en_debug
 df_weights <- full_join(df_weights, bcp37, by = "code")
 ```
 
-```{r}
+```{ barplot default (code names ordered alphabetically)}
 df_weights %>% 
   filter(concept %in% c("angry", "banana")) %>%
   ggplot(aes(x = reorder(code, weight), y = weight, fill = code)) +
@@ -48,9 +45,8 @@ df_weights %>%
 
 ```{r using tidytext - bars ordered by weight ratings}
 # df_weights$code = factor(df_weights$code, levels = color_codes, ordered = TRUE) 
-
 plot <- df_weights %>%
-  # filter(concept %in% c("carrot","justice", "comfort")) %>%
+  filter(concept %in% c("carrot","justice", "comfort")) %>%
 ggplot(aes(x = reorder_within(code, weight, concept), y = weight, fill = code)) + 
     geom_bar(stat = 'identity', color = 'black', width = 0.75) + 
     scale_x_reordered() +
@@ -62,12 +58,15 @@ ggplot(aes(x = reorder_within(code, weight, concept), y = weight, fill = code)) 
     theme(legend.position = "none"); plot
 ```
 
-```{r using tidytext - bars ordered by color codes}
+```{r using tidytext - bars ordered by color codes + error bars}
+# error bars are +/- standard errors of the means: se = sd(rating/sqrt(length(rating)))
+
 df_weights$code = fct_rev(factor(df_weights$code, levels = color_codes))
 plot <- df_weights %>%
   # filter(concept %in% c("carrot","justice", "comfort")) %>%
 ggplot(aes(x = code, y = weight, fill = hex)) + 
     geom_bar(stat = 'identity', color = 'black',size = 0.15,width = 0.985) + 
+    geom_errorbar( aes(x=code, ymin=weight-se, ymax=weight+se), width=0.4, colour="black", alpha=0.6, size=0.25)+
     scale_fill_identity()+ 
     scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
     facet_wrap(~concept, scales = "free_x", ncol = 3) +
@@ -77,6 +76,6 @@ ggplot(aes(x = code, y = weight, fill = hex)) +
 ```
 
 ```{r}
-ggsave(file="./fig/weights-.svg", plot = plot, width=24, height=12)
+ggsave(file="./fig/weights-err-bars.png", plot = plot, width=24, height=12)
 ```
 
