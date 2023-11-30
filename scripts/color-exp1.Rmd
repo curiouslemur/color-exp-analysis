@@ -69,13 +69,14 @@ ggplot(aes(x = code, y = weight, fill = hex)) +
     geom_errorbar( aes(x=code, ymin=weight-se, ymax=weight+se), width=0.4, colour="black", alpha=0.6, size=0.25)+
     scale_fill_identity()+ 
     scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
-    facet_wrap(~concept, scales = "free_x", ncol = 3) +
+    # facet_wrap(~concept, scales = "free_x", ncol = 1) +
+  facet_grid(rows = vars(concept))+
     labs(title = "mean color-concept association ratings (5 participants - color library: BCP-37)", x = "color code in the BCP-37 library", ) +
     theme_bw() +
     theme(legend.position = "none", strip.text = element_text(size = 13)); plot
 ```
 
 ```{r}
-ggsave(file="./fig/weights-err-bars.png", plot = plot, width=24, height=12)
+ggsave(file="./fig/weights-err-bars-1col.png", plot = plot, width=6, height=16)
 ```
 
