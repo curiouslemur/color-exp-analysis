@@ -1,7 +1,7 @@
 ---
 title: "color-exp1"
 # author: "nr"
-date: "2023-12-13"
+date: "2023-12-14"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -10,7 +10,7 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-source(file = './utils/utils.R')  # loads all necessary packages
+source(file = './utils/exp1-utils.R')  # loads all necessary packages
 source(file = './utils/stimuli.R')
 ```
 
@@ -25,45 +25,20 @@ en_usa = filter(en_debug, !grepl("mdg", expCountry)); en_usa$expCountry <- 'usa'
 en_debug = rbind(en_mdg, en_usa)
 
 df <- en_debug %>% select(concept, code, answer, expCountry)
-# df$answer[df$answer < 0 ] <- 0
 df$rating <- round(df$answer/100, digits = 2)
 df_weights <- df %>% group_by(expCountry, concept, code) %>% summarize(
   weight = round(mean(rating), digits = 2),
-  se = round(sd(rating)/sqrt(length(rating)), digits = 2)
+  se = round(sd(rating)/sqrt(length(rating)), digits = 2) # standard error
 )
 
 # adding hex color values to en_debug
 df_weights <- full_join(df_weights, bcp37, by = "code")
 ```
 
-```{ barplot default (code names ordered alphabetically)}
-df_weights %>% 
-  filter(concept %in% c("angry", "banana")) %>%
-  ggplot(aes(x = reorder(code, weight), y = weight, fill = code)) +
-  geom_bar(stat = 'identity', color = "black") +
-  scale_fill_manual(values = df_weights$hex) + 
-  scale_y_continuous(expand = c(0, 0), limits = c(0, 1))+
-  facet_grid(rows = vars(concept)) + 
-  # facet_wrap(~concept, ncol = 1, scales = 'free_x') + 
-  labs(title = "mean color-concept association ratings", x = "color code in the BCP-37 library", ) +
-  theme_bw()
-```
+### Concepts' weights and ratings
+##### Mean color-concept association ratings for 16 concepts.
 
-```{r using tidytext - bars ordered by weight ratings}
-# df_weights$code = factor(df_weights$code, levels = color_codes, ordered = TRUE) 
-plot <- df_weights %>%
-  filter(concept %in% c("carrot","justice", "comfort")) %>%
-ggplot(aes(x = reorder_within(code, weight, concept), y = weight, fill = code)) + 
-    geom_bar(stat = 'identity', color = 'black', width = 0.75) + 
-    scale_x_reordered() +
-    scale_fill_manual(values = df_weights$hex) + 
-    # scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
-    facet_wrap(~concept, scales = "free_x", ncol = 1, strip.position = 'right') +
-    labs(title = "mean color-concept association ratings (5 participants - color library: BCP-37)", x = "color code in the BCP-37 library", ) +
-    theme_bw() +
-    theme(legend.position = "none"); plot
-```
-
+- *Bars ordered by color names*
 ```{r using tidytext - bars ordered by color codes + error bars}
 # error bars are +/- standard errors of the means: se = sd(rating/sqrt(length(rating)))
 
@@ -82,8 +57,99 @@ ggplot(aes(x = code, y = weight, fill = hex)) +
     theme_bw() +
     theme(legend.position = "none", strip.text = element_text(size = 12)); plot
 ```
-
-```{r}
+```{r eval=FALSE}
 ggsave(file="./fig/20231214-weights-err-bars.png", plot = plot, width=10, height=16)
 ```
+
+- *Bars ordered by increasing rating*
+```{r using tidytext - bars ordered by weight ratings}
+plot <- df_weights %>%
+  # filter(concept %in% c("carrot","justice", "comfort", 'peace')) %>%
+  filter(expCountry == 'mdg') %>%
+ggplot(aes(x = reorder_within(code, weight, concept), y = weight, fill = code)) + # reoder color codes BY weight WITHIN each concept
+    geom_bar(stat = 'identity', color = 'black', width = 0.75) + 
+    scale_x_reordered() +
+    scale_fill_manual(values = df_weights$hex) + 
+    scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+    # facet_wrap(expCountry~concept, scales = "free_x", ncol = 1, strip.position = 'right') +
+    facet_wrap( ~concept, scales = 'free_x', ncol = 4, strip.position = 'top') + 
+    # facet_grid( concept~expCountry, scales = 'free_x') +
+    labs(title = "mean color-concept association ratings (14 participants)", x = "color code in the BCP-37 library", ) +
+    theme_bw() +
+    theme(legend.position = "none"); plot
+```
+
+```{r}
+ggsave(file="./fig/20231214-weights-err-bars.png", plot = plot, width=20, height=16)
+```
+
+### Sample exploration
+
+```{r}
+pd <- position_dodge(0.0)
+en_debug <- full_join(en_debug, bcp37, by = 'code')
+en_debug$rating <- en_debug$answer/100
+
+en_debug$code = fct_rev(factor(en_debug$code, levels = color_codes))
+
+p <- en_debug %>% 
+  # filter(expCountry == 'usa') %>%
+  # filter(concept %in% conceptNames) %>%
+  ggplot(aes(code, rating, color = hex)) + 
+  # coord_flip() +
+  geom_jitter(alpha = 0.5, width = 0.5, size = 0.75)+
+  stat_summary(fun.data = "mean_cl_boot", size = 0.55) + 
+  scale_color_identity() +
+  # facet_wrap(.~concept, ncol = 2) + theme_studyBackground()
+  facet_grid(factor(concept, levels=conceptNames)~expCountry); p
+  # scale_y_continuous(expand = c(0, 0), limits = c(0, 1.05))
+```
+```{r}
+ggsave(file="./fig/ci-weights.png", plot = p, width=16, height=20)
+```
+
+Comparing ratings between the two languages
+```{r}
+q <- en_debug %>% 
+  # filter(concept %in% c("banana", "peace")) %>%
+  ggplot(aes(code, rating, color = expCountry)) +
+  coord_flip() +
+  stat_summary(data = filter(en_debug, expCountry == "mdg"), fun.data = "mean_cl_boot",  size = 0.45, alpha = 1, position = position_nudge(x = 0.15, y = 0), geom = "pointrange")  +
+  stat_summary(data = filter(en_debug, expCountry == "usa"), fun.data = "mean_cl_boot",  size = 0.45, alpha = 1, position = position_nudge(x = -0.15, y = 0),geom = "pointrange")  + 
+  facet_wrap(~factor(concept, levels=conceptNames)) + 
+  # geom_hline(yintercept=0, color="black") + 
+  theme(legend.position = "bottom",
+        panel.background = element_rect(fill = "white", colour = "white", size = 0.5, linetype = 2),
+        panel.grid.major = element_line(size = 0.5, linetype = 'dotted', colour = "grey"),
+        panel.grid.minor = element_line(size = 0.5, linetype = 'dotted', colour = "lightgrey"),
+        axis.line = element_line(colour = "lightgrey", size = 1, linetype = "solid"), 
+        axis.title.x = element_blank(), axis.title.y = element_blank()); q
+```
+```{r}
+ggsave(file="./fig/ci-weights-comparison.png", plot = q, width=16, height=22)
+```
+
+Comparing the differences between the means
+```{r}
+
+```
+
+```{r DELETEME}
+```
+
+```{ barplot default (code names ordered alphabetically)}
+df_weights %>% 
+  filter(concept %in% c("angry", "banana")) %>%
+  ggplot(aes(x = reorder(code, weight), y = weight, fill = code)) +
+  geom_bar(stat = 'identity', color = "black") +
+  scale_fill_manual(values = df_weights$hex) + 
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 1))+
+  facet_grid(rows = vars(concept)) + 
+  # facet_wrap(~concept, ncol = 1, scales = 'free_x') + 
+  labs(title = "mean color-concept association ratings", x = "color code in the BCP-37 library", ) +
+  theme_bw()
+```
+
+
+
 

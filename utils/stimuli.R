@@ -14,6 +14,8 @@ color_codes <- c("SR", "LR", "MR", "DR", "SP", "LP", "MP", "DP", "SB", "LB", "MB
 # Adaptation: Bradford
 
 bcp37 <- read_csv("./utils/color_values_bcp37.csv")[1:37,] # color values for the bcp color library
+# white RGB is replace with (0, 0, 255) temporarily for plotting
+
 ### >>>>>>>> This is a temporary measure
 bcp37$R[bcp37$R > 255] <- 255; bcp37$R[bcp37$R < 0] <- 0;
 bcp37$G[bcp37$G > 255] <- 255; bcp37$B[bcp37$B > 255] <- 255
@@ -21,3 +23,10 @@ bcp37$G[bcp37$G > 255] <- 255; bcp37$B[bcp37$B > 255] <- 255
 
 bcp37$hex <- rgb(bcp37$R, bcp37$G, bcp37$B, maxColorValue = 255)
 bcp37 <- bcp37 %>% select(colorName, code, hex)
+
+backgroundColor <- "#79797a"
+
+conceptList<- c("angry", "happy", "love", "sad", 
+                  "banana", "carrot", "mango", "peach",
+                  "comfort", "justice", "peace", "safety",
+                  "drought", "hurricane", "lightning", "sandstorm")
