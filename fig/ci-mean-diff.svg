@@ -1,0 +1,1369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 576 1008" style="enable-background:new 0 0 576 1008;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_00000165944781375859506160000011419237701844629655_);}
+	.st1{fill:#EBEBEB;}
+	.st2{fill:none;stroke:#FFFFFF;stroke-width:0.53;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st3{fill:none;stroke:#FFFFFF;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st4{fill:none;stroke:#646167;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st5{fill:none;stroke:#9C979F;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st6{fill:#646167;stroke:#646167;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st7{fill:#9C979F;stroke:#9C979F;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st8{fill:none;stroke:#BEBEBE;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st9{clip-path:url(#SVGID_00000048476636045464599540000005178432854278240680_);}
+	.st10{fill:none;stroke:#6C7E34;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st11{fill:#6C7E34;stroke:#6C7E34;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st12{clip-path:url(#SVGID_00000129168430813704881000000004991557109351072435_);}
+	.st13{fill:none;stroke:#296088;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st14{fill:none;stroke:#21A8EE;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st15{fill:none;stroke:#00D1CC;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st16{fill:#296088;stroke:#296088;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st17{fill:#21A8EE;stroke:#21A8EE;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st18{fill:#00D1CC;stroke:#00D1CC;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st19{clip-path:url(#SVGID_00000004522298804305077090000011364000419634685347_);}
+	.st20{clip-path:url(#SVGID_00000056387512092663484000000005689394895884953783_);}
+	.st21{fill:none;stroke:#FFC8A3;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st22{fill:#FFC8A3;stroke:#FFC8A3;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st23{clip-path:url(#SVGID_00000138546816721097582550000002743177330180928672_);}
+	.st24{fill:none;stroke:#FFF12F;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st25{fill:#FFF12F;stroke:#FFF12F;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st26{clip-path:url(#SVGID_00000114063643990346322790000016317026669849283766_);}
+	.st27{fill:none;stroke:#A0CFFA;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st28{fill:none;stroke:#60ABAC;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st29{fill:none;stroke:#0000FF;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st30{fill:#A0CFFA;stroke:#A0CFFA;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st31{fill:#60ABAC;stroke:#60ABAC;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st32{fill:#0000FF;stroke:#0000FF;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st33{clip-path:url(#SVGID_00000095319087229730141100000001295601881356815782_);}
+	.st34{fill:none;stroke:#FF9FA2;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st35{fill:#FF9FA2;stroke:#FF9FA2;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st36{clip-path:url(#SVGID_00000168826491040913710800000005516197777350202037_);}
+	.st37{fill:none;stroke:#D2906B;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st38{fill:none;stroke:#C7666A;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st39{fill:#D2906B;stroke:#D2906B;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st40{fill:#C7666A;stroke:#C7666A;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st41{clip-path:url(#SVGID_00000031887748836533462730000015007299327302771384_);}
+	.st42{fill:none;stroke:#FFF299;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st43{fill:none;stroke:#DFB472;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st44{fill:none;stroke:#FF9D2F;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st45{fill:#FFF299;stroke:#FFF299;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st46{fill:#DFB472;stroke:#DFB472;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st47{fill:#FF9D2F;stroke:#FF9D2F;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st48{clip-path:url(#SVGID_00000154421386604727413320000004227513318702846874_);}
+	.st49{clip-path:url(#SVGID_00000132049420383709420380000005979852802689866117_);}
+	.st50{fill:none;stroke:#D5CEDA;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st51{fill:none;stroke:#E2EE9A;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st52{fill:#D5CEDA;stroke:#D5CEDA;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st53{fill:#E2EE9A;stroke:#E2EE9A;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st54{clip-path:url(#SVGID_00000034782805394324140880000014378223378578431377_);}
+	.st55{fill:none;stroke:#9AE4E4;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st56{fill:none;stroke:#7296C0;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st57{fill:#9AE4E4;stroke:#9AE4E4;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st58{fill:#7296C0;stroke:#7296C0;stroke-width:1.42;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st59{clip-path:url(#SVGID_00000060709759267050421860000008184983846367743630_);}
+	.st60{fill:#D9D9D9;}
+	.st61{fill:none;}
+	.st62{fill:#1A1A1A;}
+	.st63{font-family:'ArialMT';}
+	.st64{font-size:16px;}
+	.st65{clip-path:url(#SVGID_00000119092725284345563900000010525019172030520468_);}
+	.st66{clip-path:url(#SVGID_00000023988547320511683810000007068481016008270978_);}
+	.st67{clip-path:url(#SVGID_00000006709084439935334280000001510282705698534589_);}
+	.st68{clip-path:url(#SVGID_00000032622697603393480160000005104569806951943091_);}
+	.st69{clip-path:url(#SVGID_00000139996998026821793600000007789406074632732092_);}
+	.st70{clip-path:url(#SVGID_00000142872395916910128480000015500479762366148284_);}
+	.st71{clip-path:url(#SVGID_00000101797568465176290830000014903676247889578166_);}
+	.st72{clip-path:url(#SVGID_00000073718286587788181370000001689371401250954175_);}
+	.st73{clip-path:url(#SVGID_00000157990064977247819480000001364521951652024242_);}
+	.st74{clip-path:url(#SVGID_00000144315528231660877210000001197968391885405364_);}
+	.st75{clip-path:url(#SVGID_00000075883759269952473720000016376945441285989822_);}
+	.st76{clip-path:url(#SVGID_00000038396605190202482580000009980646140483989676_);}
+	.st77{fill:none;stroke:#333333;stroke-width:1.07;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st78{fill:#4D4D4D;}
+	.st79{font-size:14px;}
+	.st80{font-size:10px;}
+	.st81{font-size:11px;}
+	.st82{fill:none;stroke:#231F20;stroke-width:0.75;stroke-linejoin:round;}
+	.st83{fill:#231F20;}
+	.st84{font-family:'MyriadPro-Regular';}
+	.st85{font-size:12px;}
+</style>
+<g>
+	<defs>
+		<rect id="SVGID_1_" x="40.1" y="47.1" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000125560547804638427780000018072097257296748172_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000125560547804638427780000018072097257296748172_);">
+		<rect x="40.1" y="47.1" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="51.7" y1="256.2" x2="51.7" y2="47.1"/>
+		<line class="st2" x1="84" y1="256.2" x2="84" y2="47.1"/>
+		<line class="st2" x1="116.3" y1="256.2" x2="116.3" y2="47.1"/>
+		<line class="st2" x1="148.6" y1="256.2" x2="148.6" y2="47.1"/>
+		<line class="st3" x1="40.1" y1="250.3" x2="168.6" y2="250.3"/>
+		<line class="st3" x1="40.1" y1="240.5" x2="168.6" y2="240.5"/>
+		<line class="st3" x1="40.1" y1="230.6" x2="168.6" y2="230.6"/>
+		<line class="st3" x1="40.1" y1="220.7" x2="168.6" y2="220.7"/>
+		<line class="st3" x1="40.1" y1="210.9" x2="168.6" y2="210.9"/>
+		<line class="st3" x1="40.1" y1="201" x2="168.6" y2="201"/>
+		<line class="st3" x1="40.1" y1="191.1" x2="168.6" y2="191.1"/>
+		<line class="st3" x1="40.1" y1="181.3" x2="168.6" y2="181.3"/>
+		<line class="st3" x1="40.1" y1="171.4" x2="168.6" y2="171.4"/>
+		<line class="st3" x1="40.1" y1="161.5" x2="168.6" y2="161.5"/>
+		<line class="st3" x1="40.1" y1="151.7" x2="168.6" y2="151.7"/>
+		<line class="st3" x1="40.1" y1="141.8" x2="168.6" y2="141.8"/>
+		<line class="st3" x1="40.1" y1="131.9" x2="168.6" y2="131.9"/>
+		<line class="st3" x1="40.1" y1="122.1" x2="168.6" y2="122.1"/>
+		<line class="st3" x1="40.1" y1="112.2" x2="168.6" y2="112.2"/>
+		<line class="st3" x1="40.1" y1="102.3" x2="168.6" y2="102.3"/>
+		<line class="st3" x1="40.1" y1="92.5" x2="168.6" y2="92.5"/>
+		<line class="st3" x1="40.1" y1="82.6" x2="168.6" y2="82.6"/>
+		<line class="st3" x1="40.1" y1="72.8" x2="168.6" y2="72.8"/>
+		<line class="st3" x1="40.1" y1="62.9" x2="168.6" y2="62.9"/>
+		<line class="st3" x1="40.1" y1="53" x2="168.6" y2="53"/>
+		<line class="st3" x1="67.9" y1="256.2" x2="67.9" y2="47.1"/>
+		<line class="st3" x1="100.2" y1="256.2" x2="100.2" y2="47.1"/>
+		<line class="st3" x1="132.5" y1="256.2" x2="132.5" y2="47.1"/>
+		<line class="st3" x1="164.8" y1="256.2" x2="164.8" y2="47.1"/>
+		<line class="st4" x1="71.7" y1="220.7" x2="143" y2="220.7"/>
+		<line class="st5" x1="72.2" y1="230.6" x2="144.1" y2="230.6"/>
+		<circle class="st6" cx="107.3" cy="220.7" r="2.8"/>
+		<circle class="st7" cx="108.1" cy="230.6" r="2.8"/>
+		<line class="st8" x1="67.9" y1="256.2" x2="67.9" y2="47.1"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000126305961892503209410000005182916488391951017_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000080171753914775273060000006249518054457183626_">
+		<use xlink:href="#SVGID_00000126305961892503209410000005182916488391951017_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000181809219480054271880000001919594277559493790_" x="40.1" y="285.5" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000035527926423870510360000008757799247825893024_">
+		<use xlink:href="#SVGID_00000181809219480054271880000001919594277559493790_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000035527926423870510360000008757799247825893024_);">
+		<rect x="40.1" y="285.5" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="51.7" y1="494.6" x2="51.7" y2="285.5"/>
+		<line class="st2" x1="84" y1="494.6" x2="84" y2="285.5"/>
+		<line class="st2" x1="116.3" y1="494.6" x2="116.3" y2="285.5"/>
+		<line class="st2" x1="148.6" y1="494.6" x2="148.6" y2="285.5"/>
+		<line class="st3" x1="40.1" y1="488.7" x2="168.6" y2="488.7"/>
+		<line class="st3" x1="40.1" y1="478.8" x2="168.6" y2="478.8"/>
+		<line class="st3" x1="40.1" y1="469" x2="168.6" y2="469"/>
+		<line class="st3" x1="40.1" y1="459.1" x2="168.6" y2="459.1"/>
+		<line class="st3" x1="40.1" y1="449.2" x2="168.6" y2="449.2"/>
+		<line class="st3" x1="40.1" y1="439.4" x2="168.6" y2="439.4"/>
+		<line class="st3" x1="40.1" y1="429.5" x2="168.6" y2="429.5"/>
+		<line class="st3" x1="40.1" y1="419.6" x2="168.6" y2="419.6"/>
+		<line class="st3" x1="40.1" y1="409.8" x2="168.6" y2="409.8"/>
+		<line class="st3" x1="40.1" y1="399.9" x2="168.6" y2="399.9"/>
+		<line class="st3" x1="40.1" y1="390.1" x2="168.6" y2="390.1"/>
+		<line class="st3" x1="40.1" y1="380.2" x2="168.6" y2="380.2"/>
+		<line class="st3" x1="40.1" y1="370.3" x2="168.6" y2="370.3"/>
+		<line class="st3" x1="40.1" y1="360.5" x2="168.6" y2="360.5"/>
+		<line class="st3" x1="40.1" y1="350.6" x2="168.6" y2="350.6"/>
+		<line class="st3" x1="40.1" y1="340.7" x2="168.6" y2="340.7"/>
+		<line class="st3" x1="40.1" y1="330.9" x2="168.6" y2="330.9"/>
+		<line class="st3" x1="40.1" y1="321" x2="168.6" y2="321"/>
+		<line class="st3" x1="40.1" y1="311.1" x2="168.6" y2="311.1"/>
+		<line class="st3" x1="40.1" y1="301.3" x2="168.6" y2="301.3"/>
+		<line class="st3" x1="40.1" y1="291.4" x2="168.6" y2="291.4"/>
+		<line class="st3" x1="67.9" y1="494.6" x2="67.9" y2="285.5"/>
+		<line class="st3" x1="100.2" y1="494.6" x2="100.2" y2="285.5"/>
+		<line class="st3" x1="132.5" y1="494.6" x2="132.5" y2="285.5"/>
+		<line class="st3" x1="164.8" y1="494.6" x2="164.8" y2="285.5"/>
+		<line class="st10" x1="79.6" y1="390.1" x2="145.1" y2="390.1"/>
+		<circle class="st11" cx="112.3" cy="390.1" r="2.8"/>
+		<line class="st8" x1="67.9" y1="494.6" x2="67.9" y2="285.5"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000121249041980545094350000011138968370742119844_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000063607750624837444780000004503772070222512554_">
+		<use xlink:href="#SVGID_00000121249041980545094350000011138968370742119844_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000181080897606313101970000018047589612976264347_" x="40.1" y="523.9" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000039844518719781451760000000058484064870572202_">
+		<use xlink:href="#SVGID_00000181080897606313101970000018047589612976264347_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000039844518719781451760000000058484064870572202_);">
+		<rect x="40.1" y="523.9" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="51.7" y1="733" x2="51.7" y2="523.9"/>
+		<line class="st2" x1="84" y1="733" x2="84" y2="523.9"/>
+		<line class="st2" x1="116.3" y1="733" x2="116.3" y2="523.9"/>
+		<line class="st2" x1="148.6" y1="733" x2="148.6" y2="523.9"/>
+		<line class="st3" x1="40.1" y1="727.1" x2="168.6" y2="727.1"/>
+		<line class="st3" x1="40.1" y1="717.2" x2="168.6" y2="717.2"/>
+		<line class="st3" x1="40.1" y1="707.4" x2="168.6" y2="707.4"/>
+		<line class="st3" x1="40.1" y1="697.5" x2="168.6" y2="697.5"/>
+		<line class="st3" x1="40.1" y1="687.6" x2="168.6" y2="687.6"/>
+		<line class="st3" x1="40.1" y1="677.8" x2="168.6" y2="677.8"/>
+		<line class="st3" x1="40.1" y1="667.9" x2="168.6" y2="667.9"/>
+		<line class="st3" x1="40.1" y1="658" x2="168.6" y2="658"/>
+		<line class="st3" x1="40.1" y1="648.2" x2="168.6" y2="648.2"/>
+		<line class="st3" x1="40.1" y1="638.3" x2="168.6" y2="638.3"/>
+		<line class="st3" x1="40.1" y1="628.4" x2="168.6" y2="628.4"/>
+		<line class="st3" x1="40.1" y1="618.6" x2="168.6" y2="618.6"/>
+		<line class="st3" x1="40.1" y1="608.7" x2="168.6" y2="608.7"/>
+		<line class="st3" x1="40.1" y1="598.8" x2="168.6" y2="598.8"/>
+		<line class="st3" x1="40.1" y1="589" x2="168.6" y2="589"/>
+		<line class="st3" x1="40.1" y1="579.1" x2="168.6" y2="579.1"/>
+		<line class="st3" x1="40.1" y1="569.2" x2="168.6" y2="569.2"/>
+		<line class="st3" x1="40.1" y1="559.4" x2="168.6" y2="559.4"/>
+		<line class="st3" x1="40.1" y1="549.5" x2="168.6" y2="549.5"/>
+		<line class="st3" x1="40.1" y1="539.7" x2="168.6" y2="539.7"/>
+		<line class="st3" x1="40.1" y1="529.8" x2="168.6" y2="529.8"/>
+		<line class="st3" x1="67.9" y1="733" x2="67.9" y2="523.9"/>
+		<line class="st3" x1="100.2" y1="733" x2="100.2" y2="523.9"/>
+		<line class="st3" x1="132.5" y1="733" x2="132.5" y2="523.9"/>
+		<line class="st3" x1="164.8" y1="733" x2="164.8" y2="523.9"/>
+		<line class="st13" x1="73.8" y1="579.1" x2="123.5" y2="579.1"/>
+		<line class="st14" x1="71.7" y1="549.5" x2="120.7" y2="549.5"/>
+		<line class="st15" x1="75.9" y1="589" x2="122.8" y2="589"/>
+		<circle class="st16" cx="98.7" cy="579.1" r="2.8"/>
+		<circle class="st17" cx="96.2" cy="549.5" r="2.8"/>
+		<circle class="st18" cx="99.3" cy="589" r="2.8"/>
+		<line class="st8" x1="67.9" y1="733" x2="67.9" y2="523.9"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000029744831250216733620000011076806422193523095_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000143582592482256920810000002758413612447233950_">
+		<use xlink:href="#SVGID_00000029744831250216733620000011076806422193523095_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000166653533408340965000000010278732197148855687_" x="40.1" y="762.3" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000162344259213100234520000018058559833321186985_">
+		<use xlink:href="#SVGID_00000166653533408340965000000010278732197148855687_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000162344259213100234520000018058559833321186985_);">
+		<rect x="40.1" y="762.3" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="51.7" y1="971.4" x2="51.7" y2="762.3"/>
+		<line class="st2" x1="84" y1="971.4" x2="84" y2="762.3"/>
+		<line class="st2" x1="116.3" y1="971.4" x2="116.3" y2="762.3"/>
+		<line class="st2" x1="148.6" y1="971.4" x2="148.6" y2="762.3"/>
+		<line class="st3" x1="40.1" y1="965.5" x2="168.6" y2="965.5"/>
+		<line class="st3" x1="40.1" y1="955.6" x2="168.6" y2="955.6"/>
+		<line class="st3" x1="40.1" y1="945.7" x2="168.6" y2="945.7"/>
+		<line class="st3" x1="40.1" y1="935.9" x2="168.6" y2="935.9"/>
+		<line class="st3" x1="40.1" y1="926" x2="168.6" y2="926"/>
+		<line class="st3" x1="40.1" y1="916.1" x2="168.6" y2="916.1"/>
+		<line class="st3" x1="40.1" y1="906.3" x2="168.6" y2="906.3"/>
+		<line class="st3" x1="40.1" y1="896.4" x2="168.6" y2="896.4"/>
+		<line class="st3" x1="40.1" y1="886.5" x2="168.6" y2="886.5"/>
+		<line class="st3" x1="40.1" y1="876.7" x2="168.6" y2="876.7"/>
+		<line class="st3" x1="40.1" y1="866.8" x2="168.6" y2="866.8"/>
+		<line class="st3" x1="40.1" y1="857" x2="168.6" y2="857"/>
+		<line class="st3" x1="40.1" y1="847.1" x2="168.6" y2="847.1"/>
+		<line class="st3" x1="40.1" y1="837.2" x2="168.6" y2="837.2"/>
+		<line class="st3" x1="40.1" y1="827.4" x2="168.6" y2="827.4"/>
+		<line class="st3" x1="40.1" y1="817.5" x2="168.6" y2="817.5"/>
+		<line class="st3" x1="40.1" y1="807.6" x2="168.6" y2="807.6"/>
+		<line class="st3" x1="40.1" y1="797.8" x2="168.6" y2="797.8"/>
+		<line class="st3" x1="40.1" y1="787.9" x2="168.6" y2="787.9"/>
+		<line class="st3" x1="40.1" y1="778" x2="168.6" y2="778"/>
+		<line class="st3" x1="40.1" y1="768.2" x2="168.6" y2="768.2"/>
+		<line class="st3" x1="67.9" y1="971.4" x2="67.9" y2="762.3"/>
+		<line class="st3" x1="100.2" y1="971.4" x2="100.2" y2="762.3"/>
+		<line class="st3" x1="132.5" y1="971.4" x2="132.5" y2="762.3"/>
+		<line class="st3" x1="164.8" y1="971.4" x2="164.8" y2="762.3"/>
+		<line class="st5" x1="69.9" y1="945.7" x2="142.3" y2="945.7"/>
+		<circle class="st7" cx="106.1" cy="945.7" r="2.8"/>
+		<line class="st8" x1="67.9" y1="971.4" x2="67.9" y2="762.3"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000030453310586724624770000005226064148533381768_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000041292428393213615120000007983221433876392849_">
+		<use xlink:href="#SVGID_00000030453310586724624770000005226064148533381768_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000109731341935608998350000012890275731166428037_" x="174.1" y="47.1" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000119821299853835358300000011093648724348157857_">
+		<use xlink:href="#SVGID_00000109731341935608998350000012890275731166428037_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000119821299853835358300000011093648724348157857_);">
+		<rect x="174.1" y="47.1" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="185.7" y1="256.2" x2="185.7" y2="47.1"/>
+		<line class="st2" x1="218" y1="256.2" x2="218" y2="47.1"/>
+		<line class="st2" x1="250.3" y1="256.2" x2="250.3" y2="47.1"/>
+		<line class="st2" x1="282.6" y1="256.2" x2="282.6" y2="47.1"/>
+		<line class="st3" x1="174.1" y1="250.3" x2="302.6" y2="250.3"/>
+		<line class="st3" x1="174.1" y1="240.5" x2="302.6" y2="240.5"/>
+		<line class="st3" x1="174.1" y1="230.6" x2="302.6" y2="230.6"/>
+		<line class="st3" x1="174.1" y1="220.7" x2="302.6" y2="220.7"/>
+		<line class="st3" x1="174.1" y1="210.9" x2="302.6" y2="210.9"/>
+		<line class="st3" x1="174.1" y1="201" x2="302.6" y2="201"/>
+		<line class="st3" x1="174.1" y1="191.1" x2="302.6" y2="191.1"/>
+		<line class="st3" x1="174.1" y1="181.3" x2="302.6" y2="181.3"/>
+		<line class="st3" x1="174.1" y1="171.4" x2="302.6" y2="171.4"/>
+		<line class="st3" x1="174.1" y1="161.5" x2="302.6" y2="161.5"/>
+		<line class="st3" x1="174.1" y1="151.7" x2="302.6" y2="151.7"/>
+		<line class="st3" x1="174.1" y1="141.8" x2="302.6" y2="141.8"/>
+		<line class="st3" x1="174.1" y1="131.9" x2="302.6" y2="131.9"/>
+		<line class="st3" x1="174.1" y1="122.1" x2="302.6" y2="122.1"/>
+		<line class="st3" x1="174.1" y1="112.2" x2="302.6" y2="112.2"/>
+		<line class="st3" x1="174.1" y1="102.3" x2="302.6" y2="102.3"/>
+		<line class="st3" x1="174.1" y1="92.5" x2="302.6" y2="92.5"/>
+		<line class="st3" x1="174.1" y1="82.6" x2="302.6" y2="82.6"/>
+		<line class="st3" x1="174.1" y1="72.8" x2="302.6" y2="72.8"/>
+		<line class="st3" x1="174.1" y1="62.9" x2="302.6" y2="62.9"/>
+		<line class="st3" x1="174.1" y1="53" x2="302.6" y2="53"/>
+		<line class="st3" x1="201.9" y1="256.2" x2="201.9" y2="47.1"/>
+		<line class="st3" x1="234.1" y1="256.2" x2="234.1" y2="47.1"/>
+		<line class="st3" x1="266.4" y1="256.2" x2="266.4" y2="47.1"/>
+		<line class="st3" x1="298.7" y1="256.2" x2="298.7" y2="47.1"/>
+		<line class="st21" x1="218.9" y1="201" x2="272.4" y2="201"/>
+		<line class="st14" x1="202.9" y1="72.8" x2="271.6" y2="72.8"/>
+		<circle class="st22" cx="245.6" cy="201" r="2.8"/>
+		<circle class="st17" cx="237.2" cy="72.8" r="2.8"/>
+		<line class="st8" x1="201.9" y1="256.2" x2="201.9" y2="47.1"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000131344970768965386330000010672991535901732793_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000131349859969959734990000005301330747227924135_">
+		<use xlink:href="#SVGID_00000131344970768965386330000010672991535901732793_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000093174317587679641500000001853120081534627237_" x="174.1" y="285.5" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000032636717517136898270000018048300789835001790_">
+		<use xlink:href="#SVGID_00000093174317587679641500000001853120081534627237_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000032636717517136898270000018048300789835001790_);">
+		<rect x="174.1" y="285.5" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="185.7" y1="494.6" x2="185.7" y2="285.5"/>
+		<line class="st2" x1="218" y1="494.6" x2="218" y2="285.5"/>
+		<line class="st2" x1="250.3" y1="494.6" x2="250.3" y2="285.5"/>
+		<line class="st2" x1="282.6" y1="494.6" x2="282.6" y2="285.5"/>
+		<line class="st3" x1="174.1" y1="488.7" x2="302.6" y2="488.7"/>
+		<line class="st3" x1="174.1" y1="478.8" x2="302.6" y2="478.8"/>
+		<line class="st3" x1="174.1" y1="469" x2="302.6" y2="469"/>
+		<line class="st3" x1="174.1" y1="459.1" x2="302.6" y2="459.1"/>
+		<line class="st3" x1="174.1" y1="449.2" x2="302.6" y2="449.2"/>
+		<line class="st3" x1="174.1" y1="439.4" x2="302.6" y2="439.4"/>
+		<line class="st3" x1="174.1" y1="429.5" x2="302.6" y2="429.5"/>
+		<line class="st3" x1="174.1" y1="419.6" x2="302.6" y2="419.6"/>
+		<line class="st3" x1="174.1" y1="409.8" x2="302.6" y2="409.8"/>
+		<line class="st3" x1="174.1" y1="399.9" x2="302.6" y2="399.9"/>
+		<line class="st3" x1="174.1" y1="390.1" x2="302.6" y2="390.1"/>
+		<line class="st3" x1="174.1" y1="380.2" x2="302.6" y2="380.2"/>
+		<line class="st3" x1="174.1" y1="370.3" x2="302.6" y2="370.3"/>
+		<line class="st3" x1="174.1" y1="360.5" x2="302.6" y2="360.5"/>
+		<line class="st3" x1="174.1" y1="350.6" x2="302.6" y2="350.6"/>
+		<line class="st3" x1="174.1" y1="340.7" x2="302.6" y2="340.7"/>
+		<line class="st3" x1="174.1" y1="330.9" x2="302.6" y2="330.9"/>
+		<line class="st3" x1="174.1" y1="321" x2="302.6" y2="321"/>
+		<line class="st3" x1="174.1" y1="311.1" x2="302.6" y2="311.1"/>
+		<line class="st3" x1="174.1" y1="301.3" x2="302.6" y2="301.3"/>
+		<line class="st3" x1="174.1" y1="291.4" x2="302.6" y2="291.4"/>
+		<line class="st3" x1="201.9" y1="494.6" x2="201.9" y2="285.5"/>
+		<line class="st3" x1="234.1" y1="494.6" x2="234.1" y2="285.5"/>
+		<line class="st3" x1="266.4" y1="494.6" x2="266.4" y2="285.5"/>
+		<line class="st3" x1="298.7" y1="494.6" x2="298.7" y2="285.5"/>
+		<line class="st24" x1="210.5" y1="399.9" x2="263.8" y2="399.9"/>
+		<circle class="st25" cx="237.1" cy="399.9" r="2.8"/>
+		<line class="st8" x1="201.9" y1="494.6" x2="201.9" y2="285.5"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000017508227223815367680000013818672924674617269_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000165213677632471856940000008205833788408228013_">
+		<use xlink:href="#SVGID_00000017508227223815367680000013818672924674617269_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000085209352342076470540000009035641399433367449_" x="174.1" y="523.9" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000165923896982407875490000017390266798332254618_">
+		<use xlink:href="#SVGID_00000085209352342076470540000009035641399433367449_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000165923896982407875490000017390266798332254618_);">
+		<rect x="174.1" y="523.9" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="185.7" y1="733" x2="185.7" y2="523.9"/>
+		<line class="st2" x1="218" y1="733" x2="218" y2="523.9"/>
+		<line class="st2" x1="250.3" y1="733" x2="250.3" y2="523.9"/>
+		<line class="st2" x1="282.6" y1="733" x2="282.6" y2="523.9"/>
+		<line class="st3" x1="174.1" y1="727.1" x2="302.6" y2="727.1"/>
+		<line class="st3" x1="174.1" y1="717.2" x2="302.6" y2="717.2"/>
+		<line class="st3" x1="174.1" y1="707.4" x2="302.6" y2="707.4"/>
+		<line class="st3" x1="174.1" y1="697.5" x2="302.6" y2="697.5"/>
+		<line class="st3" x1="174.1" y1="687.6" x2="302.6" y2="687.6"/>
+		<line class="st3" x1="174.1" y1="677.8" x2="302.6" y2="677.8"/>
+		<line class="st3" x1="174.1" y1="667.9" x2="302.6" y2="667.9"/>
+		<line class="st3" x1="174.1" y1="658" x2="302.6" y2="658"/>
+		<line class="st3" x1="174.1" y1="648.2" x2="302.6" y2="648.2"/>
+		<line class="st3" x1="174.1" y1="638.3" x2="302.6" y2="638.3"/>
+		<line class="st3" x1="174.1" y1="628.4" x2="302.6" y2="628.4"/>
+		<line class="st3" x1="174.1" y1="618.6" x2="302.6" y2="618.6"/>
+		<line class="st3" x1="174.1" y1="608.7" x2="302.6" y2="608.7"/>
+		<line class="st3" x1="174.1" y1="598.8" x2="302.6" y2="598.8"/>
+		<line class="st3" x1="174.1" y1="589" x2="302.6" y2="589"/>
+		<line class="st3" x1="174.1" y1="579.1" x2="302.6" y2="579.1"/>
+		<line class="st3" x1="174.1" y1="569.2" x2="302.6" y2="569.2"/>
+		<line class="st3" x1="174.1" y1="559.4" x2="302.6" y2="559.4"/>
+		<line class="st3" x1="174.1" y1="549.5" x2="302.6" y2="549.5"/>
+		<line class="st3" x1="174.1" y1="539.7" x2="302.6" y2="539.7"/>
+		<line class="st3" x1="174.1" y1="529.8" x2="302.6" y2="529.8"/>
+		<line class="st3" x1="201.9" y1="733" x2="201.9" y2="523.9"/>
+		<line class="st3" x1="234.1" y1="733" x2="234.1" y2="523.9"/>
+		<line class="st3" x1="266.4" y1="733" x2="266.4" y2="523.9"/>
+		<line class="st3" x1="298.7" y1="733" x2="298.7" y2="523.9"/>
+		<line class="st4" x1="179.9" y1="697.5" x2="201.7" y2="697.5"/>
+		<line class="st13" x1="205.2" y1="579.1" x2="277.7" y2="579.1"/>
+		<line class="st27" x1="205.7" y1="559.4" x2="269.5" y2="559.4"/>
+		<line class="st28" x1="219.6" y1="608.7" x2="268" y2="608.7"/>
+		<line class="st14" x1="221" y1="549.5" x2="272.5" y2="549.5"/>
+		<line class="st29" x1="215.8" y1="727.1" x2="262.7" y2="727.1"/>
+		<circle class="st6" cx="190.8" cy="697.5" r="2.8"/>
+		<circle class="st16" cx="241.5" cy="579.1" r="2.8"/>
+		<circle class="st30" cx="237.6" cy="559.4" r="2.8"/>
+		<circle class="st31" cx="243.8" cy="608.7" r="2.8"/>
+		<circle class="st17" cx="246.7" cy="549.5" r="2.8"/>
+		<circle class="st32" cx="239.3" cy="727.1" r="2.8"/>
+		<line class="st8" x1="201.9" y1="733" x2="201.9" y2="523.9"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000023263569601672045530000014188215268518665654_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000079472806990819198680000011069255249861584563_">
+		<use xlink:href="#SVGID_00000023263569601672045530000014188215268518665654_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000067916387632389621820000005199711195609720994_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000174576611615556941980000018435286866042059941_">
+		<use xlink:href="#SVGID_00000067916387632389621820000005199711195609720994_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000181075369645200255410000004007113107818039952_" x="308.1" y="47.1" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000081617731710743610550000007588229602766426806_">
+		<use xlink:href="#SVGID_00000181075369645200255410000004007113107818039952_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000081617731710743610550000007588229602766426806_);">
+		<rect x="308.1" y="47.1" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="319.7" y1="256.2" x2="319.7" y2="47.1"/>
+		<line class="st2" x1="352" y1="256.2" x2="352" y2="47.1"/>
+		<line class="st2" x1="384.3" y1="256.2" x2="384.3" y2="47.1"/>
+		<line class="st2" x1="416.5" y1="256.2" x2="416.5" y2="47.1"/>
+		<line class="st3" x1="308.1" y1="250.3" x2="436.5" y2="250.3"/>
+		<line class="st3" x1="308.1" y1="240.5" x2="436.5" y2="240.5"/>
+		<line class="st3" x1="308.1" y1="230.6" x2="436.5" y2="230.6"/>
+		<line class="st3" x1="308.1" y1="220.7" x2="436.5" y2="220.7"/>
+		<line class="st3" x1="308.1" y1="210.9" x2="436.5" y2="210.9"/>
+		<line class="st3" x1="308.1" y1="201" x2="436.5" y2="201"/>
+		<line class="st3" x1="308.1" y1="191.1" x2="436.5" y2="191.1"/>
+		<line class="st3" x1="308.1" y1="181.3" x2="436.5" y2="181.3"/>
+		<line class="st3" x1="308.1" y1="171.4" x2="436.5" y2="171.4"/>
+		<line class="st3" x1="308.1" y1="161.5" x2="436.5" y2="161.5"/>
+		<line class="st3" x1="308.1" y1="151.7" x2="436.5" y2="151.7"/>
+		<line class="st3" x1="308.1" y1="141.8" x2="436.5" y2="141.8"/>
+		<line class="st3" x1="308.1" y1="131.9" x2="436.5" y2="131.9"/>
+		<line class="st3" x1="308.1" y1="122.1" x2="436.5" y2="122.1"/>
+		<line class="st3" x1="308.1" y1="112.2" x2="436.5" y2="112.2"/>
+		<line class="st3" x1="308.1" y1="102.3" x2="436.5" y2="102.3"/>
+		<line class="st3" x1="308.1" y1="92.5" x2="436.5" y2="92.5"/>
+		<line class="st3" x1="308.1" y1="82.6" x2="436.5" y2="82.6"/>
+		<line class="st3" x1="308.1" y1="72.8" x2="436.5" y2="72.8"/>
+		<line class="st3" x1="308.1" y1="62.9" x2="436.5" y2="62.9"/>
+		<line class="st3" x1="308.1" y1="53" x2="436.5" y2="53"/>
+		<line class="st3" x1="335.8" y1="256.2" x2="335.8" y2="47.1"/>
+		<line class="st3" x1="368.1" y1="256.2" x2="368.1" y2="47.1"/>
+		<line class="st3" x1="400.4" y1="256.2" x2="400.4" y2="47.1"/>
+		<line class="st3" x1="432.7" y1="256.2" x2="432.7" y2="47.1"/>
+		<line class="st34" x1="336.5" y1="53" x2="390.1" y2="53"/>
+		<circle class="st35" cx="363.3" cy="53" r="2.8"/>
+		<line class="st8" x1="335.8" y1="256.2" x2="335.8" y2="47.1"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000002370571868974068560000004746136780023780518_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000135678282405661834910000014157852299627034268_">
+		<use xlink:href="#SVGID_00000002370571868974068560000004746136780023780518_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000031897037083802337310000003560301076720134586_" x="308.1" y="285.5" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000183251309965469146550000002010222061535694767_">
+		<use xlink:href="#SVGID_00000031897037083802337310000003560301076720134586_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000183251309965469146550000002010222061535694767_);">
+		<rect x="308.1" y="285.5" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="319.7" y1="494.6" x2="319.7" y2="285.5"/>
+		<line class="st2" x1="352" y1="494.6" x2="352" y2="285.5"/>
+		<line class="st2" x1="384.3" y1="494.6" x2="384.3" y2="285.5"/>
+		<line class="st2" x1="416.5" y1="494.6" x2="416.5" y2="285.5"/>
+		<line class="st3" x1="308.1" y1="488.7" x2="436.5" y2="488.7"/>
+		<line class="st3" x1="308.1" y1="478.8" x2="436.5" y2="478.8"/>
+		<line class="st3" x1="308.1" y1="469" x2="436.5" y2="469"/>
+		<line class="st3" x1="308.1" y1="459.1" x2="436.5" y2="459.1"/>
+		<line class="st3" x1="308.1" y1="449.2" x2="436.5" y2="449.2"/>
+		<line class="st3" x1="308.1" y1="439.4" x2="436.5" y2="439.4"/>
+		<line class="st3" x1="308.1" y1="429.5" x2="436.5" y2="429.5"/>
+		<line class="st3" x1="308.1" y1="419.6" x2="436.5" y2="419.6"/>
+		<line class="st3" x1="308.1" y1="409.8" x2="436.5" y2="409.8"/>
+		<line class="st3" x1="308.1" y1="399.9" x2="436.5" y2="399.9"/>
+		<line class="st3" x1="308.1" y1="390.1" x2="436.5" y2="390.1"/>
+		<line class="st3" x1="308.1" y1="380.2" x2="436.5" y2="380.2"/>
+		<line class="st3" x1="308.1" y1="370.3" x2="436.5" y2="370.3"/>
+		<line class="st3" x1="308.1" y1="360.5" x2="436.5" y2="360.5"/>
+		<line class="st3" x1="308.1" y1="350.6" x2="436.5" y2="350.6"/>
+		<line class="st3" x1="308.1" y1="340.7" x2="436.5" y2="340.7"/>
+		<line class="st3" x1="308.1" y1="330.9" x2="436.5" y2="330.9"/>
+		<line class="st3" x1="308.1" y1="321" x2="436.5" y2="321"/>
+		<line class="st3" x1="308.1" y1="311.1" x2="436.5" y2="311.1"/>
+		<line class="st3" x1="308.1" y1="301.3" x2="436.5" y2="301.3"/>
+		<line class="st3" x1="308.1" y1="291.4" x2="436.5" y2="291.4"/>
+		<line class="st3" x1="335.8" y1="494.6" x2="335.8" y2="285.5"/>
+		<line class="st3" x1="368.1" y1="494.6" x2="368.1" y2="285.5"/>
+		<line class="st3" x1="400.4" y1="494.6" x2="400.4" y2="285.5"/>
+		<line class="st3" x1="432.7" y1="494.6" x2="432.7" y2="285.5"/>
+		<line class="st34" x1="359.6" y1="291.4" x2="423.7" y2="291.4"/>
+		<line class="st37" x1="346.8" y1="449.2" x2="405.9" y2="449.2"/>
+		<line class="st38" x1="357.6" y1="301.3" x2="417.5" y2="301.3"/>
+		<circle class="st35" cx="391.7" cy="291.4" r="2.8"/>
+		<circle class="st39" cx="376.4" cy="449.2" r="2.8"/>
+		<circle class="st40" cx="387.5" cy="301.3" r="2.8"/>
+		<line class="st8" x1="335.8" y1="494.6" x2="335.8" y2="285.5"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000042721675414305245660000015156644291804626332_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000141423925447331477010000007146553329601204380_">
+		<use xlink:href="#SVGID_00000042721675414305245660000015156644291804626332_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000122000754756164187480000009539496343267608739_" x="308.1" y="523.9" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000161616157676311344780000006276084652319794330_">
+		<use xlink:href="#SVGID_00000122000754756164187480000009539496343267608739_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000161616157676311344780000006276084652319794330_);">
+		<rect x="308.1" y="523.9" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="319.7" y1="733" x2="319.7" y2="523.9"/>
+		<line class="st2" x1="352" y1="733" x2="352" y2="523.9"/>
+		<line class="st2" x1="384.3" y1="733" x2="384.3" y2="523.9"/>
+		<line class="st2" x1="416.5" y1="733" x2="416.5" y2="523.9"/>
+		<line class="st3" x1="308.1" y1="727.1" x2="436.5" y2="727.1"/>
+		<line class="st3" x1="308.1" y1="717.2" x2="436.5" y2="717.2"/>
+		<line class="st3" x1="308.1" y1="707.4" x2="436.5" y2="707.4"/>
+		<line class="st3" x1="308.1" y1="697.5" x2="436.5" y2="697.5"/>
+		<line class="st3" x1="308.1" y1="687.6" x2="436.5" y2="687.6"/>
+		<line class="st3" x1="308.1" y1="677.8" x2="436.5" y2="677.8"/>
+		<line class="st3" x1="308.1" y1="667.9" x2="436.5" y2="667.9"/>
+		<line class="st3" x1="308.1" y1="658" x2="436.5" y2="658"/>
+		<line class="st3" x1="308.1" y1="648.2" x2="436.5" y2="648.2"/>
+		<line class="st3" x1="308.1" y1="638.3" x2="436.5" y2="638.3"/>
+		<line class="st3" x1="308.1" y1="628.4" x2="436.5" y2="628.4"/>
+		<line class="st3" x1="308.1" y1="618.6" x2="436.5" y2="618.6"/>
+		<line class="st3" x1="308.1" y1="608.7" x2="436.5" y2="608.7"/>
+		<line class="st3" x1="308.1" y1="598.8" x2="436.5" y2="598.8"/>
+		<line class="st3" x1="308.1" y1="589" x2="436.5" y2="589"/>
+		<line class="st3" x1="308.1" y1="579.1" x2="436.5" y2="579.1"/>
+		<line class="st3" x1="308.1" y1="569.2" x2="436.5" y2="569.2"/>
+		<line class="st3" x1="308.1" y1="559.4" x2="436.5" y2="559.4"/>
+		<line class="st3" x1="308.1" y1="549.5" x2="436.5" y2="549.5"/>
+		<line class="st3" x1="308.1" y1="539.7" x2="436.5" y2="539.7"/>
+		<line class="st3" x1="308.1" y1="529.8" x2="436.5" y2="529.8"/>
+		<line class="st3" x1="335.8" y1="733" x2="335.8" y2="523.9"/>
+		<line class="st3" x1="368.1" y1="733" x2="368.1" y2="523.9"/>
+		<line class="st3" x1="400.4" y1="733" x2="400.4" y2="523.9"/>
+		<line class="st3" x1="432.7" y1="733" x2="432.7" y2="523.9"/>
+		<line class="st42" x1="344" y1="648.2" x2="414.6" y2="648.2"/>
+		<line class="st43" x1="340.8" y1="658" x2="387.7" y2="658"/>
+		<line class="st44" x1="342.5" y1="667.9" x2="402.9" y2="667.9"/>
+		<circle class="st45" cx="379.3" cy="648.2" r="2.8"/>
+		<circle class="st46" cx="364.2" cy="658" r="2.8"/>
+		<circle class="st47" cx="372.7" cy="667.9" r="2.8"/>
+		<line class="st8" x1="335.8" y1="733" x2="335.8" y2="523.9"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000005966661331217081040000008092622907281077393_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000134943180431929899780000001306311385314565818_">
+		<use xlink:href="#SVGID_00000005966661331217081040000008092622907281077393_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000140696347929387147720000007774015152878742678_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000050650453562275206250000001973688316635768238_">
+		<use xlink:href="#SVGID_00000140696347929387147720000007774015152878742678_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000104688438484896295180000013607207033817689002_" x="442" y="47.1" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000169548665710172539410000003998488305500101248_">
+		<use xlink:href="#SVGID_00000104688438484896295180000013607207033817689002_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000169548665710172539410000003998488305500101248_);">
+		<rect x="442" y="47.1" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="453.6" y1="256.2" x2="453.6" y2="47.1"/>
+		<line class="st2" x1="485.9" y1="256.2" x2="485.9" y2="47.1"/>
+		<line class="st2" x1="518.2" y1="256.2" x2="518.2" y2="47.1"/>
+		<line class="st2" x1="550.5" y1="256.2" x2="550.5" y2="47.1"/>
+		<line class="st3" x1="442" y1="250.3" x2="570.5" y2="250.3"/>
+		<line class="st3" x1="442" y1="240.5" x2="570.5" y2="240.5"/>
+		<line class="st3" x1="442" y1="230.6" x2="570.5" y2="230.6"/>
+		<line class="st3" x1="442" y1="220.7" x2="570.5" y2="220.7"/>
+		<line class="st3" x1="442" y1="210.9" x2="570.5" y2="210.9"/>
+		<line class="st3" x1="442" y1="201" x2="570.5" y2="201"/>
+		<line class="st3" x1="442" y1="191.1" x2="570.5" y2="191.1"/>
+		<line class="st3" x1="442" y1="181.3" x2="570.5" y2="181.3"/>
+		<line class="st3" x1="442" y1="171.4" x2="570.5" y2="171.4"/>
+		<line class="st3" x1="442" y1="161.5" x2="570.5" y2="161.5"/>
+		<line class="st3" x1="442" y1="151.7" x2="570.5" y2="151.7"/>
+		<line class="st3" x1="442" y1="141.8" x2="570.5" y2="141.8"/>
+		<line class="st3" x1="442" y1="131.9" x2="570.5" y2="131.9"/>
+		<line class="st3" x1="442" y1="122.1" x2="570.5" y2="122.1"/>
+		<line class="st3" x1="442" y1="112.2" x2="570.5" y2="112.2"/>
+		<line class="st3" x1="442" y1="102.3" x2="570.5" y2="102.3"/>
+		<line class="st3" x1="442" y1="92.5" x2="570.5" y2="92.5"/>
+		<line class="st3" x1="442" y1="82.6" x2="570.5" y2="82.6"/>
+		<line class="st3" x1="442" y1="72.8" x2="570.5" y2="72.8"/>
+		<line class="st3" x1="442" y1="62.9" x2="570.5" y2="62.9"/>
+		<line class="st3" x1="442" y1="53" x2="570.5" y2="53"/>
+		<line class="st3" x1="469.8" y1="256.2" x2="469.8" y2="47.1"/>
+		<line class="st3" x1="502.1" y1="256.2" x2="502.1" y2="47.1"/>
+		<line class="st3" x1="534.4" y1="256.2" x2="534.4" y2="47.1"/>
+		<line class="st3" x1="566.7" y1="256.2" x2="566.7" y2="47.1"/>
+		<line class="st5" x1="489.9" y1="230.6" x2="547" y2="230.6"/>
+		<line class="st29" x1="478.5" y1="250.3" x2="550.7" y2="250.3"/>
+		<circle class="st7" cx="518.4" cy="230.6" r="2.8"/>
+		
+			<ellipse transform="matrix(0.1602 -0.9871 0.9871 0.1602 185.0743 718.1687)" class="st32" cx="514.6" cy="250.3" rx="2.8" ry="2.8"/>
+		<line class="st8" x1="469.8" y1="256.2" x2="469.8" y2="47.1"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000102546373777493707130000015413216669219770002_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000128454625575480695080000012078193969338303899_">
+		<use xlink:href="#SVGID_00000102546373777493707130000015413216669219770002_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000140001921325354154970000006309425501618473918_" x="442" y="285.5" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000157306011077558765840000015686326106742655156_">
+		<use xlink:href="#SVGID_00000140001921325354154970000006309425501618473918_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000157306011077558765840000015686326106742655156_);">
+		<rect x="442" y="285.5" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="453.6" y1="494.6" x2="453.6" y2="285.5"/>
+		<line class="st2" x1="485.9" y1="494.6" x2="485.9" y2="285.5"/>
+		<line class="st2" x1="518.2" y1="494.6" x2="518.2" y2="285.5"/>
+		<line class="st2" x1="550.5" y1="494.6" x2="550.5" y2="285.5"/>
+		<line class="st3" x1="442" y1="488.7" x2="570.5" y2="488.7"/>
+		<line class="st3" x1="442" y1="478.8" x2="570.5" y2="478.8"/>
+		<line class="st3" x1="442" y1="469" x2="570.5" y2="469"/>
+		<line class="st3" x1="442" y1="459.1" x2="570.5" y2="459.1"/>
+		<line class="st3" x1="442" y1="449.2" x2="570.5" y2="449.2"/>
+		<line class="st3" x1="442" y1="439.4" x2="570.5" y2="439.4"/>
+		<line class="st3" x1="442" y1="429.5" x2="570.5" y2="429.5"/>
+		<line class="st3" x1="442" y1="419.6" x2="570.5" y2="419.6"/>
+		<line class="st3" x1="442" y1="409.8" x2="570.5" y2="409.8"/>
+		<line class="st3" x1="442" y1="399.9" x2="570.5" y2="399.9"/>
+		<line class="st3" x1="442" y1="390.1" x2="570.5" y2="390.1"/>
+		<line class="st3" x1="442" y1="380.2" x2="570.5" y2="380.2"/>
+		<line class="st3" x1="442" y1="370.3" x2="570.5" y2="370.3"/>
+		<line class="st3" x1="442" y1="360.5" x2="570.5" y2="360.5"/>
+		<line class="st3" x1="442" y1="350.6" x2="570.5" y2="350.6"/>
+		<line class="st3" x1="442" y1="340.7" x2="570.5" y2="340.7"/>
+		<line class="st3" x1="442" y1="330.9" x2="570.5" y2="330.9"/>
+		<line class="st3" x1="442" y1="321" x2="570.5" y2="321"/>
+		<line class="st3" x1="442" y1="311.1" x2="570.5" y2="311.1"/>
+		<line class="st3" x1="442" y1="301.3" x2="570.5" y2="301.3"/>
+		<line class="st3" x1="442" y1="291.4" x2="570.5" y2="291.4"/>
+		<line class="st3" x1="469.8" y1="494.6" x2="469.8" y2="285.5"/>
+		<line class="st3" x1="502.1" y1="494.6" x2="502.1" y2="285.5"/>
+		<line class="st3" x1="534.4" y1="494.6" x2="534.4" y2="285.5"/>
+		<line class="st3" x1="566.7" y1="494.6" x2="566.7" y2="285.5"/>
+		<line class="st50" x1="473.6" y1="478.8" x2="540" y2="478.8"/>
+		<line class="st51" x1="487.5" y1="380.2" x2="543.5" y2="380.2"/>
+		<line class="st42" x1="473" y1="409.8" x2="542.5" y2="409.8"/>
+		<line class="st38" x1="474.8" y1="301.3" x2="545.5" y2="301.3"/>
+		<line class="st15" x1="473.3" y1="350.6" x2="531.1" y2="350.6"/>
+		<circle class="st52" cx="506.8" cy="478.8" r="2.8"/>
+		<circle class="st53" cx="515.5" cy="380.2" r="2.8"/>
+		<circle class="st45" cx="507.7" cy="409.8" r="2.8"/>
+		<circle class="st40" cx="510.1" cy="301.3" r="2.8"/>
+		<circle class="st18" cx="502.2" cy="350.6" r="2.8"/>
+		<line class="st8" x1="469.8" y1="494.6" x2="469.8" y2="285.5"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000075156859149951436990000000637968622427542150_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000009586198729632512470000007679935178987269053_">
+		<use xlink:href="#SVGID_00000075156859149951436990000000637968622427542150_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000062901936898641608450000009548965445741403548_" x="442" y="523.9" width="128.5" height="209.1"/>
+	</defs>
+	<clipPath id="SVGID_00000147899929693476258210000013250605260059293887_">
+		<use xlink:href="#SVGID_00000062901936898641608450000009548965445741403548_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000147899929693476258210000013250605260059293887_);">
+		<rect x="442" y="523.9" class="st1" width="128.5" height="209.1"/>
+		<line class="st2" x1="453.6" y1="733" x2="453.6" y2="523.9"/>
+		<line class="st2" x1="485.9" y1="733" x2="485.9" y2="523.9"/>
+		<line class="st2" x1="518.2" y1="733" x2="518.2" y2="523.9"/>
+		<line class="st2" x1="550.5" y1="733" x2="550.5" y2="523.9"/>
+		<line class="st3" x1="442" y1="727.1" x2="570.5" y2="727.1"/>
+		<line class="st3" x1="442" y1="717.2" x2="570.5" y2="717.2"/>
+		<line class="st3" x1="442" y1="707.4" x2="570.5" y2="707.4"/>
+		<line class="st3" x1="442" y1="697.5" x2="570.5" y2="697.5"/>
+		<line class="st3" x1="442" y1="687.6" x2="570.5" y2="687.6"/>
+		<line class="st3" x1="442" y1="677.8" x2="570.5" y2="677.8"/>
+		<line class="st3" x1="442" y1="667.9" x2="570.5" y2="667.9"/>
+		<line class="st3" x1="442" y1="658" x2="570.5" y2="658"/>
+		<line class="st3" x1="442" y1="648.2" x2="570.5" y2="648.2"/>
+		<line class="st3" x1="442" y1="638.3" x2="570.5" y2="638.3"/>
+		<line class="st3" x1="442" y1="628.4" x2="570.5" y2="628.4"/>
+		<line class="st3" x1="442" y1="618.6" x2="570.5" y2="618.6"/>
+		<line class="st3" x1="442" y1="608.7" x2="570.5" y2="608.7"/>
+		<line class="st3" x1="442" y1="598.8" x2="570.5" y2="598.8"/>
+		<line class="st3" x1="442" y1="589" x2="570.5" y2="589"/>
+		<line class="st3" x1="442" y1="579.1" x2="570.5" y2="579.1"/>
+		<line class="st3" x1="442" y1="569.2" x2="570.5" y2="569.2"/>
+		<line class="st3" x1="442" y1="559.4" x2="570.5" y2="559.4"/>
+		<line class="st3" x1="442" y1="549.5" x2="570.5" y2="549.5"/>
+		<line class="st3" x1="442" y1="539.7" x2="570.5" y2="539.7"/>
+		<line class="st3" x1="442" y1="529.8" x2="570.5" y2="529.8"/>
+		<line class="st3" x1="469.8" y1="733" x2="469.8" y2="523.9"/>
+		<line class="st3" x1="502.1" y1="733" x2="502.1" y2="523.9"/>
+		<line class="st3" x1="534.4" y1="733" x2="534.4" y2="523.9"/>
+		<line class="st3" x1="566.7" y1="733" x2="566.7" y2="523.9"/>
+		<line class="st27" x1="474.1" y1="559.4" x2="561.8" y2="559.4"/>
+		<line class="st55" x1="474.8" y1="598.8" x2="562.6" y2="598.8"/>
+		<line class="st56" x1="476.6" y1="569.2" x2="564.7" y2="569.2"/>
+		<line class="st28" x1="470.7" y1="608.7" x2="554.8" y2="608.7"/>
+		<line class="st14" x1="471" y1="549.5" x2="558" y2="549.5"/>
+		<circle class="st30" cx="517.9" cy="559.4" r="2.8"/>
+		<circle class="st57" cx="518.7" cy="598.8" r="2.8"/>
+		<circle class="st58" cx="520.7" cy="569.2" r="2.8"/>
+		
+			<ellipse transform="matrix(0.9239 -0.3827 0.3827 0.9239 -193.913 242.5519)" class="st31" cx="512.7" cy="608.7" rx="2.8" ry="2.8"/>
+		
+			<ellipse transform="matrix(0.9239 -0.3827 0.3827 0.9239 -171.1311 238.7245)" class="st17" cx="514.5" cy="549.5" rx="2.8" ry="2.8"/>
+		<line class="st8" x1="469.8" y1="733" x2="469.8" y2="523.9"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000033349578145128758050000018082506479748613522_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000016069036829955271590000013614950876920810368_">
+		<use xlink:href="#SVGID_00000033349578145128758050000018082506479748613522_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000026867750884845820950000010791637300873932166_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000080185967841105096240000017214189747329925542_">
+		<use xlink:href="#SVGID_00000026867750884845820950000010791637300873932166_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000107565376325762146980000007638376121048485292_" x="40.1" y="738.5" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000181045061193848583840000014896221494104142983_">
+		<use xlink:href="#SVGID_00000107565376325762146980000007638376121048485292_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000181045061193848583840000014896221494104142983_);">
+		<rect x="40.1" y="738.5" class="st60" width="128.5" height="23.8"/>
+		<rect x="74.6" y="742.4" class="st61" width="59.6" height="18.9"/>
+		<text transform="matrix(1 0 0 1 74.5791 756.1104)" class="st62 st63 st64">lightning</text>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000088836449252875420970000017972041563371478203_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000121265185577051910780000013225406218741491087_">
+		<use xlink:href="#SVGID_00000088836449252875420970000017972041563371478203_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000097490527564550222210000012558220982096054153_" x="174.1" y="738.5" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000048483249783695045990000009375915093431816885_">
+		<use xlink:href="#SVGID_00000097490527564550222210000012558220982096054153_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000181802410950479989450000017325990156135871910_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000096023566509974565730000010422326854140612487_">
+		<use xlink:href="#SVGID_00000181802410950479989450000017325990156135871910_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000119090914447901568920000003888540878604753543_" x="308.1" y="738.5" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000124158014889117562030000017750028621500593038_">
+		<use xlink:href="#SVGID_00000119090914447901568920000003888540878604753543_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000143577048302356558810000017681104974623025033_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000050651345994663309730000014618472540883706028_">
+		<use xlink:href="#SVGID_00000143577048302356558810000017681104974623025033_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000120559006356928528190000008456143933218455972_" x="442" y="738.5" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000026147293596999389440000012864427908707567269_">
+		<use xlink:href="#SVGID_00000120559006356928528190000008456143933218455972_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000072256578816123506550000005101149496734303144_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000059989713531492610980000017147307499368194201_">
+		<use xlink:href="#SVGID_00000072256578816123506550000005101149496734303144_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000080195747843602609320000006364019291122896274_" x="40.1" y="500.1" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000080197380564923373900000006084992375612046009_">
+		<use xlink:href="#SVGID_00000080195747843602609320000006364019291122896274_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000080197380564923373900000006084992375612046009_);">
+		<rect x="40.1" y="500.1" class="st60" width="128.5" height="23.8"/>
+		<rect x="82.6" y="504" class="st61" width="43.6" height="18.9"/>
+		<text transform="matrix(1 0 0 1 82.583 517.7305)" class="st62 st63 st64">peace</text>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000049199867568594129160000005230567633895291576_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000082360040000475416630000008465104438240859309_">
+		<use xlink:href="#SVGID_00000049199867568594129160000005230567633895291576_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000003814582706985379480000016102003888981084824_" x="174.1" y="500.1" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000088820708984633310650000007611840786127274140_">
+		<use xlink:href="#SVGID_00000003814582706985379480000016102003888981084824_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000088820708984633310650000007611840786127274140_);">
+		<rect x="174.1" y="500.1" class="st60" width="128.5" height="23.8"/>
+		<text transform="matrix(1 0 0 1 217.0063 517.73)" class="st62 st63 st64">safety</text>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000157996779270098020670000006753944871968549823_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000038394058338192002630000016020661237541265307_">
+		<use xlink:href="#SVGID_00000157996779270098020670000006753944871968549823_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000114047855231240743830000010629587168993066905_" x="308.1" y="500.1" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000143579783973566674060000002620742444388223405_">
+		<use xlink:href="#SVGID_00000114047855231240743830000010629587168993066905_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000143579783973566674060000002620742444388223405_);">
+		<rect x="308.1" y="500.1" class="st60" width="128.5" height="23.8"/>
+		<rect x="345.2" y="504" class="st61" width="54.3" height="18.9"/>
+		<text transform="matrix(1 0 0 1 345.1768 517.7305)" class="st62 st63 st64">drought</text>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000046310071425901438060000008853493098657213313_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000149359195702542432170000011260628924740363138_">
+		<use xlink:href="#SVGID_00000046310071425901438060000008853493098657213313_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000142868334857347110250000016511015899048988843_" x="442" y="500.1" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000005986001614500105000000014562612336118639239_">
+		<use xlink:href="#SVGID_00000142868334857347110250000016511015899048988843_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000005986001614500105000000014562612336118639239_);">
+		<rect x="442" y="500.1" class="st60" width="128.5" height="23.8"/>
+		<rect x="472.9" y="504" class="st61" width="66.7" height="18.9"/>
+		<text transform="matrix(1 0 0 1 472.9287 517.7305)" class="st62 st63 st64">hurricane</text>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000020399704899581514220000014665663069509002632_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000026153228797382141650000001606856956919303818_">
+		<use xlink:href="#SVGID_00000020399704899581514220000014665663069509002632_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000137116566802070453390000009847581138371255682_" x="40.1" y="261.7" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000072265647390819519830000000021581520254055049_">
+		<use xlink:href="#SVGID_00000137116566802070453390000009847581138371255682_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000072265647390819519830000000021581520254055049_);">
+		<rect x="40.1" y="261.7" class="st60" width="128.5" height="23.8"/>
+		<rect x="77.7" y="265.6" class="st61" width="53.4" height="18.9"/>
+		<text transform="matrix(1 0 0 1 77.6846 279.3501)" class="st62 st63 st64">banana</text>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000135677735381844898530000002976414584278999180_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000176031643852535933830000001051078716475341972_">
+		<use xlink:href="#SVGID_00000135677735381844898530000002976414584278999180_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000038380371621449352170000013452605168897318543_" x="174.1" y="261.7" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000047754732205005060810000009783274973683586231_">
+		<use xlink:href="#SVGID_00000038380371621449352170000013452605168897318543_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000047754732205005060810000009783274973683586231_);">
+		<rect x="174.1" y="261.7" class="st60" width="128.5" height="23.8"/>
+		<text transform="matrix(1 0 0 1 213.8891 279.35)" class="st62 st63 st64">mango</text>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000066507316196730987030000013699899568312681097_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000127733000050200118260000008154358797378676375_">
+		<use xlink:href="#SVGID_00000066507316196730987030000013699899568312681097_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000175299566263725944910000013978160271531652750_" x="308.1" y="261.7" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000171696648378857069870000008910510813042227377_">
+		<use xlink:href="#SVGID_00000175299566263725944910000013978160271531652750_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000171696648378857069870000008910510813042227377_);">
+		<rect x="308.1" y="261.7" class="st60" width="128.5" height="23.8"/>
+		<rect x="350.5" y="265.6" class="st61" width="43.6" height="18.9"/>
+		<text transform="matrix(1 0 0 1 350.5127 279.3501)" class="st62 st63 st64">peach</text>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000174579256766507601270000006482297314264482186_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000150089575853645610660000007534186958294800058_">
+		<use xlink:href="#SVGID_00000174579256766507601270000006482297314264482186_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000097471683658441897960000007242134295767264389_" x="442" y="261.7" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000139285478077519746610000003728783161504459650_">
+		<use xlink:href="#SVGID_00000097471683658441897960000007242134295767264389_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000139285478077519746610000003728783161504459650_);">
+		<rect x="442" y="261.7" class="st60" width="128.5" height="23.8"/>
+		<text transform="matrix(1 0 0 1 483.6042 279.35)" class="st62 st63 st64">justice</text>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000047779897375397514480000016488637310604412855_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000106111324343311454050000008579390444880297913_">
+		<use xlink:href="#SVGID_00000047779897375397514480000016488637310604412855_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000172429328648870726510000009354952278764771757_" x="40.1" y="23.3" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000084528780596993539230000014334066747675344811_">
+		<use xlink:href="#SVGID_00000172429328648870726510000009354952278764771757_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000084528780596993539230000014334066747675344811_);">
+		<rect x="40.1" y="23.3" class="st60" width="128.5" height="23.8"/>
+		<text transform="matrix(1 0 0 1 84.3683 40.96)" class="st62 st63 st64">angry</text>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000116235467752336508280000010530691669257021573_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000048502758759762063540000007725714181121905561_">
+		<use xlink:href="#SVGID_00000116235467752336508280000010530691669257021573_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000112603178245617789640000012451999248413241483_" x="174.1" y="23.3" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000071537213567392579180000008662660572370953866_">
+		<use xlink:href="#SVGID_00000112603178245617789640000012451999248413241483_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000071537213567392579180000008662660572370953866_);">
+		<rect x="174.1" y="23.3" class="st60" width="128.5" height="23.8"/>
+		<rect x="216.6" y="27.2" class="st61" width="43.6" height="18.9"/>
+		<text transform="matrix(1 0 0 1 216.5532 40.96)" class="st62 st63 st64">happy</text>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000070804566869299166360000008792528866191166366_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000159432674692758842170000007173078653590184893_">
+		<use xlink:href="#SVGID_00000070804566869299166360000008792528866191166366_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000087398103484626940850000015983616142716489402_" x="308.1" y="23.3" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000001650174357784021070000003993879117597680023_">
+		<use xlink:href="#SVGID_00000087398103484626940850000015983616142716489402_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000001650174357784021070000003993879117597680023_);">
+		<rect x="308.1" y="23.3" class="st60" width="128.5" height="23.8"/>
+		<text transform="matrix(1 0 0 1 357.6342 40.96)" class="st62 st63 st64">love</text>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000159467650892165972880000011259219337500245909_" width="576" height="1008"/>
+	</defs>
+	<clipPath id="SVGID_00000164487631255472969920000010145521482114469779_">
+		<use xlink:href="#SVGID_00000159467650892165972880000011259219337500245909_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_00000031912577123215184240000009522675312555647617_" x="442" y="23.3" width="128.5" height="23.8"/>
+	</defs>
+	<clipPath id="SVGID_00000023264990142803969340000012140818486717614525_">
+		<use xlink:href="#SVGID_00000031912577123215184240000009522675312555647617_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000023264990142803969340000012140818486717614525_);">
+		<rect x="442" y="23.3" class="st60" width="128.5" height="23.8"/>
+		<rect x="493.4" y="27.2" class="st61" width="25.8" height="18.9"/>
+		<text transform="matrix(1 0 0 1 493.3818 40.96)" class="st62 st63 st64">sad</text>
+	</g>
+</g>
+<g>
+	<g>
+		<line class="st77" x1="67.9" y1="974.1" x2="67.9" y2="971.4"/>
+		<line class="st77" x1="100.2" y1="974.1" x2="100.2" y2="971.4"/>
+		<line class="st77" x1="132.5" y1="974.1" x2="132.5" y2="971.4"/>
+		<line class="st77" x1="164.8" y1="974.1" x2="164.8" y2="971.4"/>
+		<text transform="matrix(1 0 0 1 58.159 986.36)" class="st78 st63 st79">0.0</text>
+		<text transform="matrix(1 0 0 1 90.449 986.36)" class="st78 st63 st79">0.4</text>
+		<text transform="matrix(1 0 0 1 122.739 986.36)" class="st78 st63 st79">0.8</text>
+		<text transform="matrix(1 0 0 1 155.039 986.36)" class="st78 st63 st79">1.2</text>
+		<line class="st77" x1="234.1" y1="735.7" x2="234.1" y2="733"/>
+		<line class="st77" x1="266.4" y1="735.7" x2="266.4" y2="733"/>
+		<line class="st77" x1="298.7" y1="735.7" x2="298.7" y2="733"/>
+		<text transform="matrix(1 0 0 1 192.119 747.98)" class="st78 st63 st79">0.0</text>
+		<text transform="matrix(1 0 0 1 224.419 747.98)" class="st78 st63 st79">0.4</text>
+		<text transform="matrix(1 0 0 1 256.709 747.98)" class="st78 st63 st79">0.8</text>
+		<text transform="matrix(1 0 0 1 288.9991 747.98)" class="st78 st63 st79">1.2</text>
+		<line class="st77" x1="335.8" y1="735.7" x2="335.8" y2="733"/>
+		<line class="st77" x1="368.1" y1="735.7" x2="368.1" y2="733"/>
+		<line class="st77" x1="400.4" y1="735.7" x2="400.4" y2="733"/>
+		<line class="st77" x1="432.7" y1="735.7" x2="432.7" y2="733"/>
+		<text transform="matrix(1 0 0 1 326.0891 747.98)" class="st78 st63 st79">0.0</text>
+		<text transform="matrix(1 0 0 1 358.379 747.98)" class="st78 st63 st79">0.4</text>
+		<text transform="matrix(1 0 0 1 390.679 747.98)" class="st78 st63 st79">0.8</text>
+		<text transform="matrix(1 0 0 1 422.9691 747.98)" class="st78 st63 st79">1.2</text>
+		<line class="st77" x1="469.8" y1="735.7" x2="469.8" y2="733"/>
+		<line class="st77" x1="502.1" y1="735.7" x2="502.1" y2="733"/>
+		<line class="st77" x1="534.4" y1="735.7" x2="534.4" y2="733"/>
+		<line class="st77" x1="566.7" y1="735.7" x2="566.7" y2="733"/>
+		<text transform="matrix(1 0 0 1 460.0591 747.98)" class="st78 st63 st79">0.0</text>
+		<text transform="matrix(1 0 0 1 492.349 747.98)" class="st78 st63 st79">0.4</text>
+		<text transform="matrix(1 0 0 1 524.639 747.98)" class="st78 st63 st79">0.8</text>
+		<text transform="matrix(1 0 0 1 556.939 747.98)" class="st78 st63 st79">1.2</text>
+		<text transform="matrix(1 0 0 1 18.5398 253.91)" class="st78 st63 st80">WH</text>
+		<text transform="matrix(1 0 0 1 22.9686 244.04)" class="st78 st63 st80">A3</text>
+		<text transform="matrix(1 0 0 1 22.9686 234.18)" class="st78 st63 st80">A2</text>
+		<text transform="matrix(1 0 0 1 22.9686 224.32)" class="st78 st63 st80">A1</text>
+		<rect x="19.1" y="205.9" class="st61" width="16.1" height="11.8"/>
+		<text transform="matrix(1 0 0 1 19.0918 214.4497)" class="st78 st63 st80">MO</text>
+		<text transform="matrix(1 0 0 1 21.8602 204.59)" class="st78 st63 st80">LO</text>
+		<text transform="matrix(1 0 0 1 20.7518 194.72)" class="st78 st63 st80">SO</text>
+		<rect x="20.2" y="176.3" class="st61" width="15" height="11.8"/>
+		<text transform="matrix(1 0 0 1 20.2002 184.8594)" class="st78 st63 st80">MY</text>
+		<rect x="23.7" y="166.4" class="st61" width="12.2" height="11.8"/>
+		<text transform="matrix(1 0 0 1 23.7109 174.9897)" class="st78 st63 st80">LY</text>
+		<rect x="21.9" y="156.5" class="st61" width="13.3" height="11.8"/>
+		<text transform="matrix(1 0 0 1 21.8604 165.1294)" class="st78 st63 st80">S</text>
+		<text transform="matrix(1 0 0 1 20.7566 155.27)" class="st78 st63 st80">DH</text>
+		<text transform="matrix(1 0 0 1 22.4168 145.4)" class="st78 st63 st80">LH</text>
+		<text transform="matrix(1 0 0 1 19.6482 135.54)" class="st78 st63 st80">MC</text>
+		<text transform="matrix(1 0 0 1 22.4168 125.67)" class="st78 st63 st80">LC</text>
+		<text transform="matrix(1 0 0 1 21.3084 115.81)" class="st78 st63 st80">SC</text>
+		<text transform="matrix(1 0 0 1 21.3084 105.94)" class="st78 st63 st80">DB</text>
+		<rect x="20.2" y="87.5" class="st61" width="15" height="11.8"/>
+		<text transform="matrix(1 0 0 1 20.2 96.08)" class="st78 st63 st80">MB</text>
+		<text transform="matrix(1 0 0 1 22.9686 86.22)" class="st78 st63 st80">LB</text>
+		<text transform="matrix(1 0 0 1 21.8602 76.35)" class="st78 st63 st80">SB</text>
+		<text transform="matrix(1 0 0 1 19.6482 66.49)" class="st78 st63 st80">MR</text>
+		<text transform="matrix(1 0 0 1 22.4168 56.62)" class="st78 st63 st80">LR</text>
+		<line class="st77" x1="37.4" y1="250.3" x2="40.1" y2="250.3"/>
+		<line class="st77" x1="37.4" y1="240.5" x2="40.1" y2="240.5"/>
+		<line class="st77" x1="37.4" y1="230.6" x2="40.1" y2="230.6"/>
+		<line class="st77" x1="37.4" y1="220.7" x2="40.1" y2="220.7"/>
+		<line class="st77" x1="37.4" y1="210.9" x2="40.1" y2="210.9"/>
+		<line class="st77" x1="37.4" y1="201" x2="40.1" y2="201"/>
+		<line class="st77" x1="37.4" y1="191.1" x2="40.1" y2="191.1"/>
+		<line class="st77" x1="37.4" y1="181.3" x2="40.1" y2="181.3"/>
+		<line class="st77" x1="37.4" y1="171.4" x2="40.1" y2="171.4"/>
+		<line class="st77" x1="37.4" y1="161.5" x2="40.1" y2="161.5"/>
+		<line class="st77" x1="37.4" y1="151.7" x2="40.1" y2="151.7"/>
+		<line class="st77" x1="37.4" y1="141.8" x2="40.1" y2="141.8"/>
+		<line class="st77" x1="37.4" y1="131.9" x2="40.1" y2="131.9"/>
+		<line class="st77" x1="37.4" y1="122.1" x2="40.1" y2="122.1"/>
+		<line class="st77" x1="37.4" y1="112.2" x2="40.1" y2="112.2"/>
+		<line class="st77" x1="37.4" y1="102.3" x2="40.1" y2="102.3"/>
+		<line class="st77" x1="37.4" y1="92.5" x2="40.1" y2="92.5"/>
+		<line class="st77" x1="37.4" y1="82.6" x2="40.1" y2="82.6"/>
+		<line class="st77" x1="37.4" y1="72.8" x2="40.1" y2="72.8"/>
+		<line class="st77" x1="37.4" y1="62.9" x2="40.1" y2="62.9"/>
+		<line class="st77" x1="37.4" y1="53" x2="40.1" y2="53"/>
+		<text transform="matrix(1 0 0 1 18.5398 492.29)" class="st78 st63 st80">WH</text>
+		<text transform="matrix(1 0 0 1 22.9686 482.43)" class="st78 st63 st80">A3</text>
+		<text transform="matrix(1 0 0 1 22.9686 472.56)" class="st78 st63 st80">A2</text>
+		<text transform="matrix(1 0 0 1 22.9686 462.7)" class="st78 st63 st80">A1</text>
+		<rect x="19.1" y="444.2" class="st61" width="16.1" height="11.8"/>
+		<text transform="matrix(1 0 0 1 19.0918 452.8301)" class="st78 st63 st80">MO</text>
+		<text transform="matrix(1 0 0 1 21.8602 442.97)" class="st78 st63 st80">LO</text>
+		<text transform="matrix(1 0 0 1 20.7518 433.11)" class="st78 st63 st80">SO</text>
+		<rect x="20.2" y="414.7" class="st61" width="15" height="11.8"/>
+		<text transform="matrix(1 0 0 1 20.2002 423.2402)" class="st78 st63 st80">MY</text>
+		<rect x="23.7" y="404.8" class="st61" width="12.2" height="11.8"/>
+		<text transform="matrix(1 0 0 1 23.7109 413.3789)" class="st78 st63 st80">LY</text>
+		<rect x="21.9" y="394.9" class="st61" width="13.3" height="11.8"/>
+		<text transform="matrix(1 0 0 1 21.8604 403.5098)" class="st78 st63 st80">S</text>
+		<text transform="matrix(1 0 0 1 20.7566 393.65)" class="st78 st63 st80">DH</text>
+		<text transform="matrix(1 0 0 1 22.4168 383.78)" class="st78 st63 st80">LH</text>
+		<text transform="matrix(1 0 0 1 19.6482 373.92)" class="st78 st63 st80">MC</text>
+		<text transform="matrix(1 0 0 1 22.4168 364.05)" class="st78 st63 st80">LC</text>
+		<text transform="matrix(1 0 0 1 21.3084 354.19)" class="st78 st63 st80">SC</text>
+		<text transform="matrix(1 0 0 1 21.3084 344.33)" class="st78 st63 st80">DB</text>
+		<rect x="20.2" y="325.9" class="st61" width="15" height="11.8"/>
+		<text transform="matrix(1 0 0 1 20.2 334.46)" class="st78 st63 st80">MB</text>
+		<text transform="matrix(1 0 0 1 22.9686 324.6)" class="st78 st63 st80">LB</text>
+		<text transform="matrix(1 0 0 1 21.8602 314.73)" class="st78 st63 st80">SB</text>
+		<text transform="matrix(1 0 0 1 19.6482 304.87)" class="st78 st63 st80">MR</text>
+		<text transform="matrix(1 0 0 1 22.4168 295)" class="st78 st63 st80">LR</text>
+		<line class="st77" x1="37.4" y1="488.7" x2="40.1" y2="488.7"/>
+		<line class="st77" x1="37.4" y1="478.8" x2="40.1" y2="478.8"/>
+		<line class="st77" x1="37.4" y1="469" x2="40.1" y2="469"/>
+		<line class="st77" x1="37.4" y1="459.1" x2="40.1" y2="459.1"/>
+		<line class="st77" x1="37.4" y1="449.2" x2="40.1" y2="449.2"/>
+		<line class="st77" x1="37.4" y1="439.4" x2="40.1" y2="439.4"/>
+		<line class="st77" x1="37.4" y1="429.5" x2="40.1" y2="429.5"/>
+		<line class="st77" x1="37.4" y1="419.6" x2="40.1" y2="419.6"/>
+		<line class="st77" x1="37.4" y1="409.8" x2="40.1" y2="409.8"/>
+		<line class="st77" x1="37.4" y1="399.9" x2="40.1" y2="399.9"/>
+		<line class="st77" x1="37.4" y1="390.1" x2="40.1" y2="390.1"/>
+		<line class="st77" x1="37.4" y1="380.2" x2="40.1" y2="380.2"/>
+		<line class="st77" x1="37.4" y1="370.3" x2="40.1" y2="370.3"/>
+		<line class="st77" x1="37.4" y1="360.5" x2="40.1" y2="360.5"/>
+		<line class="st77" x1="37.4" y1="350.6" x2="40.1" y2="350.6"/>
+		<line class="st77" x1="37.4" y1="340.7" x2="40.1" y2="340.7"/>
+		<line class="st77" x1="37.4" y1="330.9" x2="40.1" y2="330.9"/>
+		<line class="st77" x1="37.4" y1="321" x2="40.1" y2="321"/>
+		<line class="st77" x1="37.4" y1="311.1" x2="40.1" y2="311.1"/>
+		<line class="st77" x1="37.4" y1="301.3" x2="40.1" y2="301.3"/>
+		<line class="st77" x1="37.4" y1="291.4" x2="40.1" y2="291.4"/>
+		<text transform="matrix(1 0 0 1 18.5398 730.67)" class="st78 st63 st80">WH</text>
+		<text transform="matrix(1 0 0 1 22.9686 720.81)" class="st78 st63 st80">A3</text>
+		<text transform="matrix(1 0 0 1 22.9686 710.94)" class="st78 st63 st80">A2</text>
+		<text transform="matrix(1 0 0 1 22.9686 701.08)" class="st78 st63 st80">A1</text>
+		<rect x="19.1" y="682.6" class="st61" width="16.1" height="11.8"/>
+		<text transform="matrix(1 0 0 1 19.0918 691.2188)" class="st78 st63 st80">MO</text>
+		<text transform="matrix(1 0 0 1 21.8602 681.35)" class="st78 st63 st80">LO</text>
+		<text transform="matrix(1 0 0 1 20.7518 671.49)" class="st78 st63 st80">SO</text>
+		<rect x="20.2" y="653" class="st61" width="15" height="11.8"/>
+		<text transform="matrix(1 0 0 1 20.2002 661.6191)" class="st78 st63 st80">MY</text>
+		<rect x="23.7" y="643.2" class="st61" width="12.2" height="11.8"/>
+		<text transform="matrix(1 0 0 1 23.7109 651.7598)" class="st78 st63 st80">LY</text>
+		<rect x="21.9" y="633.3" class="st61" width="13.3" height="11.8"/>
+		<text transform="matrix(1 0 0 1 21.8604 641.8887)" class="st78 st63 st80">S</text>
+		<text transform="matrix(1 0 0 1 20.7566 632.03)" class="st78 st63 st80">DH</text>
+		<text transform="matrix(1 0 0 1 22.4168 622.17)" class="st78 st63 st80">LH</text>
+		<text transform="matrix(1 0 0 1 19.6482 612.3)" class="st78 st63 st80">MC</text>
+		<text transform="matrix(1 0 0 1 22.4168 602.44)" class="st78 st63 st80">LC</text>
+		<text transform="matrix(1 0 0 1 21.3084 592.57)" class="st78 st63 st80">SC</text>
+		<text transform="matrix(1 0 0 1 21.3084 582.71)" class="st78 st63 st80">DB</text>
+		<rect x="20.2" y="564.3" class="st61" width="15" height="11.8"/>
+		<text transform="matrix(1 0 0 1 20.2 572.84)" class="st78 st63 st80">MB</text>
+		<text transform="matrix(1 0 0 1 22.9686 562.98)" class="st78 st63 st80">LB</text>
+		<text transform="matrix(1 0 0 1 21.8602 553.12)" class="st78 st63 st80">SB</text>
+		<text transform="matrix(1 0 0 1 19.6482 543.25)" class="st78 st63 st80">MR</text>
+		<text transform="matrix(1 0 0 1 22.4168 533.39)" class="st78 st63 st80">LR</text>
+		<line class="st77" x1="37.4" y1="727.1" x2="40.1" y2="727.1"/>
+		<line class="st77" x1="37.4" y1="717.2" x2="40.1" y2="717.2"/>
+		<line class="st77" x1="37.4" y1="707.4" x2="40.1" y2="707.4"/>
+		<line class="st77" x1="37.4" y1="697.5" x2="40.1" y2="697.5"/>
+		<line class="st77" x1="37.4" y1="687.6" x2="40.1" y2="687.6"/>
+		<line class="st77" x1="37.4" y1="677.8" x2="40.1" y2="677.8"/>
+		<line class="st77" x1="37.4" y1="667.9" x2="40.1" y2="667.9"/>
+		<line class="st77" x1="37.4" y1="658" x2="40.1" y2="658"/>
+		<line class="st77" x1="37.4" y1="648.2" x2="40.1" y2="648.2"/>
+		<line class="st77" x1="37.4" y1="638.3" x2="40.1" y2="638.3"/>
+		<line class="st77" x1="37.4" y1="628.4" x2="40.1" y2="628.4"/>
+		<line class="st77" x1="37.4" y1="618.6" x2="40.1" y2="618.6"/>
+		<line class="st77" x1="37.4" y1="608.7" x2="40.1" y2="608.7"/>
+		<line class="st77" x1="37.4" y1="598.8" x2="40.1" y2="598.8"/>
+		<line class="st77" x1="37.4" y1="589" x2="40.1" y2="589"/>
+		<line class="st77" x1="37.4" y1="579.1" x2="40.1" y2="579.1"/>
+		<line class="st77" x1="37.4" y1="569.2" x2="40.1" y2="569.2"/>
+		<line class="st77" x1="37.4" y1="559.4" x2="40.1" y2="559.4"/>
+		<line class="st77" x1="37.4" y1="549.5" x2="40.1" y2="549.5"/>
+		<line class="st77" x1="37.4" y1="539.7" x2="40.1" y2="539.7"/>
+		<line class="st77" x1="37.4" y1="529.8" x2="40.1" y2="529.8"/>
+		<text transform="matrix(1 0 0 1 18.5398 969.06)" class="st78 st63 st80">WH</text>
+		<text transform="matrix(1 0 0 1 22.9686 959.19)" class="st78 st63 st80">A3</text>
+		<text transform="matrix(1 0 0 1 22.9686 949.33)" class="st78 st63 st80">A2</text>
+		<text transform="matrix(1 0 0 1 22.9686 939.46)" class="st78 st63 st80">A1</text>
+		<rect x="19.1" y="921" class="st61" width="16.1" height="11.8"/>
+		<text transform="matrix(1 0 0 1 19.0918 929.5996)" class="st78 st63 st80">MO</text>
+		<text transform="matrix(1 0 0 1 21.8602 919.73)" class="st78 st63 st80">LO</text>
+		<text transform="matrix(1 0 0 1 20.7518 909.87)" class="st78 st63 st80">SO</text>
+		<rect x="20.2" y="891.4" class="st61" width="15" height="11.8"/>
+		<text transform="matrix(1 0 0 1 20.2002 900)" class="st78 st63 st80">MY</text>
+		<rect x="23.7" y="881.6" class="st61" width="12.2" height="11.8"/>
+		<text transform="matrix(1 0 0 1 23.7109 890.1387)" class="st78 st63 st80">LY</text>
+		<rect x="21.9" y="871.7" class="st61" width="13.3" height="11.8"/>
+		<text transform="matrix(1 0 0 1 21.8604 880.2793)" class="st78 st63 st80">S</text>
+		<text transform="matrix(1 0 0 1 20.7566 870.41)" class="st78 st63 st80">DH</text>
+		<text transform="matrix(1 0 0 1 22.4168 860.55)" class="st78 st63 st80">LH</text>
+		<text transform="matrix(1 0 0 1 19.6482 850.68)" class="st78 st63 st80">MC</text>
+		<text transform="matrix(1 0 0 1 22.4168 840.82)" class="st78 st63 st80">LC</text>
+		<text transform="matrix(1 0 0 1 21.3084 830.95)" class="st78 st63 st80">SC</text>
+		<text transform="matrix(1 0 0 1 21.3084 821.09)" class="st78 st63 st80">DB</text>
+		<rect x="20.2" y="802.6" class="st61" width="15" height="11.8"/>
+		<text transform="matrix(1 0 0 1 20.2 811.23)" class="st78 st63 st80">MB</text>
+		<text transform="matrix(1 0 0 1 22.9686 801.36)" class="st78 st63 st80">LB</text>
+		<text transform="matrix(1 0 0 1 21.8602 791.5)" class="st78 st63 st80">SB</text>
+		<text transform="matrix(1 0 0 1 19.6482 781.63)" class="st78 st63 st80">MR</text>
+		<text transform="matrix(1 0 0 1 22.4168 771.77)" class="st78 st63 st80">LR</text>
+		<line class="st77" x1="37.4" y1="965.5" x2="40.1" y2="965.5"/>
+		<line class="st77" x1="37.4" y1="955.6" x2="40.1" y2="955.6"/>
+		<line class="st77" x1="37.4" y1="945.7" x2="40.1" y2="945.7"/>
+		<line class="st77" x1="37.4" y1="935.9" x2="40.1" y2="935.9"/>
+		<line class="st77" x1="37.4" y1="926" x2="40.1" y2="926"/>
+		<line class="st77" x1="37.4" y1="916.1" x2="40.1" y2="916.1"/>
+		<line class="st77" x1="37.4" y1="906.3" x2="40.1" y2="906.3"/>
+		<line class="st77" x1="37.4" y1="896.4" x2="40.1" y2="896.4"/>
+		<line class="st77" x1="37.4" y1="886.5" x2="40.1" y2="886.5"/>
+		<line class="st77" x1="37.4" y1="876.7" x2="40.1" y2="876.7"/>
+		<line class="st77" x1="37.4" y1="866.8" x2="40.1" y2="866.8"/>
+		<line class="st77" x1="37.4" y1="857" x2="40.1" y2="857"/>
+		<line class="st77" x1="37.4" y1="847.1" x2="40.1" y2="847.1"/>
+		<line class="st77" x1="37.4" y1="837.2" x2="40.1" y2="837.2"/>
+		<line class="st77" x1="37.4" y1="827.4" x2="40.1" y2="827.4"/>
+		<line class="st77" x1="37.4" y1="817.5" x2="40.1" y2="817.5"/>
+		<line class="st77" x1="37.4" y1="807.6" x2="40.1" y2="807.6"/>
+		<line class="st77" x1="37.4" y1="797.8" x2="40.1" y2="797.8"/>
+		<line class="st77" x1="37.4" y1="787.9" x2="40.1" y2="787.9"/>
+		<line class="st77" x1="37.4" y1="778" x2="40.1" y2="778"/>
+		<line class="st77" x1="37.4" y1="768.2" x2="40.1" y2="768.2"/>
+		<rect x="3.9" y="497.3" class="st61" width="13" height="23.9"/>
+		<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 13.3672 521.1768)" class="st63 st81">code</text>
+	</g>
+</g>
+<g>
+	<g>
+		<path class="st82" d="M201.7,740.3c1.5,34.9,15,63.4,37.4,72.5c4.3,1.7,9.7,3.1,16.3,3.1c10.9,0,21.8,0,32.6,0"/>
+		<g>
+			<polygon class="st83" points="198,741.5 201.6,734.9 205.5,741.3 			"/>
+		</g>
+	</g>
+</g>
+<text transform="matrix(1 0 0 1 290.5108 817.6443)" class="st84 st85">mean(mdg) - mean(usa) = 0</text>
+</svg>

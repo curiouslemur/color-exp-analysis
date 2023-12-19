@@ -187,17 +187,25 @@ t.res$code = fct_rev(factor(t.res$code, levels = color_codes))
 t.res <- t.res %>% mutate(ciColor = if_else(p.value <= 0.05, hex, 'black'))
 
 
-r <- t.res %>% ggplot(aes(code, meanDiff, color = ciColor)) + 
+r <- t.res %>% 
+  filter(p.value <= 0.05) %>%
+  ggplot(aes(code, meanDiff, color = ciColor)) + 
   geom_pointrange(aes(ymin = lci, ymax = uci)) +
-  geom_hline(yintercept = 0, color = 'red') +
+  geom_hline(yintercept = 0, color = 'gray') +
   scale_color_identity() +
   coord_flip() + 
   facet_wrap(.~factor(concept, levels=conceptList)) + 
-  theme(panel.background = element_rect(fill = "white"))+
+  theme(
+        # panel.background = element_rect(fill = "#e0dede"),
+        axis.text.x = element_text(size = 14),
+        axis.text.y = element_text(size = 11),
+        strip.text = element_text(size = 16))+
   ggtitle("95% CI for the difference between the mean for MDG - USA"); r
 ```
 ```{r eval=FALSE}
 ggsave(file="./fig/ci-mean-diff.png", plot = r, width=16, height=22)
+ggsave(file="./fig/ci-mean-diff.svg", plot = r, width=10, height=14)
+
 ```
 
 ```{r DELETEME}
