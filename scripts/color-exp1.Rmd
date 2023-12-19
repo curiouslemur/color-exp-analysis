@@ -151,11 +151,12 @@ t.res <- df_pivot %>% group_by(concept, code) %>%
             p.value = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$p.value, digits = 4),
             lci = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$conf.int[1], digits = 4),
             uci = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$conf.int[2], digits = 4),
-            meanX = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$estimate[1], digits = 4),
-            meanY = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$estimate[2], digits = 4),
+            meanMdg = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$estimate[1], digits = 4),
+            meanUsa = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$estimate[2], digits = 4),
             .groups = 'drop')
 
 t.res <- full_join(t.res, bcp37, by = 'code')
+t.res$meanDiff <- t.res$meanMdg - t.res$meanUsa
 # t.test(as.vector(unlist(df_pivot$mdg[1])), as.vector(unlist(df_pivot$usa[1])))
 # a <- apply(df_pivot[,3:4], c(1,2), function(x){as.vector(unlist(x))})
 
@@ -182,7 +183,21 @@ t.res <- full_join(t.res, bcp37, by = 'code')
 t.res.sig <- filter(t.res, p.value <= 0.05)
 
 ## Plotting
+t.res$code = fct_rev(factor(t.res$code, levels = color_codes))
+t.res <- t.res %>% mutate(ciColor = if_else(p.value <= 0.05, hex, 'black'))
 
+
+r <- t.res %>% ggplot(aes(code, meanDiff, color = ciColor)) + 
+  geom_pointrange(aes(ymin = lci, ymax = uci)) +
+  geom_hline(yintercept = 0, color = 'red') +
+  scale_color_identity() +
+  coord_flip() + 
+  facet_wrap(.~factor(concept, levels=conceptList)) + 
+  theme(panel.background = element_rect(fill = "white"))+
+  ggtitle("95% CI for the difference between the mean for MDG - USA"); r
+```
+```{r eval=FALSE}
+ggsave(file="./fig/ci-mean-diff.png", plot = r, width=16, height=22)
 ```
 
 ```{r DELETEME}
