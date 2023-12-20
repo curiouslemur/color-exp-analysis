@@ -19,60 +19,48 @@ theme_studyBackground <- function(){
         panel.grid.minor = element_line(size = 0.5, linetype = 'dotted', colour = "#79797a")) 
 }
 
-#### ---------- Boostrap CI functions centered on refCountry
-# Params:
-## data: the data for one country
-getMinDiffData <- function(data, conceptList, country, countryRef){ 
-  a = data.frame()
-  for (i in 1:length(conceptList)){
-    # print(i)
-    dataTmpCountry <- filter(data, concept == conceptList[i])
-    dataTmpCountryRef <- filter(en3, wepEn == dataTmpLang$wepEn[1])
-    
-    ciTmp1 = boot.ci(boot(data=dataTmpLang$val, statistic=mean.fun, R=1000, sim="ordinary"))
-    ciTmp2 = data.frame(y = var(dataTmpLang$val),
-                        ymin = round( ciTmp1$bca[,4] , 2),
-                        ymax = round( ciTmp1$bca[,5] , 2))
-    
-    aTmp <- data.frame(
-      wep = wepList[i],
-      wepEn = dataTmpLang$wepEn[1],
-      meanLang = mean(dataTmpLang$val),
-      meanEn = mean(dataTmpEn$val),
-      ymin = ciTmp2$ymin- mean(dataTmpEn$val),
-      ymax = ciTmp2$ymax- mean(dataTmpEn$val)
-    )
-    a <- rbind(a, aTmp)
+#### ---------- Get the correlation matrix for each pair of concept within the same category
+##### Params: data: dataframe: | category | concept | code | mean.rating |
+within_cat_corr <- function (df_cat, category){
+  # category = "emotion"
+  df_cat_ <- df_cat %>% filter(cat == category) 
+  df_cat_conc <- unique(df_cat_$concept)
+  
+  ## building pivoted dataframe | cat | code | angry | happy | love | sad |
+  df_cat_ <- df_cat_ %>% 
+    pivot_wider(id_cols = c("cat", "code"), names_from = "concept", values_from = "mean_rating")
+  
+  #### calculating pairwise correlations within a category
+  df_cat_ <- df_cat_ %>% select(all_of(df_cat_conc))
+  num_cols <- ncol(df_cat_)
+  df_cat_ <- as.data.frame(df_cat_)
+  # Create an empty matrix to store p-values
+  p_values <- matrix(NA, nrow = num_cols, ncol = num_cols)
+  
+  # Loop through each pair of columns
+  for (i in 1:(num_cols - 1)) {
+    for (j in (i + 1):num_cols) {
+      # Calculate correlation test
+      correlation_test <- cor.test(df_cat_[, i], df_cat_[, j])
+      
+      # Store the p-value
+      p_values[i, j] <- correlation_test$p.value
+      p_values[j, i] <- correlation_test$p.value
+    }
   }
-  a$meanDiff <- a$meanLang - a$meanEn
-  a$lang <- language
-  return(a)
-}
-
-#### ---------- Boostrap CI functions centered on English - FROM Language exp. w2v word2vis
-getMinDiffData <- function(data, wepList, language){
-  a = data.frame()
-  for (i in 1:length(wepList)){
-    # print(i)
-    dataTmpLang <- filter(data, wep == wepList[i])
-    dataTmpEn <- filter(en3, wepEn == dataTmpLang$wepEn[1])
-    
-    ciTmp1 = boot.ci(boot(data=dataTmpLang$val, statistic=mean.fun, R=1000, sim="ordinary"))
-    ciTmp2 = data.frame(y = var(dataTmpLang$val),
-                        ymin = round( ciTmp1$bca[,4] , 2),
-                        ymax = round( ciTmp1$bca[,5] , 2))
-    
-    aTmp <- data.frame(
-      wep = wepList[i],
-      wepEn = dataTmpLang$wepEn[1],
-      meanLang = mean(dataTmpLang$val),
-      meanEn = mean(dataTmpEn$val),
-      ymin = ciTmp2$ymin- mean(dataTmpEn$val),
-      ymax = ciTmp2$ymax- mean(dataTmpEn$val)
-    )
-    a <- rbind(a, aTmp)
-  }
-  a$meanDiff <- a$meanLang - a$meanEn
-  a$lang <- language
-  return(a)
+  
+  # Apply Bonferroni correction
+  adjusted_p_values <- p.adjust(as.vector(p_values), method = "bonferroni")
+  
+  # Reshape the adjusted p-values to a matrix
+  adjusted_p_matrix <- matrix(adjusted_p_values, nrow = num_cols, ncol = num_cols)
+  
+  # Print the correlation matrix and adjusted p-values
+  print("Correlation Matrix:")
+  print(cor(df_cat_))
+  
+  print("----------------------------------")
+  
+  print("Adjusted P-values (Bonferroni Correction):")
+  print(adjusted_p_matrix)
 }

@@ -39,7 +39,7 @@ df_weights <- full_join(df_weights, bcp37, by = "code")
 ### Concepts' weights and ratings
 ##### Mean color-concept association ratings for 16 concepts.
 
-- *Bars ordered by color names*
+- *Bars sorted by color names*
 ```{r using tidytext - bars ordered by color codes + error bars}
 # error bars are +/- standard errors of the means: se = sd(rating/sqrt(length(rating)))
 
@@ -52,8 +52,7 @@ ggplot(aes(x = code, y = weight, fill = hex)) +
     scale_fill_identity()+ 
     scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
     # facet_wrap(~concept+expCountry, scales = "free_x", ncol = 2, strip.position = 'right') +
-    # facet_grid(rows = vars(concept))+
-    facet_grid(concept ~ expCountry)+
+    facet_grid(factor(concept, levels=conceptList) ~ expCountry)+
     labs(title = "mean color-concept assoc. ratings (14 participants 7/7 - library: BCP-37)", x = "", ) +
     theme_bw() +
     theme(legend.position = "none", strip.text = element_text(size = 12)); plot
@@ -62,19 +61,18 @@ ggplot(aes(x = code, y = weight, fill = hex)) +
 ggsave(file="./fig/20231214-weights-err-bars.png", plot = plot, width=10, height=16)
 ```
 
-- *Bars ordered by increasing rating*
+- *Bars sorted by increasing rating*
 ```{r using tidytext - bars ordered by weight ratings}
 plot <- df_weights %>%
   # filter(concept %in% c("carrot","justice", "comfort", 'peace')) %>%
   filter(expCountry == 'mdg') %>%
-ggplot(aes(x = reorder_within(code, weight, concept), y = weight, fill = code)) + # reoder color codes BY weight WITHIN each concept
+ggplot(aes(x = reorder_within(code, weight, concept), y = weight, fill = hex)) + # reoder color codes BY weight WITHIN each concept
     geom_bar(stat = 'identity', color = 'black', width = 0.95, size = 0.25) + 
     scale_x_reordered() +
-    scale_fill_manual(values = df_weights$hex) + 
+    scale_fill_identity() +
     scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
-    # facet_wrap(expCountry~concept, scales = "free_x", ncol = 1, strip.position = 'right') +
-    facet_wrap( ~concept, scales = 'free_x', ncol = 4, strip.position = 'top') + 
-    # facet_grid( concept~expCountry, scales = 'free_x') +
+  # facet_grid(factor(concept, levels=conceptList) ~ expCountry)+
+    facet_wrap( ~factor(concept, levels=conceptList), scales = 'free_x', ncol = 4, strip.position = 'top') +
     labs(title = "mean color-concept association ratings (14 participants)", x = "color code in the BCP-37 library", ) +
     theme_bw() +
     theme(legend.position = "none"); plot
@@ -112,7 +110,7 @@ ggsave(file="./fig/ci-weights.png", plot = p, width=18, height=20)
 ```
 
 Comparing ratings between the two languages in overlapping 95% CI
-```{r}
+```{r echo=FALSE}
 q <- en_debug %>% 
   # filter(concept %in% c("banana", "peace")) %>%
   ggplot(aes(code, rating, color = expCountry)) +
@@ -133,7 +131,7 @@ ggsave(file="./fig/ci-weights-comparison.png", plot = q, width=16, height=22)
 ```
 
 Comparing the differences between the means (t-test at conf.level = 0.95)
-```{r}
+```{r echo=FALSE}
 # working with df (a subset of en_debug)
 
 ## pivot df_weights to separate weight for each country into two columns
@@ -193,22 +191,47 @@ r <- t.res %>%
   geom_pointrange(aes(ymin = lci, ymax = uci)) +
   geom_hline(yintercept = 0, color = 'gray') +
   scale_color_identity() +
+  scale_y_continuous(limits = c(-1.5,1.5)) +
   coord_flip() + 
   facet_wrap(.~factor(concept, levels=conceptList)) + 
   theme(
         # panel.background = element_rect(fill = "#e0dede"),
         axis.text.x = element_text(size = 14),
-        axis.text.y = element_text(size = 11),
+        axis.text.y = element_text(size = 10),
         strip.text = element_text(size = 16))+
-  ggtitle("95% CI for the difference between the mean for MDG - USA"); r
+  labs(title ="95% CI for the difference between the mean for MDG - USA", y = "", x = "color code in BCP37 library"); r
 ```
 ```{r eval=FALSE}
 ggsave(file="./fig/ci-mean-diff.png", plot = r, width=16, height=22)
-ggsave(file="./fig/ci-mean-diff.svg", plot = r, width=10, height=14)
-
+ggsave(file="./fig/ci-mean-diff.svg", plot = r, width=8, height=14)
 ```
 
+### Comparison within category
+```{r}
+## Adding categories to dataset then computing the average of each colors for each category
+## since the number of entries for each color in a concept is not the same,
+## we use a temporary solution in which we work with the mean rating for each colors
+
+df_cat <- df %>% mutate(
+  cat = case_when(
+    concept %in% c('angry', 'happy', 'love', 'sad') ~ 'emotion',
+    concept %in% c("banana", "carrot", 'mango', 'peach') ~ 'food',
+    concept %in% c('comfort', 'justice', 'peace', 'safety') ~ 'abstract',
+    concept %in% c('drought', 'hurricane', 'lightning', 'sandstorm') ~ 'weather')) %>%
+  group_by(cat, concept, code) %>% 
+    summarise(mean_rating = round(mean(rating), digits = 4), .groups = 'drop')
+
+
+within_cat_corr(df_cat, 'emotion')
+within_cat_corr(df_cat, 'food')
+within_cat_corr(df_cat, 'abstract')
+within_cat_corr(df_cat, 'weather')
+```
+
+
 ```{r DELETEME}
+
+
 ```
 
 ```{ barplot default (code names ordered alphabetically)}
