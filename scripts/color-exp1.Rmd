@@ -186,7 +186,7 @@ t.res <- t.res %>% mutate(ciColor = if_else(p.value <= 0.05, hex, 'black'))
 
 
 r <- t.res %>% 
-  filter(p.value <= 0.05) %>%
+  # filter(p.value <= 0.05) %>%
   ggplot(aes(code, meanDiff, color = ciColor)) + 
   geom_pointrange(aes(ymin = lci, ymax = uci)) +
   geom_hline(yintercept = 0, color = 'gray') +
@@ -218,14 +218,15 @@ df_cat <- df %>% mutate(
     concept %in% c("banana", "carrot", 'mango', 'peach') ~ 'food',
     concept %in% c('comfort', 'justice', 'peace', 'safety') ~ 'abstract',
     concept %in% c('drought', 'hurricane', 'lightning', 'sandstorm') ~ 'weather')) %>%
-  group_by(cat, concept, code) %>% 
+  group_by(expCountry, cat, concept, code) %>% 
     summarise(mean_rating = round(mean(rating), digits = 4), .groups = 'drop')
 
-
-within_cat_corr(df_cat, 'emotion')
-within_cat_corr(df_cat, 'food')
-within_cat_corr(df_cat, 'abstract')
-within_cat_corr(df_cat, 'weather')
+### MADAGASCAR
+df_cat.mg <- filter(df_cat, expCountry == "mdg")
+within_cat_corr(df_cat.mg, 'emotion')
+within_cat_corr(df_cat.mg, 'food')
+within_cat_corr(df_cat.mg, 'abstract')
+within_cat_corr(df_cat.mg, 'weather')
 ```
 
 
