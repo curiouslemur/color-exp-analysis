@@ -1,0 +1,32 @@
+---
+title: "mixed-design analysis"
+output: html_document
+date: "2024-02-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(lme4)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+# Using the data from Pilot #2
+# source: CG "color analysis" from feb.14
+df <- as.data.frame(df)
+# Run data-prep2 chunk from exp1-p2.Rmd
+model <- lmer(rating ~ country * color * concept + (1|ID), data = df)
+
+model2 <- lmer(rating ~ country + (country | ID), data = df)
+summary(model2)
+```
+
+```{r alternative}
+# design:
+# Factor association: 592 levels
+# independent variable: association
+# dependent variable: rating
+# 
+```
+

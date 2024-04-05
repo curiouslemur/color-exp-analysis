@@ -1,0 +1,221 @@
+---
+title: "exp1-pilot study #1"
+output: html_document
+date: "2024-01-27"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source(file = './utils/exp1-utils.R')  # loads all necessary packages //NOTE: some packages
+source(file = './utils/stimuli.R')
+
+```
+
+#### Analysis of pilot study 1
+```{r load-p1-data}
+## usdf / mgdf: datasets from us and mg participants respectively
+us_dem <- read_csv("data/exp1/csv/us-20240130-dem.csv") %>% filter(sessionID != "2024124-1929-46311")
+usdf <- read_csv("data/exp1/csv/us-20240130.csv") %>% filter(ID != "2024124-1929-46311")
+usdf$expCountry <- "usa"
+usdf$concept <- tolower(usdf$concept)
+usdf$rating <- round(usdf$ans/100, digits = 2)
+usdf <- usdf %>% select(concept, color, ans, expCountry, rating)
+usdf_w <- usdf %>% group_by(concept, color) %>% summarize(
+  weight = round(mean(rating), digits = 2),
+  se = round(sd(rating)/sqrt(length(rating)), digits = 2)) # standard error
+usdf_w$expCountry <- "usa"
+usdf_w <- full_join(usdf_w, bcp37hex, by = "color")
+
+#----------
+mg_dem <- read_csv("data/exp1/csv/mg-20240130-dem.csv") 
+mgdf <- read_csv("data/exp1/csv/mg-20240130.csv") %>% rename(conceptFr = concept) 
+mgdf$expCountry <- 'mdg'
+mgdf$conceptFr <- tolower(mgdf$conceptFr)
+mgdf$concept <- conceptListEn1[match(mgdf$conceptFr, conceptListFr1)] # replacing the concepts with their English name
+mgdf$conceptFr <- NULL
+mgdf$rating <- round(mgdf$ans/100, digits = 2) 
+mgdf <- mgdf %>% select(concept, color, ans, expCountry, rating)
+mgdf_w <- mgdf %>% group_by(concept, color) %>% summarize(
+  weight = round(mean(rating), digits = 2),
+  se = round(sd(rating)/sqrt(length(rating)), digits = 2)) # standard error
+mgdf_w$expCountry <- 'mdg'
+mgdf_w <- full_join(mgdf_w, bcp37hex, by = "color")
+
+#----------
+df <- rbind(mgdf_w, usdf_w)
+```
+
+### Concepts' weights and ratings
+##### Mean color-concept association ratings for 16 concepts.
+
+```{r, fig.height=16}
+df$color = fct_rev(factor(df$color, levels = color_codes))
+plot <- df %>%
+ggplot(aes(x = color, y = weight, fill = hex)) + 
+    geom_bar(stat = 'identity', color = 'black',size = 0.15, width = 0.985) + 
+    geom_errorbar( aes(x=color, ymin=weight-se, ymax=weight+se), width=0.4, colour="black", alpha=0.6, size=0.25)+
+    scale_fill_identity()+ 
+    scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+    facet_grid(factor(concept, levels=sort(conceptListEn1)) ~ expCountry)+
+    labs(title = "mean color-concept assoc. ratings (5 US participants - library: BCP-37)", x = "", ) +
+    theme_bw() +
+    theme(legend.position = "none", strip.text = element_text(size = 12)); plot
+```
+
+```{r eval=FALSE}
+ggsave(file="./fig/p1-weight.png", plot = plot, width=10, height=16)
+```
+
+### Merging datasets
+```{r merging data, eval=FALSE}
+# merging with previous data (first, run the `Data prep` chunk in exp1-p0.Rmd)
+df_prev <- df0 %>% rename(ans=answer)
+
+<<load-p1-data >>
+df_merged01 <- rbind(df_prev, mgdf, usdf)
+df_merged01_w <- df_merged01 %>% group_by(expCountry, concept, color) %>% summarize(
+  weight = round(mean(rating), digits = 2),
+  se = round(sd(rating)/sqrt(length(rating)), digits = 2))
+df_merged01_w <- full_join(df_merged01_w, bcp37hex, by = "color")
+
+
+df_merged01_w$color = fct_rev(factor(df_merged01_w$color, levels = color_codes))
+# df_merged01_w$concept = factor(df_merged01$concept, levels = conceptListEn)
+  
+plot_m <- df_merged01_w %>%
+ggplot(aes(x = color, y = weight, fill = hex)) + 
+    geom_bar(stat = 'identity', color = 'black',size = 0.15, width = 0.985) + 
+    geom_errorbar( aes(x=color, ymin=weight-se, ymax=weight+se), width=0.4, colour="black", alpha=0.6, size=0.25)+
+    scale_fill_identity()+ 
+    scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+    facet_grid(factor(concept, levels=conceptListEn1) ~ expCountry)+
+    labs(title = "[Pilot 1] Mean color-concept assoc. ratings", x = "", ) +
+    theme_bw() +
+    theme(legend.position = "none", strip.text = element_text(size = 12)); plot_m
+```
+
+```{r eval=FALSE}
+ggsave(file="./fig/p0p1-merged-weight.png", plot = plot_m, width=10, height=16)
+```
+
+Comparing the differences between the means (t-test at conf.level = 0.95)
+```{r echo=FALSE}
+## pivot df_weights to separate weight for each country into two columns
+## Note: This might not be the right model since the design is mixed-design anova. 
+
+allDf <- df_merged # testing on the merged dataset
+# allDf <- rbind(usdf, mgdf)
+df_pivot <- pivot_wider(
+  data = allDf,
+  id_cols = c("concept", "color"),
+  names_from = "expCountry",
+  values_from = "rating"
+)
+
+# here in t.test(x,y): x are scores for MDG and y are scores for USA
+t.res <- df_pivot %>% group_by(concept, color) %>% 
+  summarise(t = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$statistic, digits = 4),
+            df = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$parameter, digits = 4),
+            p.value = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$p.value, digits = 4),
+            lci = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$conf.int[1], digits = 4),
+            uci = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$conf.int[2], digits = 4),
+            meanMdg = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$estimate[1], digits = 4),
+            meanUsa = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$estimate[2], digits = 4),
+            .groups = 'drop')
+
+t.res <- full_join(t.res, bcp37hex, by = 'color')
+t.res$meanDiff <- t.res$meanMdg - t.res$meanUsa
+# t.test(as.vector(unlist(df_pivot$mdg[1])), as.vector(unlist(df_pivot$usa[1])))
+# a <- apply(df_pivot[,3:4], c(1,2), function(x){as.vector(unlist(x))})
+
+## Concepts and codes for which the t.test results are significant
+t.res.sig <- filter(t.res, p.value <= 0.05)
+
+## Plotting
+t.res$color = fct_rev(factor(t.res$color, levels = color_codes))
+t.res <- t.res %>% mutate(ciColor = if_else(p.value <= 0.05, hex, '#ffffff55'))
+
+
+r <- t.res %>% 
+  # filter(p.value <= 0.05) %>%
+  ggplot(aes(color, meanDiff, color = ciColor)) +
+  # ggplot(aes(color, meanDiff, color = hex)) + 
+
+  geom_pointrange(aes(ymin = lci, ymax = uci)) +
+  geom_hline(yintercept = 0, color = 'gray') +
+  scale_color_identity() +
+  scale_y_continuous(limits = c(-1.5,1.5)) +
+  coord_flip() + 
+  facet_wrap(.~factor(concept, levels=conceptListEn1)) + 
+  theme(
+        # panel.background = element_rect(fill = "#e0dede"),
+        axis.text.x = element_text(size = 14),
+        axis.text.y = element_text(size = 10),
+        strip.text = element_text(size = 16))+
+  labs(title ="95% CI for the difference between the mean for MDG - USA: p0 & p1", y = "", x = "color code in BCP37 library"); r
+```
+
+```{r eval=FALSE}
+ggsave(file="./fig/p0p1-merged-ci-diff.png", plot = r, width=8, height=14)
+```
+
+
+### Power analysis
+```{r}
+# testing for the concept 'hurricane' and color 'SB'
+us <- read_csv("data/exp1/csv/en-20240127.csv") %>% filter(ID != "2024124-1929-46311")
+us$concept <- tolower(us$concept) 
+us <- us %>% select(color, concept, ans, ID)
+us$expCountry <- "usa"
+
+mg <- read_csv("data/exp1/csv/en-20231214-debug.csv") 
+mg_dem <- read_csv("data/exp1/csv/en-20231214-debrief.csv") %>% select(ID, expCountry)
+mg <- left_join(mg, mg_dem, by = "ID")%>% filter(ID %in% c("20231211-1912-ABS-u9w9ligm", "20231211-1930-CON-p62b79i1", "20231211-2207-ABS-q1tlbp9j", "20231213-1550-ABS-4h1cbhlp", "20231214-1048-ABS-9ftksioj"))
+mg <- mg %>% rename(ans = answer) %>% select(color, concept, ans, ID)
+mg$expCountry <- "mdg"
+
+df <- rbind(mg, us)
+
+## Power analysis (rec: CG)
+install.packages("lme4", type = "source")
+
+# Assuming 'data' is your data frame with appropriate column names
+model <- lmer(ans ~ expCountry + (1|ID) + (1|concept), data = df)
+
+pwr.anova.test(k=16, f = 0.00008, sig.level = 0.05, power = 0.8)
+
+ezANOVA(df, dv = ans, wid = ID, type = 1, within = .(concept, color), between = expCountry)
+```
+
+
+### Power analysis for t.test (cont. of above)
+```{r}
+dft <- df %>% filter(color == "SB", concept == "love")
+dft <- data.frame(mg = filter(dft, expCountry == "mdg")$ans, us = filter(dft, expCountry == "usa")$ans)
+
+# effect size
+# library(effectsize)
+# cohens_d(mg ~ us, data = dft )
+
+sd_pooled = sqrt((sd(dft$mg)^2 + sd(dft$us)^2)/2)
+d = (mean(dft$mg) - mean(dft$us)) / sd_pooled; d
+
+# Assumption verification
+library(ggpubr)
+ggqqplot(dft$mg)
+shapiro.test(dft$mg)
+ggdensity(dft$mg)
+
+pwr.t.test(d = d, sig.level = 0.05, power = 0.8, type = "two.sample")
+
+wilcox.test( ans ~ expCountry, data = dft)
+# ==> n = 10 participants in each group
+```
+
+### Power analysis for anova (cont. of above)
+```{r}
+# ref. https://med.und.edu/research/daccota/_files/pdfs/berdc_resource_pdfs/sample_size_r_module.pdf
+
+
+```
+

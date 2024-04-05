@@ -16,17 +16,41 @@ color_codes <- c("SR", "LR", "MR", "DR", "SP", "LP", "MP", "DP", "SB", "LB", "MB
 bcp37 <- read_csv("./utils/color_values_bcp37.csv")[1:37,] # color values for the bcp color library
 # white RGB is replace with (0, 0, 255) temporarily for plotting
 
+bcp37hex <- select(bcp37,color, hex)
 ### >>>>>>>> This is a temporary measure
-bcp37$R[bcp37$R > 255] <- 255; bcp37$R[bcp37$R < 0] <- 0;
-bcp37$G[bcp37$G > 255] <- 255; bcp37$B[bcp37$B > 255] <- 255
-### <<<<<<<< 
+# bcp37$R[bcp37$R > 255] <- 255; bcp37$R[bcp37$R < 0] <- 0;
+# bcp37$G[bcp37$G > 255] <- 255; bcp37$B[bcp37$B > 255] <- 255
+# ### <<<<<<<< 
+# 
+# bcp37$hex <- rgb(bcp37$R, bcp37$G, bcp37$B, maxColorValue = 255)
+# bcp37 <- bcp37 %>% select(colorName, code, hex)
+# 
+# backgroundColor <- "#79797a"
+##### List of concepts used for pilot study #1
+conceptListEn1 <- c(
+  "banana", "carrot", "mango", "peach",
+  "comfort", "justice", "peace", "safety",
+  "angry", "happy", "love", "sad",
+  "drought", "hurricane", "lightning", "sandstorm"
+)
 
-bcp37$hex <- rgb(bcp37$R, bcp37$G, bcp37$B, maxColorValue = 255)
-bcp37 <- bcp37 %>% select(colorName, code, hex)
+conceptListFr1 <- c( 
+  'banane', 'carotte', 'mangue', 'pêche', 
+  'confort', 'justice', 'paix', 'sécurité',
+  'en colère', 'heureux', 'amour',  'triste',
+  'sécheresse', 'ouragan', 'foudre', 'tempête de sable')
 
-backgroundColor <- "#79797a"
 
-conceptList<- c("angry", "happy", "love", "sad", 
-                  "banana", "carrot", "mango", "peach",
-                  "comfort", "justice", "peace", "safety",
-                  "drought", "hurricane", "lightning", "sandstorm")
+##### List of concepts used for pilot study #2
+conceptListEn2 <- c(
+  "banana", "spices", "mango", "peach",
+  "life", "justice", "peace", "death",
+  "angry", "happy", "love", "sad",
+  "drought", "tree", "healthy", "sick"
+)
+
+conceptListFr2 <- c( 
+  'banane', 'épices', 'mangue', 'pêche', 
+  'vie', 'justice', 'paix', 'mort',
+  'en colère', 'heureux', 'amour',  'triste',
+  'sécheresse', 'arbre', 'en bonne santé', 'malade')

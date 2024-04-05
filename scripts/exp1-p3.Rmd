@@ -1,0 +1,24 @@
+---
+title: "exp1-p3"
+output: html_document
+date: "2024-04-04"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source(file = './utils/exp1-utils.R')  # loads all necessary packages 
+source(file = './utils/stimuli.R')
+```
+
+#### Analysis of scaled data collection
+n = 50
+
+```{r data-prep2}
+mg_dem <- read_csv("data/exp1/csv/clean/mg-dem.csv") %>% 
+  filter(expCountry == "mdg3", progressBlock == 14, progressColor == 37)
+
+mgdf <- read_csv("data/exp1/csv/clean/mg.csv") %>% 
+  filter(expCountry == "mdg3", ID %in% unique(mg_dem$sessionID)) 
+
+```
+

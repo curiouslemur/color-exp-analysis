@@ -1,8 +1,10 @@
-# library(tidyverse)
-# library(dplyr)
+library(tidyverse)
+library(dplyr)
 # library(RColorBrewer)
 # library(readr)
 # library(tidytext)
+library(lme4)
+library(pwr)
 
 # install.packages("pacman")
 
@@ -63,4 +65,66 @@ within_cat_corr <- function (df_cat, category){
   
   print("Adjusted P-values (Bonferroni Correction):")
   print(adjusted_p_matrix)
+}
+
+
+#### ---------- Comparing the differences between the means of each groups across concepts and colors (t-test at conf.level = 0.95)
+##### Params -- data: dataframe with at least these col: color, ans, concept, country, rating
+#####        -- conceptListEn: List of concepts to use for facet_wrap
+
+ci_t.test <- function (data, conceptListEn, title ) {
+  allDf <- data 
+  
+  ## pivot df_weights to separate weight for each country into two columns
+  ## Note: This might not be the right model since the design is mixed-design anova. 
+  
+  df_pivot <- pivot_wider(
+    data = allDf,
+    id_cols = c("concept", "color"),
+    names_from = "country",
+    values_from = "rating",
+    values_fn = list # adding this line to address duplicated values / rows
+  ) 
+  
+  # here in t.test(x,y): x are scores for MDG and y are scores for USA
+  t.res <- df_pivot %>% group_by(concept, color) %>% 
+    summarise(t = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$statistic, digits = 4),
+              df = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$parameter, digits = 4),
+              p.value = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$p.value, digits = 4),
+              lci = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$conf.int[1], digits = 4),
+              uci = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$conf.int[2], digits = 4),
+              meanMdg = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$estimate[1], digits = 4),
+              meanUsa = round(t.test(as.vector(unlist(mdg)), as.vector(unlist(usa)))$estimate[2], digits = 4),
+              .groups = 'drop')
+  
+  t.res <- full_join(t.res, bcp37hex, by = 'color')
+  t.res$meanDiff <- t.res$meanMdg - t.res$meanUsa
+  # t.test(as.vector(unlist(df_pivot$mdg[1])), as.vector(unlist(df_pivot$usa[1])))
+  # a <- apply(df_pivot[,3:4], c(1,2), function(x){as.vector(unlist(x))})
+  
+  ## Concepts and codes for which the t.test results are significant
+  t.res.sig <- filter(t.res, p.value <= 0.05)
+  
+  ## Plotting
+  t.res$color = fct_rev(factor(t.res$color, levels = color_codes))
+  t.res <- t.res %>% mutate(ciColor = if_else(p.value <= 0.05, hex, '#ffffff55'))
+  
+  
+  r <- t.res %>% 
+    # filter(p.value <= 0.05) %>%
+    ggplot(aes(color, meanDiff, color = ciColor)) +
+    # ggplot(aes(color, meanDiff, color = hex)) + 
+    
+    geom_pointrange(aes(ymin = lci, ymax = uci)) +
+    geom_hline(yintercept = 0, color = 'gray') +
+    scale_color_identity() +
+    scale_y_continuous(limits = c(-1.5,1.5)) +
+    coord_flip() + 
+    facet_wrap(.~factor(concept, levels=conceptListEn)) + 
+    theme(
+      # panel.background = element_rect(fill = "#e0dede"),
+      axis.text.x = element_text(size = 14),
+      axis.text.y = element_text(size = 10),
+      strip.text = element_text(size = 16))+
+    labs(title =paste("95% CI for the difference between the mean for MDG - USA", title, sep = ': '), y = "", x = "color code in BCP37 library"); r
 }
