@@ -20,5 +20,51 @@ mg_dem <- read_csv("data/exp1/csv/clean/mg-dem.csv") %>%
 mgdf <- read_csv("data/exp1/csv/clean/mg.csv") %>% 
   filter(expCountry == "mdg3", ID %in% unique(mg_dem$sessionID)) 
 
+conceptListEn3 = c('banana', 'mango', 'peach',
+               'death', 'justice', 'peace', 'safety',
+               'angry', 'happy', 'sad', 'sick',
+               'lightning', 'sandstorm', 'tree')
+conceptListFr3 = c('banane', 'mangue', 'pêche',
+               'mort', 'justice', 'peace', 'sécurité',
+               'en colère', 'heureux', 'triste', 'malade',
+               'foudre', 'tempête de sable', 'arbre')
+mgdf <- translateConcepts(mgdf, conceptListFr3, conceptListEn3)
+mgdf$expCountry <- "mdg"
+
+us_dem <- read_csv("data/exp1/csv/clean/us-dem.csv") %>%
+  filter(expCountry == "usa3", progressBlock == 14, progressColor == 37)
+
 ```
+
+```{r }
+mgdf$rating <- round(mgdf$ans/100, digits = 2)
+
+mgdf_w <- mgdf %>% group_by(expCountry, concept, color) %>% summarize(
+  weight = round(mean(rating), digits = 2),
+  se = round(sd(rating)/sqrt(length(rating)), digits = 2)) # standard error
+mgdf_w <- full_join(mgdf_w, bcp37hex, by = "color")
+mgdf_w <- mgdf_w %>% mutate(barStroke = ifelse(color == "WH", "#000000", hex))
+
+mgdf_w$con = factor(mgdf_w$concept, levels=conceptListEn3) # to order the facet strips 
+p1 <- mgdf_w %>% 
+  # filter(concept %in% c("mango", "tree", "angry", "happy", "death")) %>%
+  ggplot(aes(reorder_within(color, weight, concept), weight, fill = hex, color = barStroke)) + 
+  geom_bar(stat = 'identity',size = 0.15, width = 0.80) + 
+  geom_errorbar( aes(x=reorder_within(color, weight, concept), ymin=weight-se, ymax=weight+se), width=0.4, colour="black", alpha=0.6, size=0.25)+
+  scale_fill_identity() + scale_color_identity() +
+  scale_x_reordered() +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+  facet_wrap(~ con, scales = "free_x", ncol = 1) +
+  labs(x = "", title = "Mean weight of associations, library: BCP37, MDG") + 
+  theme_light() +
+  theme(legend.position = "none",
+        strip.text = element_text(size = 12, color = "black"), 
+        strip.background = element_blank()); p1
+```
+
+```{r eval=FALSE}
+ggsave(file="./fig/p3-weight-mg.png", plot = p1, width=10, height=16)
+```
+```
+
 

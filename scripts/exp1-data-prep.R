@@ -27,25 +27,18 @@ mgdf <- mgdf %>%
 
 # TODO: ADD CONCEPT NAMES IN ENGLISH 
 
-concept_fr <- c("amour","arbre", "mangue") # list of concepts in French
-concept_en <- c("love", "tree", "mango") # list of concepts in English
+# concept_fr <- c("amour","arbre", "mangue") # list of concepts in French
+# concept_en <- c("love", "tree", "mango") # list of concepts in English
+# 
+# mgdf$concept <- replace(mgdf$conceptFr, 
+#                         mgdf$conceptFr %in% concept_fr, concept_en[match(mgdf$conceptFr[mgdf$conceptFr %in% concept_fr], concept_fr)])
 
-mgdf$concept <- replace(mgdf$conceptFr, 
-                        mgdf$conceptFr %in% concept_fr, concept_en[match(mgdf$conceptFr[mgdf$conceptFr %in% concept_fr], concept_fr)])
-
-
-# Replacement vectors
-old_values <- c("hi", "ojd")
-new_values <- c("hey", "aaa")
-
-# Replace values
-df$column <- replace(df$column, df$column %in% old_values, new_values[match(df$column[df$column %in% old_values], old_values)])
-
-# View the updated dataframe
-print(df)
-
-
-
+translateConcepts <- function(df, concept_fr, concept_en){
+  df$concept <- replace(df$conceptFr, 
+                        df$conceptFr %in% concept_fr, 
+                          concept_en[match(df$conceptFr[df$conceptFr %in% concept_fr], concept_fr)])
+  return(df)
+}
 
 write_csv(mgdf, "data/exp1/csv/clean/mg.csv")
 
