@@ -4,7 +4,7 @@ output: html_document
 date: "2024-02-14"
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE}re
 knitr::opts_chunk$set(echo = TRUE)
 source(file = './utils/exp1-utils.R')  # loads all necessary packages //NOTE: some packages
 source(file = './utils/stimuli.R')
