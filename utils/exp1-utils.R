@@ -1,10 +1,12 @@
 library(tidyverse)
 library(dplyr)
 # library(RColorBrewer)
-# library(readr)
+library(readr)
 # library(tidytext)
 library(lme4)
 library(pwr)
+library(gridExtra)
+library(grid)
 
 # install.packages("pacman")
 
@@ -127,4 +129,15 @@ ci_t.test <- function (data, conceptListEn, title ) {
       axis.text.y = element_text(size = 10),
       strip.text = element_text(size = 16))+
     labs(title =paste("95% CI for the difference between the mean for MDG - USA", title, sep = ': '), y = "", x = "color code in BCP37 library"); r
+}
+
+
+#### ---------- Function to translate concept names into english
+##### Params --
+####
+translateConcepts <- function(df, concept_fr, concept_en){
+  df$concept <- replace(df$conceptFr, 
+                        df$conceptFr %in% concept_fr, 
+                        concept_en[match(df$conceptFr[df$conceptFr %in% concept_fr], concept_fr)])
+  return(df)
 }

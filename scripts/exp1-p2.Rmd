@@ -1,12 +1,13 @@
 ---
 title: "exp1-pilot study #2"
 output: html_document
-date: "2024-02-14"
+date: "2024-04-17"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 source(file = './utils/exp1-utils.R')  # loads all necessary packages //NOTE: some packages
+source(file = './utils/exp2-utils.R') 
 source(file = './utils/stimuli.R')
 ```
 
@@ -79,11 +80,11 @@ ggsave(file="./fig/p2-ci-diff.png", plot = r, width=8, height=14)
 ### Analysing the combination for all datasets  (READ COMMENTS)
 ```{r}
 # getting the data from before p1
-# run line 20:30 from exp1-p0 then
+## run line 20:30 from exp1-p0 then
 df0 <- df %>% rename(country = expCountry, ans = answer)
 
 # getting the data from before p2
-# run line 16:21 then 29:36 in exp1-p1 then
+## run line 16:21 then 29:36 in exp1-p1 then
 df1 <- rbind(usdf, mgdf) %>% rename(country = expCountry) %>% 
   select(concept, color, ans, country, rating)
 
@@ -102,10 +103,59 @@ ci_t.test(dfAll, union(conceptListEn1, conceptListEn2), "all concepts")
 
 ##### with overlapping concepts
 ```{r}
-dfAll_ <- dfAll %>% filter(concept %in% intersect(unique(df0$concept), unique(df2$concept)) )
+dfAll_ <- dfAll %>% filter(concept %in% intersect(unique(df1$concept), unique(df2$concept)) ) # df1 and df0 have same list of concepts.
 s <- ci_t.test(dfAll_, conceptListEn2, "only overlapping concepts"); s
 ```
 
 ```{r eval=FALSE}
 ggsave(file="./fig/p0p1p2-ci-diff.png", plot = s, width=8, height=14)
+```
+
+# 2024-04-17
+
+## EXP2-SETUP: Analysis for finding candidate concepts and colors
+Testing the 'optimization routine for previous data.
+
+```{r}
+# getting the data from before p2
+## run line 16:21 then 29:36 in exp1-p1 then
+df1 <- rbind(usdf, mgdf) %>% rename(country = expCountry) %>% 
+  select(concept, color, ans, country, rating)
+
+# run 'data-prep2' chunk in this file
+<< data-prep2 >>
+df2 <- df %>% select(concept, color, ans, country, rating)
+
+dfAll <- rbind(df1, df2)
+dfAll <- dfAll %>% group_by(country, concept, color) %>% summarize(
+  weight = round(mean(rating), digits = 2),
+  se = round(sd(rating)/sqrt(length(rating)), digits = 2), .groups = 'drop') # standard error
+dfAll <- full_join(dfAll, bcp37hex, by = "color")
+
+dfAll_ <- dfAll %>% filter(concept %in% intersect(unique(df1$concept), unique(df2$concept)))
+
+concepts <- unique(dfAll_$concept)
+mg <- filter(dfAll_, country == "mdg")
+us <- filter(dfAll_, country == "usa")
+nTopColor = 4
+
+## Getting data for candidate colors and concepts
+cand_mg <- genCandidates(mg, concepts, nTopColor)
+cand_us <- genCandidates(us, concepts, nTopColor)
+
+## Plotting the pairs of candidate colors and concepts
+conceptsOrd <- c('banana', 'mango', 'peach', 'angry', 'happy', 'sad', 'peace', 'justice', 'love', 'drought')
+
+plotList_mg <- getListPlotCandidates(cand_mg, conceptsOrd)
+p_mg <- grid.arrange(grobs = plotList_mg, ncol = 7, top = textGrob("MDG - Candidate pairs of concepts and colors for experiment 2", gp = gpar(fontsize = 15, font = 8))); p_mg
+
+plotList_us <- getListPlotCandidates(cand_us, conceptsOrd)
+p_us <- grid.arrange(grobs = plotList_us, ncol = 7, top = ("USA - Candidate pairs of concepts and colors for experiment 2")); p_us
+
+
+```
+
+```{r eval=FALSE}
+ggsave(file="./fig/exp2-candidates-mg.png", plot = p_mg, width=20, height=15)
+ggsave(file="./fig/exp2-candidates-us.png", plot = p_us, width=20, height=18)
 ```

@@ -31,19 +31,28 @@ conceptListFr3 = c('banane', 'mangue', 'pêche',
 mgdf <- translateConcepts(mgdf, conceptListFr3, conceptListEn3)
 mgdf$expCountry <- "mdg"
 
-us_dem <- read_csv("data/exp1/csv/clean/us-dem.csv") %>%
-  filter(expCountry == "usa3", progressBlock == 14, progressColor == 37)
+# us_dem <- read_csv("data/exp1/csv/clean/us-dem.csv") %>%
+  # filter(expCountry == "usa3", progressBlock == 14, progressColor == 37)
 
 ```
 
-```{r }
-mgdf$rating <- round(mgdf$ans/100, digits = 2)
 
-mgdf_w <- mgdf %>% group_by(expCountry, concept, color) %>% summarize(
-  weight = round(mean(rating), digits = 2),
-  se = round(sd(rating)/sqrt(length(rating)), digits = 2)) # standard error
+## Analyzing within group
+```{r}
+
+```
+
+
+### Add rating and weights
+```{r add weight }
+mgdf$rating <- round(mgdf$ans/100, digits = 3)
+
+mgdf_w <- mgdf %>% group_by(expCountry, concept, color) %>% 
+  summarize(
+    weight = round(mean(rating), digits = 3),
+    se = round(sd(rating)/sqrt(length(rating)), digits = 3)) # standard error
 mgdf_w <- full_join(mgdf_w, bcp37hex, by = "color")
-mgdf_w <- mgdf_w %>% mutate(barStroke = ifelse(color == "WH", "#000000", hex))
+mgdf_w <- mgdf_w %>% mutate(barStroke = ifelse(color == "WH", "#000000", hex)) %>% ungroup
 
 mgdf_w$con = factor(mgdf_w$concept, levels=conceptListEn3) # to order the facet strips 
 p1 <- mgdf_w %>% 
@@ -65,6 +74,15 @@ p1 <- mgdf_w %>%
 ```{r eval=FALSE}
 ggsave(file="./fig/p3-weight-mg.png", plot = p1, width=10, height=16)
 ```
+
+```{r}
+write_csv(mgdf_w, "data/exp1/csv/clean/mg-weight.csv")
 ```
 
+##### Dump
+```{r DELETEME}
+a <- filter(mgdf, expCountry == "mdg", concept == "angry", color == "BK") 
+mean(a$rating)
+round(sd(a$rating)/sqrt(length(a$rating)), digits = 2)
+```
 

@@ -1,0 +1,85 @@
+---
+title: "exp2-setup"
+output: html_document
+date: "2024-04-09"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source(file = './utils/exp1-utils.R')  # loads all necessary packages //NOTE: some packages
+source(file = './utils/exp2-utils.R') 
+source(file = './utils/stimuli.R')
+```
+
+### Optimization algorithm
+The following is to generate the set of concepts and colors to be used
+
+```{r}
+conceptListEn3 = c('banana', 'mango', 'peach',
+               'death', 'justice', 'peace', 'safety',
+               'angry', 'happy', 'sad', 'sick',
+               'lightning', 'sandstorm', 'tree')
+conceptListFr3 = c('banane', 'mangue', 'pêche',
+               'mort', 'justice', 'peace', 'sécurité',
+               'en colère', 'heureux', 'triste', 'malade',
+               'foudre', 'tempête de sable', 'arbre')
+
+## Working with smaller data set
+concepts <- c("tree", "banana", "death", "safety", "happy", "sad", "mango")
+# mg <- filter(mgdf_w, concept %in% concepts)
+
+concepts <- conceptListEn3
+mg <- mgdf_w
+nTopColor = 4
+
+tmp_mg <- genCandidates(mg, concepts, nTopColor)
+```
+
+
+```{r Plotting results from tmp data frame}
+# filtering the candidate pairs with both con1 and con2 types
+pList_mg <- getListPlotCandidates(tmp_mg, conceptListEn3)
+pmg <- grid.arrange(grobs = pList_mg, ncol = 7, top = textGrob("MDG - Candidate pairs of concepts and colors for experiment 2", gp = gpar(fontsize = 15, font = 8))); pmg
+```
+
+```{r eval=FALSE}
+ggsave(file="./fig/exp2-candidates-mg.png", plot = pmg, width=18, height=28)
+```
+
+```{r distance-based method}
+nTopColor = 4
+new_df <- pivot_wider(select(mgdf_w, color, weight, concept), names_from = concept, values_from = weight)
+
+main = "banana"
+other = "happy"
+new_df[["angry"]] =  new_df[[main]] - new_df[[other]]
+new_df <- rename(new_df, mainOther = angry)
+
+ndf <- select(new_df, color, mainOther, main, other)
+ndf <- ndf %>%  filter(mainOther >= min(tail(sort(ndf$mainOther), nTopColor)) | mainOther <= max(head(sort(ndf$mainOther), nTopColor)),  
+                         abs(mainOther) >= 0.1)
+
+ndfl <- pivot_longer(ndf, cols = c(main, other), names_to = "con", values_to = "val")
+ndfl <- na.omit(full_join(ndfl, bcp37hex, by = "color"))
+
+
+ndfl %>% 
+  # filter(concept %in% c("mango", "tree", "angry", "happy", "death")) %>%
+  ggplot(aes(reorder_within(color, val, con), val, fill = hex, color = 'black')) +
+  geom_bar(stat = 'identity',size = 0.15, width = 0.80) + 
+  # geom_errorbar( aes(x=reorder_within(color, weight, concept), ymin=weight-se, ymax=weight+se), width=0.4, colour="black", alpha=0.6, size=0.25)+
+  scale_fill_identity() + scale_color_identity() +
+  scale_x_reordered() +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+  facet_wrap(~ con, scales = "free_x", ncol = 1) +
+  labs(x = "", title = "") + 
+  theme_light() +
+  theme(legend.position = "none",
+        strip.text = element_text(size = 12, color = "black"), 
+        strip.background = element_blank())
+```
+
+
+```{r dELETEME}
+
+```
