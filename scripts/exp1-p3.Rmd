@@ -10,34 +10,33 @@ source(file = './utils/exp1-utils.R')  # loads all necessary packages
 source(file = './utils/stimuli.R')
 ```
 
-#### Analysis of scaled data collection
+# Malagasy dataset
+### Analysis of scaled data collection
 n = 50
 
-```{r data-prep2}
-mg_dem <- read_csv("data/exp1/csv/clean/mg-dem.csv") %>% 
-  filter(expCountry == "mdg3", progressBlock == 14, progressColor == 37)
+```{r data-prep-p3-mg}
+mgdem <- read_csv("data/exp1/csv/clean/mg-dem-p3.csv") %>% filter(progressBlock == 14, progressColor == 37)
+mgdf <- read_csv("data/exp1/csv/clean/mg-p3.csv") %>% filter(ID %in% unique(mgdem$sessionID)) 
 
-mgdf <- read_csv("data/exp1/csv/clean/mg.csv") %>% 
-  filter(expCountry == "mdg3", ID %in% unique(mg_dem$sessionID)) 
-
-conceptListEn3 = c('banana', 'mango', 'peach',
-               'death', 'justice', 'peace', 'safety',
-               'angry', 'happy', 'sad', 'sick',
-               'lightning', 'sandstorm', 'tree')
-conceptListFr3 = c('banane', 'mangue', 'pêche',
-               'mort', 'justice', 'peace', 'sécurité',
-               'en colère', 'heureux', 'triste', 'malade',
-               'foudre', 'tempête de sable', 'arbre')
+conceptListEn3 = c('banana', 'mango', 'peach', 'death', 'justice', 'peace', 'safety',
+               'angry', 'happy', 'sad', 'sick', 'lightning', 'sandstorm', 'tree')
+conceptListFr3 = c('banane', 'mangue', 'pêche', 'mort', 'justice', 'peace', 'sécurité',
+               'en colère', 'heureux', 'triste', 'malade', 'foudre', 'tempête de sable', 'arbre')
 mgdf <- translateConcepts(mgdf, conceptListFr3, conceptListEn3)
 mgdf$expCountry <- "mdg"
-
-# us_dem <- read_csv("data/exp1/csv/clean/us-dem.csv") %>%
-  # filter(expCountry == "usa3", progressBlock == 14, progressColor == 37)
-
 ```
 
+```{r data-prep-p3-us}
+usdem <- read_csv("data/exp1/csv/clean/us-dem-p3.csv") %>% filter(progressBlock == 14, progressColor == 37)
+usdem_alt <- read_csv("data/exp1/csv/clean/us-dem-p3-alt.csv") %>% filter(progressBlock == 14, progressColor == 37)
+usdem <- rbind(usdem, usdem_alt)
 
-## Analyzing within group
+usdf <- read_csv("data/exp1/csv/clean/us-p3.csv") 
+usdf_alt <- read_csv("data/exp1/csv/clean/us-p3-alt.csv") 
+usdf <- rbind(usdf, usdf_alt) %>% filter(ID %in% unique(usdem$sessionID)) ; rm(usdem_alt, usdf_alt)
+```
+
+### Analyzing within group
 ```{r}
 
 ```
@@ -78,6 +77,10 @@ ggsave(file="./fig/p3-weight-mg.png", plot = p1, width=10, height=16)
 ```{r}
 write_csv(mgdf_w, "data/exp1/csv/clean/mg-weight.csv")
 ```
+
+
+
+
 
 ##### Dump
 ```{r DELETEME}

@@ -147,10 +147,10 @@ cand_us <- genCandidates(us, concepts, nTopColor)
 conceptsOrd <- c('banana', 'mango', 'peach', 'angry', 'happy', 'sad', 'peace', 'justice', 'love', 'drought')
 
 plotList_mg <- getListPlotCandidates(cand_mg, conceptsOrd)
-p_mg <- grid.arrange(grobs = plotList_mg, ncol = 7, top = textGrob("MDG - Candidate pairs of concepts and colors for experiment 2", gp = gpar(fontsize = 15, font = 8))); p_mg
+p_mg <- grid.arrange(grobs = plotList_mg, ncol = 7, top = textGrob("MDG - Candidate pairs of concepts and colors for experiment 2", gp = gpar(fontsize = 20, font = 8))); p_mg
 
 plotList_us <- getListPlotCandidates(cand_us, conceptsOrd)
-p_us <- grid.arrange(grobs = plotList_us, ncol = 7, top = ("USA - Candidate pairs of concepts and colors for experiment 2")); p_us
+p_us <- grid.arrange(grobs = plotList_us, ncol = 7, top = textGrob("MDG - Candidate pairs of concepts and colors for experiment 2", gp = gpar(fontsize = 20, font = 8))); p_us
 
 
 ```
