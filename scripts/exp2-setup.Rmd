@@ -11,39 +11,45 @@ source(file = './utils/exp2-utils.R')
 source(file = './utils/stimuli.R')
 ```
 
-### Optimization algorithm
+## Optimization routine for RQ1
+### RQ1: Is assignment inference stable within culture?
 The following is to generate the set of concepts and colors to be used
 
-```{r}
-conceptListEn3 = c('banana', 'mango', 'peach',
-               'death', 'justice', 'peace', 'safety',
-               'angry', 'happy', 'sad', 'sick',
-               'lightning', 'sandstorm', 'tree')
-conceptListFr3 = c('banane', 'mangue', 'pêche',
-               'mort', 'justice', 'peace', 'sécurité',
-               'en colère', 'heureux', 'triste', 'malade',
-               'foudre', 'tempête de sable', 'arbre')
+```{r load data}
+mgdf_w <- read_csv("data/exp1/csv/clean/p3-mg-weight.csv")
+usdf_w <- read_csv("data/exp1/csv/clean/p3-us-weight.csv")
+conceptListEn3 = c('banana', 'mango', 'peach', 'death', 'justice', 'peace', 'safety',
+               'angry', 'happy', 'sad', 'sick', 'lightning', 'sandstorm', 'tree')
+conceptListFr3 = c('banane', 'mangue', 'pêche', 'mort', 'justice', 'peace', 'sécurité',
+               'en colère', 'heureux', 'triste', 'malade', 'foudre', 'tempête de sable', 'arbre')
+```
 
-## Working with smaller data set
-concepts <- c("tree", "banana", "death", "safety", "happy", "sad", "mango")
-# mg <- filter(mgdf_w, concept %in% concepts)
-
+```{r load data}
 concepts <- conceptListEn3
-mg <- mgdf_w
+# mg <- mgdf_w
 nTopColor = 4
 
-tmp_mg <- genCandidates(mg, concepts, nTopColor)
+## Dataframe with candidate pairs
+cand_mg <- genCandidatesWithin(mgdf_w, concepts, nTopColor)
+cand_us <- genCandidatesWithin(usdf_w, concepts, nTopColor)
 ```
 
-
-```{r Plotting results from tmp data frame}
+```{r Plotting results from cand data frame-mg}
 # filtering the candidate pairs with both con1 and con2 types
-pList_mg <- getListPlotCandidates(tmp_mg, conceptListEn3)
+pList_mg <- getListPlotCandidatesWithin(cand_mg, conceptListEn3)
 pmg <- grid.arrange(grobs = pList_mg, ncol = 7, top = textGrob("MDG - Candidate pairs of concepts and colors for experiment 2", gp = gpar(fontsize = 15, font = 8))); pmg
 ```
-
 ```{r eval=FALSE}
 ggsave(file="./fig/exp2-candidates-mg.png", plot = pmg, width=18, height=28)
+```
+
+```{r Plotting results from cand data frame-us}
+# filtering the candidate pairs with both con1 and con2 types
+pList_us <- getListPlotCandidatesWithin(cand_us, conceptListEn3)
+pus <- grid.arrange(grobs = pList_us, ncol = 7, top = textGrob("USA - Candidate pairs of concepts and colors for experiment 2", gp = gpar(fontsize = 15, font = 8))); pus
+```
+```{r eval=FALSE}
+ggsave(file="./fig/exp2-candidates-us.png", plot = pus, width=18, height=28)
 ```
 
 ```{r distance-based method}
@@ -78,6 +84,22 @@ ndfl %>%
         strip.text = element_text(size = 12, color = "black"), 
         strip.background = element_blank())
 ```
+
+## Optimization routine for RQe
+### RQ2: Is assignment inference stable across cultures?
+
+```{r loading the data}
+concepts <- conceptListEn3
+candBetween <- getCandidatesBetween(mgdf_w, usdf_w, concepts, nTopColor)
+
+pList <- getListPlotCandidatesBetween(candBetween, conceptListEn3)
+
+pbt <- grid.arrange(grobs = pList, ncol = 4, top = textGrob("Between groups - Candidate pairs of concepts and colors for experiment 2", gp = gpar(fontsize = 15, font = 8))); pbt
+
+```
+
+
+
 
 
 ```{r dELETEME}

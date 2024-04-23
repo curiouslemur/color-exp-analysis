@@ -24,6 +24,18 @@ conceptListFr3 = c('banane', 'mangue', 'pêche', 'mort', 'justice', 'peace', 's�
                'en colère', 'heureux', 'triste', 'malade', 'foudre', 'tempête de sable', 'arbre')
 mgdf <- translateConcepts(mgdf, conceptListFr3, conceptListEn3)
 mgdf$expCountry <- "mdg"
+
+# adding weights
+mgdf$rating <- round(mgdf$ans/100, digits = 3)
+
+mgdf_w <- mgdf %>% group_by(expCountry, concept, color) %>% summarize(
+    weight = round(mean(rating), digits = 3),
+    se = round(sd(rating)/sqrt(length(rating)), digits = 3), .groups = 'drop') # standard error
+mgdf_w <- full_join(mgdf_w, bcp37hex, by = "color") %>% mutate(barStroke = ifelse(color == "WH", "#000000", hex))
+```
+
+```{r eval=FALSE}
+write_csv(mgdf_w, "data/exp1/csv/clean/p3-mg-weight.csv")
 ```
 
 ```{r data-prep-p3-us}
@@ -34,25 +46,21 @@ usdem <- rbind(usdem, usdem_alt)
 usdf <- read_csv("data/exp1/csv/clean/us-p3.csv") 
 usdf_alt <- read_csv("data/exp1/csv/clean/us-p3-alt.csv") 
 usdf <- rbind(usdf, usdf_alt) %>% filter(ID %in% unique(usdem$sessionID)) ; rm(usdem_alt, usdf_alt)
+usdf$expCountry <- "usa"
+
+# addign weights
+usdf$rating <- round(usdf$ans/100, digits = 3)
+usdf_w <- usdf %>% group_by(expCountry, concept, color) %>%  summarise(
+    weight = round(mean(rating), digits = 3), 
+    se = round(sd(rating)/sqrt(length(rating)), digits = 3), .groups = 'drop')
+usdf_w <- full_join(usdf_w, bcp37hex, by = 'color') %>% mutate(barStroke = ifelse(color == 'WH', "#000000", hex))
+```
+```{r}
+write_csv(usdf_w, "data/exp1/csv/clean/p3-us-weight.csv")
 ```
 
 ### Analyzing within group
-```{r}
-
-```
-
-
-### Add rating and weights
-```{r add weight }
-mgdf$rating <- round(mgdf$ans/100, digits = 3)
-
-mgdf_w <- mgdf %>% group_by(expCountry, concept, color) %>% 
-  summarize(
-    weight = round(mean(rating), digits = 3),
-    se = round(sd(rating)/sqrt(length(rating)), digits = 3)) # standard error
-mgdf_w <- full_join(mgdf_w, bcp37hex, by = "color")
-mgdf_w <- mgdf_w %>% mutate(barStroke = ifelse(color == "WH", "#000000", hex)) %>% ungroup
-
+```{r plot weight-mg}
 mgdf_w$con = factor(mgdf_w$concept, levels=conceptListEn3) # to order the facet strips 
 p1 <- mgdf_w %>% 
   # filter(concept %in% c("mango", "tree", "angry", "happy", "death")) %>%
@@ -73,13 +81,6 @@ p1 <- mgdf_w %>%
 ```{r eval=FALSE}
 ggsave(file="./fig/p3-weight-mg.png", plot = p1, width=10, height=16)
 ```
-
-```{r}
-write_csv(mgdf_w, "data/exp1/csv/clean/mg-weight.csv")
-```
-
-
-
 
 
 ##### Dump
