@@ -15,13 +15,13 @@ genCandidatesWithin <- function(df, concepts, nTopColor){
       m2 <- min(tail(sort(c2df$weight), nTopColor)) # median weight, or mean, or any arbitrary threshold
       
       # colors highly rated in c1df 
-      c1high <- filter(c1df, weight >= m1, weight >= 0.35)$color
-      # from c1up, subset that are lowly associated for c2 (i.e. in c2df)
-      c2low <- filter(c2df, color %in% c1high, round(weight, digits = 2) <= 0.25)$color
+      c1high <- filter(c1df, weight >= m1, weight >= 0.25)$color
+      # from c1high, subset that are lowly associated for c2 (i.e. in c2df)
+      c2low <- filter(c2df, color %in% c1high, round(weight, digits = 2) < 0.20)$color
       c1high <- intersect(c1high, c2low)
       
-      c2high <- filter(c2df, weight >= m2, weight >= 0.35)$color
-      c1low <- filter(c1df, color %in% c2high, round(weight, digits = 2) <= 0.25)$color
+      c2high <- filter(c2df, weight >= m2, weight >= 0.25)$color
+      c1low <- filter(c1df, color %in% c2high, round(weight, digits = 2) < 0.20)$color
       c2high <- intersect(c2high, c1low)
       
       c1df_ <- filter(c1df, color %in% union(c1high, c2high))
@@ -44,7 +44,7 @@ genCandidatesWithin <- function(df, concepts, nTopColor){
 ## within the same group
 getListPlotCandidatesWithin <- function(tmp, conceptsOrd){
   tmp_ <- tmp %>% group_by(pairId) %>%
-    filter(!max(weight) < 0.5) %>%
+    # filter(!max(weight) < 0.5) %>%
     mutate(nColors = n()/2, .groups = 'drop') %>% 
     filter(nColors >= 4)  # nColors == nombre de couleur unique dans le pair candidat
   

@@ -1,0 +1,158 @@
+---
+title: "rathore's supp mat"
+output: html_document
+date: "2024-04-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source(file = './utils/exp1-utils.R')  # loads all necessary packages 
+source(file = './utils/stimuli.R')
+```
+
+
+```{r}
+rath <- read_csv("data/rathore-sup/HumanRatingsData.csv") %>% rename(concept = Concept, color = Color, rating = Rating, participant = Participant)
+rath_color <- read_csv("data/rathore-sup/RGB.csv") %>% mutate(hex = rgb(R, G, B)) %>% select(color, hex)
+rath <- left_join(rath, rath_color, by = 'color')
+
+rath_w <- rath %>% group_by(concept, color) %>% summarize(
+    weight = round(mean(rating), digits = 3),
+    se = round(sd(rating)/sqrt(length(rating)), digits = 3), .groups = 'drop') #
+```
+
+```{r function definitions}
+enforceMinDiff <- function(sortedDf, minDiff){
+  selected_rows <- sortedDf[1,]
+  wi <- 1
+  while (wi < nrow(sortedDf)) {
+    
+    wj <- wi + 1
+    # diff = c1df_d$weight[wi] - c1df_d$weight[wj]
+    while ( sortedDf$weight[wi] - sortedDf$weight[wj] < minDiff & wj <= nrow(sortedDf)) {
+      wj <- wj+1
+    }
+    if(wj <= nrow(sortedDf)){
+      selected_rows <- rbind(selected_rows, sortedDf[wj,])
+    }
+    wi <- wj
+  }
+  return(selected_rows)
+}
+
+```
+
+```{r set-opt}
+# rath_cand1 <- genCandidatesWithin(rath_w, unique(rath_w$concept), 29)
+
+concepts <- unique(rath_w$concept)
+nTopColor <- 29
+df <- rath_w
+tmp <- data.frame(); k = 1
+minDiff <- 0.09
+
+i = 3
+for (i in 1:(length(concepts)-1)){
+    c1 <- concepts[i]
+    c1df <- filter(df, concept == c1)
+    m1 <- min(tail(sort(c1df$weight), nTopColor))
+    
+    # j = 11
+    for (j in (i+1):(length(concepts))){
+      c2 <- concepts[j]
+      c2df <- filter(df, concept == c2)
+      m2 <- min(tail(sort(c2df$weight), nTopColor)) # median weight, or mean, or any arbitrary threshold
+      
+      # colors highly rated in c1df 
+      c1high <- filter(c1df, round(weight, digits = 3) >= m1, weight >= 0)
+      c1high <- c1high[order(c1high$weight, decreasing = TRUE),]
+      # colors that lowly rated in c2df and highly rated in c1df (i.e. in c1high)
+      c2low <- filter(c2df, round(weight, digits = 3) <= m2, color %in% c1high$color)
+      # c2low <- filter(c2df, color %in% c1high$color)
+      # final c1high (only the color high for c1 and low for c2)
+      c1high <- filter(c1high, color %in% intersect(c1high$color, c2low$color))
+      
+      # enforcing minimum difference between the weights
+      c1high <- c1high[order(c1high$weight, decreasing = TRUE),]
+      c1high_final <- enforceMinDiff(c1high, minDiff); c1high_final
+      c1high_final <- c1high_final[1:4,] # select only the top 4
+      
+      # colors highly rated in c2df
+      c2high <- filter(c2df, round(weight, digits = 3) >= m2, weight >= 0)
+      c2high <- c2high[order(c2high$weight, decreasing = TRUE),]
+      # colors that lowly rated in c1df and highly rated in c2df (i.e in c2high) 
+      c1low <- filter(c1df, round(weight, digits = 3) <= m1, color %in% c2high$color)
+      # c1low <- filter(c1df, color %in% c2high$color)
+      # final c2high (only the color high for c2 and low in c1)
+      c2high <- filter(c2high, color %in% intersect(c2high$color, c1low$color))
+      
+      # enforcing minimum difference between the weights
+      c2high <- c2high[order(c2high$weight, decreasing = TRUE),]
+      c2high_final <- enforceMinDiff(c2high, minDiff); c2high_final
+      c2high_final <- c2high_final[1:4,]
+      
+      
+      # final c1df to keep
+      c1df_ <- filter(c1df, color %in% union(c1high_final$color, c2high_final$color))
+      c1df_$type <- "con1"
+      
+      c2df_ <- filter(c2df, color %in% union(c1high_final$color, c2high_final$color))
+      c2df_$type <- "con2"
+      
+      cPair <- rbind(c1df_, c2df_)
+      cPair$pairId = k
+      
+      tmp <- rbind(tmp, cPair)
+      k <- k+1
+    }
+}
+
+rath_cand <- tmp
+```
+
+
+```{r plot}
+<<set-opt>>
+tmp_ <- tmp %>% group_by(pairId) %>%
+  # filter(!max(weight) < 0.5) %>%
+  mutate(nColors = n()/2) %>% ungroup()
+  # filter(nColors >= 4)  # nColors == nombre de couleur unique dans le pair candidat
+  
+  # tmp_$con = factor(tmp_$concept, levels=conceptsOrd) # to order the facet strips for con 1
+tmp_$con <- tmp_$concept
+tmp_ <- tmp_ %>% drop_na() #%>% filter(concept %in% c("Mango", "Watermelon"))
+  
+tmp_ <- left_join(tmp_, rath_color, by = "color") %>% 
+  filter(concept %in% c("Cantaloupe", "Strawberry", "Mango", "Watermelon")) %>%
+  group_by(pairId) %>% 
+  mutate(status = ifelse(identical(sort(unique(type)), c("con1", "con2")), "keep","del")) %>%
+  ungroup() %>% 
+  filter(status == "keep")
+
+plotList <- list(); l = 1
+for (p in unique(tmp_$pairId)){
+  # p = unique(tmp_$pairId)[1]
+  plot <- filter(tmp_, pairId == p) %>%
+    ggplot(aes(reorder_within(color, weight, con), weight, fill = hex, color = 'black')) +
+    geom_bar(stat = 'identity', size = 0.15, width = 0.80) + 
+    # geom_errorbar( aes(x=reorder_within(color, weight, concept), ymin=weight-se, ymax=weight+se), width=0.4, colour="black", alpha=0.6, size=0.25)+
+    
+    scale_fill_identity() + scale_color_identity() + scale_x_reordered() +
+    scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+    facet_wrap(~ con, scales = "free_x", ncol = 2) +
+    labs(x = "", title = "") + theme_light() +
+    theme(legend.position = "none",
+          strip.text = element_text(size = 12, color = "black"), strip.background = element_blank(),
+          plot.background = element_rect(color = "azure4", linewidth = 0.5),
+          panel.spacing = unit(0.25, 'cm'))
+  plotList[[l]] = plot
+  l <- l+1
+}
+  
+pr <- grid.arrange(grobs = plotList[c(2,5)], ncol = 2, top = textGrob("TEST Rathore", gp = gpar(fontsize = 15, font = 8)))
+```
+
+```{r}
+ggsave(file="./fig/rathore-candidates.png", plot = pr, width=18, height=28)
+
+```
