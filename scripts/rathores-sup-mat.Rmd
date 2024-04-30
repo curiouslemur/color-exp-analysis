@@ -99,65 +99,101 @@ getCandidatesWithin_rath <- function(df, concepts, nTopColor, minDiff){
   return(tmp)
 }
 
+getPlotList <- function (tmp, colorDf){
+  tmp_ <- tmp %>% group_by(pairId) %>%
+    # filter(!max(weight) < 0.5) %>%
+    mutate(nColors = n()/2) %>% filter(nColors >= 4)  # nColors == nombre de couleur unique dans le pair candidat
+    
+  # tmp_$con = factor(tmp_$concept, levels=conceptsOrd) # to order the facet strips for con 1
+  tmp_$con <- tmp_$concept
+  tmp_ <- tmp_ %>% drop_na() #%>% filter(concept %in% c("Mango", "Watermelon"))
+    
+  if (!"hex" %in% colnames(tmp_)) { # if the col hex does not exist in the dataframe already
+    tmp_ <- left_join(tmp_, colorDf, by = "color") 
+  }
+  tmp_ %>% 
+    # filter(concept %in% c("Cantaloupe", "Strawberry", "Mango", "Watermelon")) %>%
+    group_by(pairId) %>% 
+    mutate(status = ifelse(identical(sort(unique(type)), c("con1", "con2")), "keep","del")) %>%
+    ungroup() %>% 
+    filter(status == "keep")
+  
+  plotList <- list(); l = 1
+  for (p in unique(tmp_$pairId)){
+    # p = unique(tmp_$pairId)[1]
+    plot <- filter(tmp_, pairId == p) %>%
+      ggplot(aes(reorder_within(color, weight, con), weight, fill = hex, color = 'black')) +
+      geom_bar(stat = 'identity', size = 0.15, width = 0.80) + 
+      # geom_errorbar( aes(x=reorder_within(color, weight, concept), ymin=weight-se, ymax=weight+se), width=0.4, colour="black", alpha=0.6, size=0.25)+
+      
+      scale_fill_identity() + scale_color_identity() + scale_x_reordered() +
+      scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
+      facet_wrap(~ con, scales = "free_x", ncol = 2) +
+      labs(x = "", title = "") + theme_light() +
+      theme(legend.position = "none",
+            strip.text = element_text(size = 12, color = "black"), strip.background = element_blank(),
+            plot.background = element_rect(color = "azure4", linewidth = 0.5),
+            panel.spacing = unit(0.25, 'cm'))
+    plotList[[l]] = plot
+    l <- l+1
+  }
+    return(plotList)
+}
 ```
 
 ```{r set-opt}
-# rath_cand1 <- genCandidatesWithin(rath_w, unique(rath_w$concept), 29)
-
 concepts <- unique(rath_w$concept)
 nTopColor <- 29
 df <- rath_w
 minDiff <- 0.09
-
-tmp <- getCandidatesWithin_rath(rath_w, concepts, nTopColor, minDiff)
-
-# i = 3
-rath_cand <- tmp
 ```
 
 
 ```{r plot}
 <<set-opt>>
-tmp_ <- tmp %>% group_by(pairId) %>%
-  # filter(!max(weight) < 0.5) %>%
-  mutate(nColors = n()/2) %>% ungroup()
-  # filter(nColors >= 4)  # nColors == nombre de couleur unique dans le pair candidat
-  
-  # tmp_$con = factor(tmp_$concept, levels=conceptsOrd) # to order the facet strips for con 1
-tmp_$con <- tmp_$concept
-tmp_ <- tmp_ %>% drop_na() #%>% filter(concept %in% c("Mango", "Watermelon"))
-  
-tmp_ <- left_join(tmp_, rath_color, by = "color") %>% 
-  filter(concept %in% c("Cantaloupe", "Strawberry", "Mango", "Watermelon")) %>%
-  group_by(pairId) %>% 
-  mutate(status = ifelse(identical(sort(unique(type)), c("con1", "con2")), "keep","del")) %>%
-  ungroup() %>% 
-  filter(status == "keep")
+rath_cand <- getCandidatesWithin_rath(rath_w, concepts, nTopColor, minDiff)
+plotList <- getPlotList(rath_cand, rath_color)
 
-plotList <- list(); l = 1
-for (p in unique(tmp_$pairId)){
-  # p = unique(tmp_$pairId)[1]
-  plot <- filter(tmp_, pairId == p) %>%
-    ggplot(aes(reorder_within(color, weight, con), weight, fill = hex, color = 'black')) +
-    geom_bar(stat = 'identity', size = 0.15, width = 0.80) + 
-    # geom_errorbar( aes(x=reorder_within(color, weight, concept), ymin=weight-se, ymax=weight+se), width=0.4, colour="black", alpha=0.6, size=0.25)+
-    
-    scale_fill_identity() + scale_color_identity() + scale_x_reordered() +
-    scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +
-    facet_wrap(~ con, scales = "free_x", ncol = 2) +
-    labs(x = "", title = "") + theme_light() +
-    theme(legend.position = "none",
-          strip.text = element_text(size = 12, color = "black"), strip.background = element_blank(),
-          plot.background = element_rect(color = "azure4", linewidth = 0.5),
-          panel.spacing = unit(0.25, 'cm'))
-  plotList[[l]] = plot
-  l <- l+1
-}
-  
 pr <- grid.arrange(grobs = plotList[c(2,5)], ncol = 2, top = textGrob("TEST Rathore", gp = gpar(fontsize = 15, font = 8)))
 ```
 
 ```{r}
 ggsave(file="./fig/rathore-candidates.png", plot = pr, width=18, height=28)
+```
 
+
+# Trying the approach here on last pilot #3 data US
+```{r set-opt p3-us}
+<<functions definitions>>
+# load usdf_w from data-prep-p3-us in exp1-p3.Rmd
+concepts <- unique(usdf_w$concept)
+nTopColor <- 37/2
+minDiff <- 0.1
+
+us_cand <- getCandidatesWithin_rath(usdf_w, concepts, nTopColor, minDiff)
+
+plotList_us <- getPlotList(us_cand, bcp37hex)
+pr_us <- grid.arrange(grobs = plotList_us, ncol = 5, top = textGrob("TEST US with method used in Rathore's", gp = gpar(fontsize = 15, font = 8)))
+```
+
+```{r}
+ggsave(file="./fig/rathore-candidates-p3-us.png", plot = pr_us, width=18, height=38)
+```
+
+# Trying the approach here on last pilot #3 data MG
+```{r set-opt p3-us}
+<<functions definitions>>
+# load mgdf_w from data-prep-p3-mg in exp1-p3.Rmd
+concepts <- unique(mgdf_w$concept)
+nTopColor <- 37/2
+minDiff <- 0.1
+
+mg_cand <- getCandidatesWithin_rath(mgdf_w, concepts, nTopColor, minDiff)
+
+plotList_mg <- getPlotList(mg_cand, bcp37hex)
+pr_mg <- grid.arrange(grobs = plotList_mg, ncol = 5, top = textGrob("TEST MG with method used in Rathore's", gp = gpar(fontsize = 15, font = 8)))
+```
+
+```{r}
+ggsave(file="./fig/rathore-candidates-p3-mg.png", plot = pr_mg, width=18, height=38)
 ```
