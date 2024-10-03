@@ -1,7 +1,7 @@
 ---
 title: "exp1-p3"
 output: html_document
-date: "2024-04-04"
+date: "2024-07-23"
 ---
 
 ```{r setup, include=FALSE}
@@ -35,10 +35,13 @@ mgdf_w <- full_join(mgdf_w, bcp37hex, by = "color") %>% mutate(barStroke = ifels
 ```
 
 ```{r eval=FALSE}
+write_csv(mgdf, "data/exp1/csv/clean/p3-mg.csv")
 write_csv(mgdf_w, "data/exp1/csv/clean/p3-mg-weight.csv")
 ```
 
+
 ```{r data-prep-p3-us}
+# -alt.csv data are named so because they are stored in a separate 'alternative' firebase database due to R/W limitation per project on firebase.  
 usdem <- read_csv("data/exp1/csv/clean/us-dem-p3.csv") %>% filter(progressBlock == 14, progressColor == 37)
 usdem_alt <- read_csv("data/exp1/csv/clean/us-dem-p3-alt.csv") %>% filter(progressBlock == 14, progressColor == 37)
 usdem <- rbind(usdem, usdem_alt)
@@ -48,14 +51,16 @@ usdf_alt <- read_csv("data/exp1/csv/clean/us-p3-alt.csv")
 usdf <- rbind(usdf, usdf_alt) %>% filter(ID %in% unique(usdem$sessionID)) ; rm(usdem_alt, usdf_alt)
 usdf$expCountry <- "usa"
 
-# addign weights
+# adding weights
 usdf$rating <- round(usdf$ans/100, digits = 3)
 usdf_w <- usdf %>% group_by(expCountry, concept, color) %>%  summarise(
     weight = round(mean(rating), digits = 3), 
     se = round(sd(rating)/sqrt(length(rating)), digits = 3), .groups = 'drop')
 usdf_w <- full_join(usdf_w, bcp37hex, by = 'color') %>% mutate(barStroke = ifelse(color == 'WH', "#000000", hex))
 ```
+
 ```{r}
+write_csv(usdf, "data/exp1/csv/clean/p3-us.csv")
 write_csv(usdf_w, "data/exp1/csv/clean/p3-us-weight.csv")
 ```
 

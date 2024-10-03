@@ -1,0 +1,24 @@
+---
+title: "deleteme"
+output: html_document
+date: "2024-09-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r fitting sd}
+
+data <- dfus %>% group_by(concept, color) %>% summarise(xbar = mean(rating), sample_sd = sd(rating), .groups = 'drop')
+
+# fitting the function s = a * xbar * (1-xbar)
+d1 <- data[1,]
+start_a = d1$sample_sd / (d1$xbar *(1 - d1$xbar))
+fit <- nls( sample_sd ~ a * xbar * (1-xbar), data = data, start = list(a = start_a))
+
+summary(fit)
+
+coef(fit)
+```
+
