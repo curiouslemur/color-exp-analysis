@@ -168,26 +168,21 @@ curve(coef(getFitSd2(dfmg_agg))[1] * x^coef(getFitSd2(dfmg_agg))[2], add = TRUE,
 # xMg <- getXvalues(dfmg_agg, concept_pairs, color_pairs, a_mg) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
 xMg2 <- getXvalues_opt(dfmg_agg, concept_pairs, color_pairs, a_mg) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
 
-### Verifying if the outputs of getXvalues and getXvalues_opt are the same
+### Verifying if the outputs of getXvalues and getXvalues_opt are the same (using the same method as in the chunk above)
 ### YES, THEY ARE
-# xmg <- xMg[order(names(xMg))]; xmg <- xmg[order(row.names(xmg)), ]
-# xmg2 <- xMg2[order(names(xMg2))]; xmg2 <- xmg2[order(row.names(xmg2)),]
-# anti_join(xmg, xmg2) # if nrow here == 0 then all rows in xmg can be found in xmg2, i.e. the two df are identical
-# nrow(merge(xmg, xmg2))
 
 deltaS_mg <- getDeltaS(xMg2) %>% select(concept1, concept2, color1, color2, deltaS_sample, deltaS_fit)
 ```
 
 ```{r cross-cultural analysis}
 # Finding four pairs of colors for each pair of concepts such that
-# 
 ## working with deltaS_mg and deltaS_us
 
 dsmg <- deltaS_mg %>% select(-deltaS_sample) %>% rename(deltaSmg = deltaS_fit)
 dsus <- deltaS_us %>% select(-deltaS_sample) %>% rename(deltaSus = deltaS_fit)
 
 # Lower and Higher thresholds for deltaS
-dsL = 0.3; dsH = 0.7
+dsL = 0.1; dsH = 0.9
 
 getPairs <- function(dsL, dsH){
   dsmgL = filter(dsmg, deltaSmg <= dsL) %>% select(-deltaSmg); 
@@ -205,24 +200,51 @@ getPairs <- function(dsL, dsH){
     rename(mgH_usL1 = color1, mgH_usL2 = color2)
   
   final <- mgL_usH %>%
-    full_join(mgH_usH, by = c('concept1', 'concept2')) %>%
-    full_join(mgL_usL, by = c('concept1', 'concept2')) %>%
-    full_join(mgH_usL, by = c('concept1', 'concept2')) %>% drop_na()
+    full_join(mgH_usH, by = c('concept1', 'concept2'), relationship = "many-to-many") %>%
+    full_join(mgL_usL, by = c('concept1', 'concept2'), relationship = "many-to-many") %>%
+    full_join(mgH_usL, by = c('concept1', 'concept2'), relationship = "many-to-many")#  %>% drop_na()
   
   return(final)
 }
 
-final <- getPairs(0.1, 0.7)
+final <- getPairs(0.1, 0.7)  %>% drop_na()
+
+# find which columns of the dataframe only have NAs
+names(final)[sapply(final, function(x) sum(is.na(x)) == length(x))]
+
+final <- final %>% filter(!is.na(mgH_usL1), !is.na(mgH_usL2))
+
+# unique combinations of two columns concept1 and concept2
+final %>% distinct(concept1, concept2)
+final %>% group_by(concept1, concept2) %>% summarize(freq = n())
 
 ## Adding color code to Final dataset
 bcp37 <- read_csv("utils/color_values_bcp37.csv")# %>% select('name', 'color', 'hex')
 
 write_csv(final, "output/final-01-07.csv")
+```
 
-final %>% distinct(concept1, concept2)
-a <- final %>% group_by(concept1, concept2) %>% summarize(
-  freq = n()
-); a
+
+```{r analysis weiter}
+# TODO: a scatterplot of xaxis min deltaS, yaxis is max deltaS
+# scatterplot shows the number of concepts we find for different combination of min,max deltaS
+
+scatterDf <- data.frame()
+
+for (low in c(0.1, 0.2, 0.3)){
+  for (hi in c(0.9, 0.8, 0.7)){
+    
+    tmp <- getPairs(low, hi) 
+    
+    a <- tmp %>% group_by(concept1, concept2) %>% summarize( 
+        n_con_pair = n(), 
+        mgL_usL = sum(!is.na(mgL_usL1)), mgL_usH = sum(!is.na(mgL_usH1)), 
+        mgH_usL = sum(!is.na(mgH_usL1)), mgH_usH = sum(!is.na(mgH_usH1)), .groups = 'drop')
+    
+    a$dsLow = low; a$dsHi = hi
+    scatterDf <- rbind(scatterDf, a)
+  }
+}
 
 ```
 

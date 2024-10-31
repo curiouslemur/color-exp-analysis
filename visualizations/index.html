@@ -15,7 +15,7 @@
     <svg id="svgCanvas"></svg>
     <script>
         d3.json("data/sample-full.json").then(function (data) {
-            const matrixSize = 250;
+            const matrixSize = 200;
             const padding = 40;
             const svgPadding = 0.03;
             const leftPadding = 20;
@@ -106,7 +106,7 @@
 
             function updateSvgHeight() {
                 const numMatrices = d3.selectAll(".matrix-group").size();
-                const newSvgHeight = Math.ceil(numMatrices / nPerRow) * (matrixSize + padding) + 20;
+                const newSvgHeight = Math.ceil(numMatrices / nPerRow) * (matrixSize + padding + 30);
                 svg.attr("height", newSvgHeight);
             }
 
