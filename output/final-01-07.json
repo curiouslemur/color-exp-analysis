@@ -1,0 +1,842 @@
+[
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "LY",
+      "SC"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "LY",
+      "SC"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "LY",
+      "LH"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "LY",
+      "LH"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "SP",
+      "DP"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "SP",
+      "DP"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "SP",
+      "MP"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "SP",
+      "MP"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "SP",
+      "MC"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "SP",
+      "MC"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "SP",
+      "LP"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "SP",
+      "LP"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "DP",
+      "MP"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "DP",
+      "MP"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "DP",
+      "LP"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "DP",
+      "LP"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "DR",
+      "SR"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "DR",
+      "SR"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "DC",
+      "MC"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "DC",
+      "MC"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "SB",
+      "LB"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "SB",
+      "LB"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "A1",
+      "BK"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "A1",
+      "BK"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "MP",
+      "LP"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "MP",
+      "LP"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "DO",
+      "LO"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "DO",
+      "LO"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "LR",
+      "MR"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "LR",
+      "MR"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "MR",
+      "LO"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "MR",
+      "LO"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "MC",
+      "LP"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "MC",
+      "LP"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "SC",
+      "LH"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "SC",
+      "LH"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "LC",
+      "MB"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "LC",
+      "MB"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "LC",
+      "DB"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "LC",
+      "DB"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "MB",
+      "DB"
+    ],
+    "mgH_usL": [
+      "DR",
+      "SG"
+    ]
+  },
+  {
+    "concept1": "mango",
+    "concept2": "lightning",
+    "mgL_usH": [
+      "WH",
+      "DP"
+    ],
+    "mgH_usH": [
+      "DG",
+      "BK"
+    ],
+    "mgL_usL": [
+      "MB",
+      "DB"
+    ],
+    "mgH_usL": [
+      "SG",
+      "SR"
+    ]
+  }
+]

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Filtering in D3.js Matrix</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        svg {
+            display: block;
+            background-color: #ffffff;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .remove-button {
+            font-size: 10px;
+            padding: 2px 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="duplicateButton">Add Grid</button>
+    <svg id="svgCanvas"></svg>
+    <script src="scripts.js"></script>
+    <script>
+        d3.csv("data/sample-01-07.csv").then(function (data) {
+            const matrixSize = 400;
+            const padding = 40;
+            const svgPadding = 0.02;
+            const leftPadding = 20;
+            const svgWidth = window.innerWidth * (1 - svgPadding);
+            const svg = d3.select("#svgCanvas")
+                .attr("width", svgWidth)
+                .attr("height", window.innerHeight);
+
+            function drawMatrix(id, xOffset, yOffset) {
+                const group = svg.append("g")
+                    .attr("class", "matrix-group")
+                    .attr("id", `matrix-group-${id}`)
+                    .attr("transform", `translate(${xOffset + leftPadding}, ${yOffset})`);
+
+                draw_empty_matrix(group, matrixSize);
+
+                const squareSize = matrixSize / 5;
+                const squarePaddingX = (matrixSize / 2 - 2 * squareSize) / 3;
+                const squarePaddingY = ((matrixSize / 2) - squareSize) / 1.5;
+
+                // Create color patches
+                const patchData = [
+                    { x: squarePaddingX, y: squarePaddingY, color: "lightblue", id: "mgL_usH1" },
+                    { x: 2 * squarePaddingX + squareSize, y: squarePaddingY, color: "black", id: "mgL_usH2" },
+                    { x: 4 * squarePaddingX + 2 * squareSize, y: squarePaddingY, color: "blue", id: "mgH_usH1" },
+                    { x: 5 * squarePaddingX + 3 * squareSize, y: squarePaddingY, color: "red", id: "mgH_usH2" },
+                    { x: squarePaddingX, y: 3 * squarePaddingY + squareSize / 2, color: "purple", id: "mgL_usL1" },
+                    { x: 2 * squarePaddingX + squareSize, y: 3 * squarePaddingY + squareSize / 2, color: "orange", id: "mgL_usL2" },
+                    { x: 4 * squarePaddingX + 2 * squareSize, y: 3 * squarePaddingY + squareSize / 2, color: "chartreuse", id: "mgH_usL1" },
+                    { x: 5 * squarePaddingX + 3 * squareSize, y: 3 * squarePaddingY + squareSize / 2, color: "lightyellow", id: "mgH_usL2" }
+                ];
+
+                patchData.forEach(patch => {
+                    group.append("rect")
+                        .attr("x", patch.x).attr("y", patch.y)
+                        .attr("width", squareSize).attr("height", squareSize)
+                        .attr("fill", patch.color)
+                        .attr("class", "color-patch")
+                        .attr("id", patch.id);
+                });
+
+                // Button to remove the matrix
+                group.append("foreignObject")
+                    .attr("x", 0)
+                    .attr("y", matrixSize + 25)
+                    .attr("width", 70)
+                    .attr("height", 30)
+                    .append("xhtml:button")
+                    .attr("class", "remove-button")
+                    .text("Remove")
+                    .on("click", () => {
+                        group.remove();
+                        updateMatrixPositions();
+                    });
+            }
+
+            let matrixCounter = 0;
+            let nPerRow = Math.floor(svgWidth / (matrixSize + padding));
+            drawMatrix(matrixCounter++, 0, 0);
+
+            function updateMatrixPositions() {
+                d3.selectAll(".matrix-group").each(function (d, i) {
+                    const newXOffset = (i % nPerRow) * (matrixSize + padding);
+                    const newYOffset = Math.floor(i / nPerRow) * (matrixSize + padding);
+                    d3.select(this).attr("transform", `translate(${newXOffset + leftPadding}, ${newYOffset})`);
+                });
+                updateSvgHeight();
+            }
+
+            function updateSvgHeight() {
+                const numMatrices = d3.selectAll(".matrix-group").size();
+                const newSvgHeight = Math.ceil(numMatrices / nPerRow) * (matrixSize + padding) + 20;
+                svg.attr("height", newSvgHeight);
+            }
+
+            window.addEventListener('resize', () => {
+                const newSvgWidth = window.innerWidth * (1 - svgPadding);
+                svg.attr("width", newSvgWidth);
+                nPerRow = Math.floor(newSvgWidth / (matrixSize + padding));
+                updateMatrixPositions();
+            });
+        });
+    </script>
+</body>
+
+</html>
