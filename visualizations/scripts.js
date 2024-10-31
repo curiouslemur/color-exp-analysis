@@ -1,4 +1,4 @@
-function draw_empty_matrix(group, matrixSize) {
+function init_empty_matrix(group, matrixSize) {
     group.append("rect")
         .attr("x", 0)
         .attr("y", 20)
