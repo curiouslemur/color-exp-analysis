@@ -133,3 +133,65 @@ getListPlotCandidatesBetween <- function(candBetween, conceptsOrd){
   }
   return(plotList)
 }
+
+#### ----------- Function to compute semantic distance
+compute_semantic_distance <- function(x1, x2, x3, x4, s1, s2, s3, s4) {
+  delta <- (x1 + x4) - (x2 + x3)
+  denom <- sqrt(s1^2 + s2^2 + s3^2 + s4^2)
+  z <- delta / denom
+  delta_S <- abs(2 * pnorm(z) - 1)
+  return(delta_S)
+}
+
+#### ----------- Function to generate all color pairs across concept pairs
+generate_color_pairs <- function(df) {
+  concepts <- unique(df$concept)
+  colors <- unique(df$color)
+  concept_pairs <- combn(concepts, 2, simplify = FALSE)
+  color_pairs <- combn(colors, 2, simplify = FALSE)
+  
+  results_list <- list()
+  idx <- 1
+  
+  for (cp in concept_pairs) {
+    concept1 <- cp[1]
+    concept2 <- cp[2]
+    
+    for (colp in color_pairs) {
+      color1 <- colp[1]
+      color2 <- colp[2]
+      
+      # Look up weight and SE for all 4 (x1–x4)
+      w1 <- df %>% filter(concept == concept1, color == color1)
+      w2 <- df %>% filter(concept == concept1, color == color2)
+      w3 <- df %>% filter(concept == concept2, color == color1)
+      w4 <- df %>% filter(concept == concept2, color == color2)
+      
+      if (nrow(w1) == 1 && nrow(w2) == 1 && nrow(w3) == 1 && nrow(w4) == 1) {
+        distance <- compute_semantic_distance(
+          w1$weight, w2$weight, w3$weight, w4$weight,
+          w1$se, w2$se, w3$se, w4$se
+        )
+        
+        results_list[[idx]] <- data.frame(
+          concept_1 = concept1,
+          concept_2 = concept2,
+          color_1 = color1,
+          color_2 = color2,
+          weight_1 = w1$weight,
+          weight_2 = w2$weight,
+          weight_3 = w3$weight,
+          weight_4 = w4$weight,
+          se_1 = w1$se,
+          se_2 = w2$se,
+          se_3 = w3$se,
+          se_4 = w4$se,
+          semantic_distance = distance
+        )
+        idx <- idx + 1
+      }
+    }
+  }
+  result <- bind_rows(results_list)
+  return(result)
+}
