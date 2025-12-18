@@ -1,15 +1,15 @@
 ﻿profession,country,expLang,expName,gender,grayScalesSeen,otherFluentLanguages,otherFluentLanguages__001,otherFluentLanguages__002,otherFluentLanguages__003,otherFluentLanguages__004,otherFluentLanguages__005,residenceLength,countryLongest,firstlan,expCountry,ID,age,timestamp,nAnsweredQ
 Software Engineer,United States of America,en,debug,M,11,,fra,eng,,,,1.5 years,Tunisia,Arabic,usaEk,20231211-1125-CON-eldng2ee,32,1.70232E+12,592
 phd student in data visualization,United States of America,en,debug,female,11,,fra,eng,por,ara,deu,4 years,Madagascar,Malagasy,mdgNr,20231211-1203-ABS-a8t1gpkm,31,1.70232E+12,592
-Prof,United States of America,en,debug,Male,11,,,,,,,36,united states,English,usaLh,20231211-1912-ABS-u9w9ligm,36,1.70234E+12,592
-Student in Computer Science,Canada,en,debug,Female,11,,fra,eng,,,,3 months,Madagascar,Malagasy,mgaHa,20231211-1930-CON-p62b79i1,23,1.70234E+12,592
-Machine Learning Engineer,Madagascar,en,debug,Male,11,,fra,eng,,,,24 years,Madagascar,Malagasy,mdgTr,20231211-2207-ABS-q1tlbp9j,24,1.70232E+12,592
-Student,United States of America,en,debug,Male,10,,eng,,,,,5,Zimbabwe,"Ndebele, South; South Ndebele",usaAn,20231212-2000-ABS-q5cii8e4,38,1.70243E+12,503
-Programme Specialist Humanitarian Affairs,Germany,en,debug,Female,11,,spa,eng,fra,,,26 Years,Germany,German,deCs,20231212-2038-CON-oitdysrj,29,1.70241E+12,74
-Research ,United States of America,en,debug,Female ,1,,eng,cpf,,,,8,Tunisia,Arabic,usaFk,20231212-2229-ABS-8udog8qrk,40,1.70244E+12,174
-Military,United States of America,en,debug,Male,11,,hin,,,,,18,Nepal,Nepali,usaBs,20231213-1550-ABS-4h1cbhlp,39,1.7025E+12,592
+Prof,United States of America,en,debug,male,11,,,,,,,36,united states,English,usaLh,20231211-1912-ABS-u9w9ligm,36,1.70234E+12,592
+Student in Computer Science,Canada,en,debug,female,11,,fra,eng,,,,3 months,Madagascar,Malagasy,mgaHa,20231211-1930-CON-p62b79i1,23,1.70234E+12,592
+Machine Learning Engineer,Madagascar,en,debug,male,11,,fra,eng,,,,24 years,Madagascar,Malagasy,mdgTr,20231211-2207-ABS-q1tlbp9j,24,1.70232E+12,592
+Student,United States of America,en,debug,male,10,,eng,,,,,5,Zimbabwe,"Ndebele, South; South Ndebele",usaAn,20231212-2000-ABS-q5cii8e4,38,1.70243E+12,503
+Programme Specialist Humanitarian Affairs,Germany,en,debug,female,11,,spa,eng,fra,,,26 Years,Germany,German,deCs,20231212-2038-CON-oitdysrj,29,1.70241E+12,74
+Research ,United States of America,en,debug,female ,1,,eng,cpf,,,,8,Tunisia,Arabic,usaFk,20231212-2229-ABS-8udog8qrk,40,1.70244E+12,174
+Military,United States of America,en,debug,male,11,,hin,,,,,18,Nepal,Nepali,usaBs,20231213-1550-ABS-4h1cbhlp,39,1.7025E+12,592
 researcher,United States of America,en,debug,female,11,,fra,eng,,,,5,Madagascar,Malagasy,mdgNr2,20231213-1742-ABS-loy840nu,38,1.70252E+12,592
 Software engineer ,United States of America,en,debug,M,11,,fra,,,,,3,Canada,Arabic,usaEk2,20231213-2154-CON-ssjmriuyg,30,1.70253E+12,592
 teacher,Madagascar,en,debug,male,11,,fra,eng,,,,38,Madagascar,Malagasy,mdgNr3,20231214-0828-CON-8sxhjtqkj,38,1.70257E+12,592
-Lead Data Manager,United States of America,en,debug,Female,11,,eng,fra,,,,5,Madagascar,Malagasy,mdgTm,20231214-1048-ABS-9ftksioj,36,1.70257E+12,592
-Consultant,United States of America,en,debug,Female,11,,eng,fra,,,,16,United States of America,Malagasy,mdgLr,20231214-1215-ABS-db84cx09,42,1.70257E+12,370
+Lead Data Manager,United States of America,en,debug,female,11,,eng,fra,,,,5,Madagascar,Malagasy,mdgTm,20231214-1048-ABS-9ftksioj,36,1.70257E+12,592
+Consultant,United States of America,en,debug,female,11,,eng,fra,,,,16,United States of America,Malagasy,mdgLr,20231214-1215-ABS-db84cx09,42,1.70257E+12,370

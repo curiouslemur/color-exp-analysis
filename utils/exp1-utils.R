@@ -132,7 +132,7 @@ ci_t.test <- function (data, conceptListEn, title ) {
 }
 
 
-#### ---------- Function to translate concept names into english
+#### ---------- Function to translate concept names from French into English
 ##### Params --
 ####
 translateConcepts <- function(df, concept_fr, concept_en){
@@ -141,7 +141,6 @@ translateConcepts <- function(df, concept_fr, concept_en){
                         concept_en[match(df$conceptFr[df$conceptFr %in% concept_fr], concept_fr)])
   return(df)
 }
-
 
 #### ----------- Function to plot the association weights (sorted)
 plotWeight_Err <- function(data, title){

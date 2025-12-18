@@ -1,6 +1,5 @@
 source(file = './utils/exp1-utils.R')  # loads all necessary packages //NOTE: some packages
 
-
 ################################################################## MG demography data #####
 mgdem <- read.csv("data/exp1/csv/mdg-dem.csv", encoding = "UTF-8")
 mgdem <- mgdem %>%
@@ -37,7 +36,7 @@ usdem <- read_csv("data/exp1/csv/usa-dem.csv")
 usdem <- usdem %>% 
   mutate(profession = replace(profession, profession %in% c("ETUDIANT"), "student")) %>% 
   mutate(profession = replace(profession, profession %in% c("None", "n/a"), "Unemployed")) %>% 
-  mutate(gender = replace(gender, gender %in% c("HOMME", "Male"), "male")) %>% 
+  mutate(gender = replace(gender, gender %in% c("HOMME", "Male", "m"), "male")) %>% 
   mutate(gender = replace(gender, gender %in% c("Female", "F", "Woman"), "female"))
   
 # write_csv(filter(usdem, expCountry == "usa1"), "data/exp1/csv/clean/us-dem-p1-.csv")
@@ -57,13 +56,13 @@ usdem_alt1 <- read_csv("data/exp1/csv/p3-usa-dem-alt-1.csv")
 usdem_alt2 <- read_csv("data/exp1/csv/p3-usa-dem-alt-2.csv")
 
 usdem_alt <- rbind(usdem_alt1, usdem_alt2)
-write_csv(usdem_alt, "data/exp1/csv/clean/us-p3-dem-alt.csv")
+# write_csv(usdem_alt, "data/exp1/csv/clean/us-p3-dem-alt.csv")
 
 ################################################################## US response data - From Alt firestore #####
 ## Note: The data from alt firestores are only for pilot #3 (done in alternating batches due to firestore writing limitations)
-## Note: the demographic data from alt firebase have been manually merged manually
+## Note: the demographic data from alt firebase have been merged manually
 usdf_alt1 <- read_csv("data/exp1/csv/p3-usa-alt-1.csv")
 usdf_alt2 <- read_csv("data/exp1/csv/p3-usa-alt-2.csv")
 
 usdf_alt <- rbind(usdf_alt1, usdf_alt2)
-write_csv(usdf_alt, "data/exp1/csv/clean/us-p3-alt.csv")
+# write_csv(usdf_alt, "data/exp1/csv/clean/us-p3-alt.csv")

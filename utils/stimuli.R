@@ -13,7 +13,7 @@ color_codes <- c("SR", "LR", "MR", "DR", "SP", "LP", "MP", "DP", "SB", "LB", "MB
 # Gamma: sRGB
 # Adaptation: Bradford
 
-bcp37 <- read_csv("./utils/color_values_bcp37.csv")[1:37,] # color values for the bcp color library
+bcp37 <- read_csv("./utils/color_values_bcp37.csv", show_col_types = FALSE)[1:37,] # color values for the bcp color library
 # white RGB is replace with (0, 0, 255) temporarily for plotting
 
 bcp37hex <- select(bcp37,color, hex)
@@ -54,3 +54,9 @@ conceptListFr2 <- c(
   'vie', 'justice', 'paix', 'mort',
   'en colère', 'heureux', 'amour',  'triste',
   'sécheresse', 'arbre', 'en bonne santé', 'malade')
+
+##### List of concepts used for pilot study #3 (final set of 14 concepts)
+conceptListEn3 = c('banana', 'mango', 'peach', 'death', 'justice', 'peace', 'safety',
+                   'angry', 'happy', 'sad', 'sick', 'lightning', 'sandstorm', 'tree')
+conceptListFr3 = c('banane', 'mangue', 'pêche', 'mort', 'justice', 'peace', 'sécurité',
+                   'en colère', 'heureux', 'triste', 'malade', 'foudre', 'tempête de sable', 'arbre')
