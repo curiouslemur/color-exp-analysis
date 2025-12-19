@@ -83,7 +83,7 @@ usdf123 <- rbind(usdf1, usdf2, usdf3, usdf3alt)
 usdf <- usdf123 %>% filter(ID %in% unique(usdem$sessionID))
 
 usdf$expCountry <- 'usa'
-usdf$rating <- round(mgdf$ans/100, digits = 3)
+usdf$rating <- round(usdf$ans/100, digits = 3)
 
 rm(usdf1, usdf2, usdf3, usdf3alt, usdf123)
 ```

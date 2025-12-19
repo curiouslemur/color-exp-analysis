@@ -27,36 +27,36 @@ bcp37hex <- select(bcp37,color, hex)
 # 
 # backgroundColor <- "#79797a"
 ##### List of concepts used for pilot study #1
-conceptListEn1 <- c(
-  "banana", "carrot", "mango", "peach",
-  "comfort", "justice", "peace", "safety",
-  "angry", "happy", "love", "sad",
-  "drought", "hurricane", "lightning", "sandstorm"
-)
-
-conceptListFr1 <- c( 
-  'banane', 'carotte', 'mangue', 'pêche', 
-  'confort', 'justice', 'paix', 'sécurité',
-  'en colère', 'heureux', 'amour',  'triste',
-  'sécheresse', 'ouragan', 'foudre', 'tempête de sable')
+# conceptListEn1 <- c(
+#   "banana", "carrot", "mango", "peach",
+#   "comfort", "justice", "peace", "safety",
+#   "angry", "happy", "love", "sad",
+#   "drought", "hurricane", "lightning", "sandstorm"
+# )
+# 
+# conceptListFr1 <- c( 
+#   'banane', 'carotte', 'mangue', 'pêche', 
+#   'confort', 'justice', 'paix', 'sécurité',
+#   'en colère', 'heureux', 'amour',  'triste',
+#   'sécheresse', 'ouragan', 'foudre', 'tempête de sable')
 
 
 ##### List of concepts used for pilot study #2
-conceptListEn2 <- c(
-  "banana", "spices", "mango", "peach",
-  "life", "justice", "peace", "death",
-  "angry", "happy", "love", "sad",
-  "drought", "tree", "healthy", "sick"
-)
-
-conceptListFr2 <- c( 
-  'banane', 'épices', 'mangue', 'pêche', 
-  'vie', 'justice', 'paix', 'mort',
-  'en colère', 'heureux', 'amour',  'triste',
-  'sécheresse', 'arbre', 'en bonne santé', 'malade')
+# conceptListEn2 <- c(
+#   "banana", "spices", "mango", "peach",
+#   "life", "justice", "peace", "death",
+#   "angry", "happy", "love", "sad",
+#   "drought", "tree", "healthy", "sick"
+# )
+# 
+# conceptListFr2 <- c( 
+#   'banane', 'épices', 'mangue', 'pêche', 
+#   'vie', 'justice', 'paix', 'mort',
+#   'en colère', 'heureux', 'amour',  'triste',
+#   'sécheresse', 'arbre', 'en bonne santé', 'malade')
 
 ##### List of concepts used for pilot study #3 (final set of 14 concepts)
 conceptListEn3 = c('banana', 'mango', 'peach', 'death', 'justice', 'peace', 'safety',
                    'angry', 'happy', 'sad', 'sick', 'lightning', 'sandstorm', 'tree')
-conceptListFr3 = c('banane', 'mangue', 'pêche', 'mort', 'justice', 'peace', 'sécurité',
+conceptListFr3 = c('banane', 'mangue', 'pêche', 'mort', 'justice', 'paix', 'sécurité',
                    'en colère', 'heureux', 'triste', 'malade', 'foudre', 'tempête de sable', 'arbre')
