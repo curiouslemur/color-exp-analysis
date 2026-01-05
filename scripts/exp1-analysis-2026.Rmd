@@ -1,7 +1,7 @@
 ---
 title: "exp1-p3"
 output: html_document
-date: "2024-07-23"
+date: "2026-01-04"
 ---
 
 ```{r setup, include=FALSE}
@@ -39,13 +39,13 @@ usdf_w$con = factor(usdf_w$concept, levels=conceptListEn3) # to order the facet 
 p2 <- plotWeight_Err(usdf_w, "Mean weight of assoc., lib: BCP37, USA") + 
   theme(axis.title.y = element_blank(), axis.text.y = element_blank()); p2 
 
-p12 <- grid.arrange(p1, p2, nrow = 1)
+p12 <- grid.arrange(p1, p2, nrow = 1); p12
 ```
 
 ```{r eval=FALSE}
-ggsave(file="./fig/weight-mg.png", plot = p1, width=10, height=16)
-ggsave(file="./fig/weight-us.png", plot = p2, width=10, height=16)
-ggsave(file="./fig/weight-both.png", plot = p12, width=10, height=16)
+# ggsave(file="./fig/weight-mg.png", plot = p1, width=10, height=16)
+# ggsave(file="./fig/weight-us.png", plot = p2, width=10, height=16)
+# ggsave(file="./fig/weight-both.png", plot = p12, width=10, height=16)
 ```
 
 #### Unique pairs of concepts and pairs of colors without repetition 
@@ -92,7 +92,7 @@ mgdf_agg <- mgdf %>% group_by(concept, color) %>% summarise(xbar = mean(rating),
 
 a_mg <- coef(getFitSd(mgdf_agg)) # a = 1.536
 # Plotting the data points, and fitted curve
-plot(mgdf_agg$xbar, mgdf_agg$sd_sample, main = "Fit for the Function s = a * xbar * (1 - xbar)",
+plot(mgdf_agg$xbar, mgdf_agg$sd_sample, main = "MDG data: Fit for the Function s = a * xbar * (1 - xbar)",
      xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16)
 curve(coef(getFitSd(mgdf_agg)) * x * (1 - x), add = TRUE, col = "orange", lwd = 2)
 
@@ -119,9 +119,6 @@ deltaS_mg <- getDeltaS(xMg2) %>% select(concept1, concept2, color1, color2, delt
 dsmg <- deltaS_mg %>% select(-deltaS_sample) %>% rename(deltaSmg = deltaS_fit)
 dsus <- deltaS_us %>% select(-deltaS_sample) %>% rename(deltaSus = deltaS_fit)
 
-# Lower and Higher thresholds for deltaS
-dsL = 0.1; dsH = 0.9
-
 getPairs <- function(dsL, dsH){
   dsmgL = filter(dsmg, deltaSmg <= dsL) %>% select(-deltaSmg); 
   dsmgH = filter(dsmg, deltaSmg >= dsH) %>% select(-deltaSmg)
@@ -145,11 +142,13 @@ getPairs <- function(dsL, dsH){
   return(final)
 }
 
-final <- getPairs(0.1, 0.7)  %>% drop_na()
+# Lower and Higher thresholds for deltaS
+dsL = 0.1; dsH = 0.7
+final <- getPairs(dsL, dsH)  %>% drop_na()
+unique(final$concept1); unique(final$concept2);
 
 # find which columns of the dataframe only have NAs
 names(final)[sapply(final, function(x) sum(is.na(x)) == length(x))]
-
 final <- final %>% filter(!is.na(mgH_usL1), !is.na(mgH_usL2))
 
 # unique combinations of two columns concept1 and concept2
@@ -158,8 +157,11 @@ final %>% group_by(concept1, concept2) %>% summarize(freq = n())
 
 ## Adding color code to Final dataset
 bcp37 <- read_csv("utils/color_values_bcp37.csv")# %>% select('name', 'color', 'hex')
+```
 
-write_csv(final, "output/final-01-07.csv")
+
+```{r cross-cultural analysis}
+write_csv(final, paste("output/", gsub("\\.", "", dsL), "-", gsub("\\.", "", dsH), "-final.csv", sep = ""))
 ```
 
 
@@ -168,7 +170,6 @@ write_csv(final, "output/final-01-07.csv")
 # scatterplot shows the number of concepts we find for different combination of {min deltaS,max deltaS}
 
 scatterDf <- data.frame()
-
 for (low in c(0.1, 0.2, 0.3)){
   for (hi in c(0.9, 0.8, 0.7)){
     
@@ -183,13 +184,12 @@ for (low in c(0.1, 0.2, 0.3)){
     scatterDf <- rbind(scatterDf, a)
   }
 }
-
 ```
 
 ```{r generate data for d3 visualization}
 library(jsonlite)
 
-# Sample data (replace with your actual data)
+# Sample data (to be replaced with actual data)
 # df <- data.frame(
 #   concept1 = c("banana", "banana", "test1"),
 #   concept2 = c("love", "love", "test2"),
@@ -204,7 +204,8 @@ library(jsonlite)
 #   stringsAsFactors = FALSE
 # )
 
-df <- final %>% filter(mgL_usH1 == "WH", mgL_usH2 == "DP", mgH_usH1=="DG", mgH_usH2 == "BK")
+## !!! NOTE The FILTER 
+df <- final # %>% filter(mgL_usH1 == "WH", mgL_usH2 == "DP", mgH_usH1=="DG", mgH_usH2 == "BK")
 
 json_list <- list()
 for (i in 1:nrow(df)) {
@@ -224,9 +225,10 @@ for (i in 1:nrow(df)) {
 
 # Convert the entire list to JSON and write it to a single file
 json_string <- toJSON(json_list, pretty = TRUE, auto_unbox = TRUE)
-print(json_string)
+# print(json_string)
 
-write(json_string, file = "output/final-12-2026.json")
+# write(json_string, file = "output/final-12-2026.json")
+write(json_string, file = paste("output/", gsub("\\.", "", dsL), "-", gsub("\\.", "", dsH), "-final.json", sep = ""))
 
 # df2 <- data.frame(
 #   color = c("WH", "SR", "MR", "MG", "XR", "LH1", "LH2", "HH1", "HH2"),
@@ -238,7 +240,7 @@ write(json_string, file = "output/final-12-2026.json")
 # )
 
 df2 <- bcp37
-# Function to create JSON-like entry
+# Function to create JSON-like entry for each color (more info about the color)
 create_json_entry <- function(code) {
   entry <- df2 %>% filter(color == code)
   if (nrow(entry) > 0) {
@@ -256,7 +258,7 @@ df_replaced <- df %>%
 # Convert the transformed dataframe back to JSON
 output_json <- toJSON(df_replaced, pretty = TRUE, auto_unbox = TRUE)
 
-cat(output_json)
+# cat(output_json)
 
 df_combined <- df_replaced %>% 
   mutate(mgL_usH = map2(mgL_usH1, mgL_usH2, ~ list(.x, .y))) %>%
@@ -269,6 +271,7 @@ df_combined <- df_replaced %>%
 output_json <- toJSON(df_combined, pretty = TRUE, auto_unbox = TRUE)
 
 # Print the resulting JSON
-cat(output_json)
-write(output_json, file = "output/full.json")
+# cat(output_json)
+# write(output_json, file = "output/full-12-2026.json")
+write(output_json, file = paste("output/", gsub("\\.", "", dsL), "-", gsub("\\.", "", dsH), "-full.json", sep = ""))
 ```
