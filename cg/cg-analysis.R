@@ -1,4 +1,4 @@
-# Pairwise semantic discriminability landscape (Schloss-style uncertainty model)
+# Pairwise semantic discriminability landscape (using Schloss-style uncertainty model)
 # ----------------------------------------------------------------------------
 # This version follows the paper's assumption:
 #   Each association x_i ~ Normal(mean = xbar_i, sd = sigma_i),
