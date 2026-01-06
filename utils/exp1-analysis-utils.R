@@ -75,7 +75,8 @@ getXvalues_opt <- function(data, concept_pairs, color_pairs, sd_fit_coef){
                   sd_fit1 = sd_fit_coef * xbar1 * (1 - xbar1),
                   sd_fit2 = sd_fit_coef * xbar2 * (1 - xbar2),
                   sd_fit3 = sd_fit_coef * xbar3 * (1 - xbar3), 
-                  sd_fit4 = sd_fit_coef * xbar4 * (1 - xbar4)) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
+                  sd_fit4 = sd_fit_coef * xbar4 * (1 - xbar4)) %>% 
+    mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
   
   return(x_opt)
 }

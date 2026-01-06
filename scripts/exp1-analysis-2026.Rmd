@@ -112,6 +112,12 @@ xMg2 <- getXvalues_opt(mgdf_agg, concept_pairs, color_pairs, a_mg) %>% mutate(de
 deltaS_mg <- getDeltaS(xMg2) %>% select(concept1, concept2, color1, color2, deltaS_sample, deltaS_fit)
 ```
 
+```{r}
+write_csv(deltaS_mg, "output/mg-deltaS.csv")
+write_csv(deltaS_us, "output/us-deltaS.csv")
+
+```
+
 ```{r cross-cultural analysis}
 # Finding four pairs of colors for each pair of concepts such that
 ## working with deltaS_mg and deltaS_us
