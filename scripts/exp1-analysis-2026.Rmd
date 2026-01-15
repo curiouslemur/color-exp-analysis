@@ -6,9 +6,9 @@ date: "2026-01-04"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-source(file = './utils/exp1-utils.R')  # loads all necessary packages 
-source(file = './utils/stimuli.R')
-source(file = './utils/exp1-analysis-utils.R')
+source(file = "./utils/exp1-utils.R") # loads all necessary packages
+source(file = "./utils/stimuli.R")
+source(file = "./utils/exp1-analysis-utils.R")
 ```
 
 # Malagasy dataset
@@ -16,14 +16,14 @@ source(file = './utils/exp1-analysis-utils.R')
 n = 50
 
 ```{r data-load}
-dataPath = "data/exp1/csv/2026/"
-mgdem = read_csv(paste(dataPath, "mg-dem.csv", sep = ''))
-mgdf = read_csv(paste(dataPath, "mg-df.csv", sep = ''))
-mgdf_w = read_csv(paste(dataPath, "mg-df-weight.csv", sep = ''))
+dataPath <- "data/exp1/csv/2026/"
+mgdem <- read_csv(paste(dataPath, "mg-dem.csv", sep = ""))
+mgdf <- read_csv(paste(dataPath, "mg-df.csv", sep = ""))
+mgdf_w <- read_csv(paste(dataPath, "mg-df-summary.csv", sep = ""))
 
-usdem = read_csv(paste(dataPath, "us-dem.csv", sep = ''))
-usdf = read_csv(paste(dataPath, "us-df.csv", sep = ''))
-usdf_w = read_csv(paste(dataPath, "us-df-weight.csv", sep = ''))
+usdem <- read_csv(paste(dataPath, "us-dem.csv", sep = ""))
+usdf <- read_csv(paste(dataPath, "us-df.csv", sep = ""))
+usdf_w <- read_csv(paste(dataPath, "us-df-summary.csv", sep = ""))
 
 rm(dataPath)
 ```
@@ -31,15 +31,18 @@ rm(dataPath)
 ### Analyzing within group
 ```{r plot assoc. weights}
 ## Association weight MDG
-mgdf_w$con = factor(mgdf_w$concept, levels=conceptListEn3) # to order the facet strips 
-p1 <- plotWeight_Err(mgdf_w, "Mean weight of assoc, lib: BCP37, MDG"); p1
-  
-## Association weight USA
-usdf_w$con = factor(usdf_w$concept, levels=conceptListEn3) # to order the facet strips 
-p2 <- plotWeight_Err(usdf_w, "Mean weight of assoc., lib: BCP37, USA") + 
-  theme(axis.title.y = element_blank(), axis.text.y = element_blank()); p2 
+mgdf_w$con <- factor(mgdf_w$concept, levels = conceptListEn3) # to order the facet strips
+p1 <- plotWeight_Err(mgdf_w, "Mean weight of assoc, lib: BCP37, MDG")
+p1
 
-p12 <- grid.arrange(p1, p2, nrow = 1); p12
+## Association weight USA
+usdf_w$con <- factor(usdf_w$concept, levels = conceptListEn3) # to order the facet strips
+p2 <- plotWeight_Err(usdf_w, "Mean weight of assoc., lib: BCP37, USA") +
+  theme(axis.title.y = element_blank(), axis.text.y = element_blank())
+p2
+
+p12 <- grid.arrange(p1, p2, nrow = 1)
+p12
 ```
 
 ```{r eval=FALSE}
@@ -55,19 +58,26 @@ concept_pairs <- as.data.frame(t(combn(unique(usdf$concept), 2))) %>% rename(con
 color_pairs <- as.data.frame(t(combn(unique(mgdf$color), 2))) %>% rename(color1 = V1, color2 = V2)
 ```
 
+Estimating the value of alpha in the fit for standard deviation.
 ```{r US data}
 # Aggregated data (x = average rating for each color of each concept)
-usdf_agg <- usdf %>% group_by(concept, color) %>% summarise(xbar = mean(rating), sd_sample = sd(rating), .groups = 'drop')
+usdf_agg <- usdf %>%
+  group_by(concept, color) %>%
+  summarise(xbar = mean(rating), sd_sample = sd(rating), .groups = "drop")
 
-a_us <- coef(getFitSd(usdf_agg)) # alpha a_us = 1.384426
+a_us <- coef(getFitSd(usdf_agg)) # alpha a_us = 1.384426 ~ 1.4
 # Plotting the data points, and fitted curve
-plot(usdf_agg$xbar, usdf_agg$sd_sample, main = "Fit for model s = a * xbar * (1 - xbar)",
-     xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16)
+plot(usdf_agg$xbar, usdf_agg$sd_sample,
+  main = "Fit for model s = a * xbar * (1 - xbar)",
+  xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16
+)
 curve(coef(getFitSd(usdf_agg)) * x * (1 - x), add = TRUE, col = "orange", lwd = 2)
 
 a_us2 <- coef(getFitSd2(usdf_agg)) # alpha a = 0.37, beta b = 0.32
-plot(usdf_agg$xbar, usdf_agg$sd_sample, main = "Fit for model s = a * xbar^b",
-     xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16)
+plot(usdf_agg$xbar, usdf_agg$sd_sample,
+  main = "Fit for model s = a * xbar^b",
+  xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16
+)
 curve(coef(getFitSd2(usdf_agg))[1] * x^coef(getFitSd2(usdf_agg))[2], add = TRUE, col = "red", lwd = 2)
 
 # -> The first model w/ a_us fits the data better, so we will use a_us from here
@@ -77,7 +87,7 @@ curve(coef(getFitSd2(usdf_agg))[1] * x^coef(getFitSd2(usdf_agg))[2], add = TRUE,
 xUs2 <- getXvalues_opt(usdf_agg, concept_pairs, color_pairs, a_us) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
 
 ### Verifying if the outputs of getXvalues and getXvalues_opt are the same
-###-> Yes, they are the same
+### -> Yes, they are the same
 # xus <- xUs[order(names(xUs))]; xus <- xus[order(row.names(xus)), ]
 # xus2 <- xUs2[order(names(xUs2))]; xus2 <- xus2[order(row.names(xus2)),]
 # anti_join(xus, xus2) # if nrow here == 0 then all rows in xus can be found in xus2, i.e. the two df are identical
@@ -89,17 +99,23 @@ deltaS_us <- getDeltaS(xUs2) %>% select(concept1, concept2, color1, color2, delt
 
 
 ```{r MG data}
-mgdf_agg <- mgdf %>% group_by(concept, color) %>% summarise(xbar = mean(rating), sd_sample = sd(rating), .groups = 'drop')
+mgdf_agg <- mgdf %>%
+  group_by(concept, color) %>%
+  summarise(xbar = mean(rating), sd_sample = sd(rating), .groups = "drop")
 
 a_mg <- coef(getFitSd(mgdf_agg)) # a = 1.536
 # Plotting the data points, and fitted curve
-plot(mgdf_agg$xbar, mgdf_agg$sd_sample, main = "MDG data: Fit for the Function s = a * xbar * (1 - xbar)",
-     xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16)
+plot(mgdf_agg$xbar, mgdf_agg$sd_sample,
+  main = "MDG data: Fit for the Function s = a * xbar * (1 - xbar)",
+  xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16
+)
 curve(coef(getFitSd(mgdf_agg)) * x * (1 - x), add = TRUE, col = "orange", lwd = 2)
 
 a_mg2 <- coef(getFitSd2(mgdf_agg))
-plot(mgdf_agg$xbar, mgdf_agg$sd_sample, main = "Fit for model s = a * xbar^b",
-     xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16)
+plot(mgdf_agg$xbar, mgdf_agg$sd_sample,
+  main = "Fit for model s = a * xbar^b",
+  xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16
+)
 curve(coef(getFitSd2(mgdf_agg))[1] * x^coef(getFitSd2(mgdf_agg))[2], add = TRUE, col = "red", lwd = 2)
 
 # The first model w/ a_mg fits the data better, so we will use a_mg from here
@@ -108,7 +124,7 @@ curve(coef(getFitSd2(mgdf_agg))[1] * x^coef(getFitSd2(mgdf_agg))[2], add = TRUE,
 xMg2 <- getXvalues_opt(mgdf_agg, concept_pairs, color_pairs, a_mg) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
 
 ### Verifying if the outputs of getXvalues and getXvalues_opt are the same (using the same method as in the chunk above)
-###-> YES, THEY ARE
+### -> YES, THEY ARE
 
 deltaS_mg <- getDeltaS(xMg2) %>% select(concept1, concept2, color1, color2, deltaS_sample, deltaS_fit)
 ```
@@ -116,54 +132,60 @@ deltaS_mg <- getDeltaS(xMg2) %>% select(concept1, concept2, color1, color2, delt
 ```{r}
 write_csv(deltaS_mg, "output/mg-deltaS.csv")
 write_csv(deltaS_us, "output/us-deltaS.csv")
-
 ```
 
 ```{r cross-cultural analysis}
 # Finding four pairs of colors for each pair of concepts such that
 ## working with deltaS_mg and deltaS_us
 
-dsmg <- deltaS_mg %>% select(-deltaS_sample) %>% rename(deltaSmg = deltaS_fit)
-dsus <- deltaS_us %>% select(-deltaS_sample) %>% rename(deltaSus = deltaS_fit)
+dsmg <- deltaS_mg %>%
+  select(-deltaS_sample) %>%
+  rename(deltaSmg = deltaS_fit)
+dsus <- deltaS_us %>%
+  select(-deltaS_sample) %>%
+  rename(deltaSus = deltaS_fit)
 
-getPairs <- function(dsL, dsH){
-  dsmgL = filter(dsmg, deltaSmg <= dsL) %>% select(-deltaSmg); 
-  dsmgH = filter(dsmg, deltaSmg >= dsH) %>% select(-deltaSmg)
-  dsusL = filter(dsus, deltaSus <= dsL) %>% select(-deltaSus);
-  dsusH = filter(dsus, deltaSus >= dsH) %>% select(-deltaSus)
-  
-  mgL_usH = inner_join(dsmgL, dsusH, by = c('concept1', 'concept2', 'color1', 'color2')) %>% # common rows between the two dataframes
+getPairs <- function(dsL, dsH) {
+  dsmgL <- filter(dsmg, deltaSmg <= dsL) %>% select(-deltaSmg)
+  dsmgH <- filter(dsmg, deltaSmg >= dsH) %>% select(-deltaSmg)
+  dsusL <- filter(dsus, deltaSus <= dsL) %>% select(-deltaSus)
+  dsusH <- filter(dsus, deltaSus >= dsH) %>% select(-deltaSus)
+
+  mgL_usH <- inner_join(dsmgL, dsusH, by = c("concept1", "concept2", "color1", "color2")) %>% # common rows between the two dataframes
     rename(mgL_usH1 = color1, mgL_usH2 = color2)
-  mgH_usH = inner_join(dsmgH, dsusH, by = c('concept1', 'concept2', 'color1', 'color2')) %>% 
+  mgH_usH <- inner_join(dsmgH, dsusH, by = c("concept1", "concept2", "color1", "color2")) %>%
     rename(mgH_usH1 = color1, mgH_usH2 = color2)
-  mgL_usL = inner_join(dsmgL, dsusL, by = c('concept1', 'concept2', 'color1', 'color2')) %>% 
+  mgL_usL <- inner_join(dsmgL, dsusL, by = c("concept1", "concept2", "color1", "color2")) %>%
     rename(mgL_usL1 = color1, mgL_usL2 = color2)
-  mgH_usL = inner_join(dsmgH, dsusL, by = c('concept1', 'concept2', 'color1', 'color2')) %>% 
+  mgH_usL <- inner_join(dsmgH, dsusL, by = c("concept1", "concept2", "color1", "color2")) %>%
     rename(mgH_usL1 = color1, mgH_usL2 = color2)
-  
+
   final <- mgL_usH %>%
-    full_join(mgH_usH, by = c('concept1', 'concept2'), relationship = "many-to-many") %>%
-    full_join(mgL_usL, by = c('concept1', 'concept2'), relationship = "many-to-many") %>%
-    full_join(mgH_usL, by = c('concept1', 'concept2'), relationship = "many-to-many")#  %>% drop_na()
-  
+    full_join(mgH_usH, by = c("concept1", "concept2"), relationship = "many-to-many") %>%
+    full_join(mgL_usL, by = c("concept1", "concept2"), relationship = "many-to-many") %>%
+    full_join(mgH_usL, by = c("concept1", "concept2"), relationship = "many-to-many") #  %>% drop_na()
+
   return(final)
 }
 
 # Lower and Higher thresholds for deltaS
-dsL = 0.1; dsH = 0.7
-final <- getPairs(dsL, dsH)  %>% drop_na()
-unique(final$concept1); unique(final$concept2);
-
+dsL <- 0.1
+dsH <- 0.7
+final <- getPairs(dsL, dsH) %>% drop_na()
+unique(final$concept1)
+unique(final$concept2)
 # find which columns of the dataframe only have NAs
 names(final)[sapply(final, function(x) sum(is.na(x)) == length(x))]
 final <- final %>% filter(!is.na(mgH_usL1), !is.na(mgH_usL2))
 
 # unique combinations of two columns concept1 and concept2
 final %>% distinct(concept1, concept2)
-final %>% group_by(concept1, concept2) %>% summarize(freq = n())
+final %>%
+  group_by(concept1, concept2) %>%
+  summarize(freq = n())
 
 ## Adding color code to Final dataset
-bcp37 <- read_csv("utils/color_values_bcp37.csv")# %>% select('name', 'color', 'hex')
+bcp37 <- read_csv("utils/color_values_bcp37.csv") # %>% select('name', 'color', 'hex')
 ```
 
 
@@ -177,17 +199,20 @@ write_csv(final, paste("output/", gsub("\\.", "", dsL), "-", gsub("\\.", "", dsH
 # scatterplot shows the number of concepts we find for different combination of {min deltaS,max deltaS}
 
 scatterDf <- data.frame()
-for (low in c(0.1, 0.2, 0.3)){
-  for (hi in c(0.9, 0.8, 0.7)){
-    
-    tmp <- getPairs(low, hi) 
-    
-    a <- tmp %>% group_by(concept1, concept2) %>% summarize( 
-        n_con_pair = n(), 
-        mgL_usL = sum(!is.na(mgL_usL1)), mgL_usH = sum(!is.na(mgL_usH1)), 
-        mgH_usL = sum(!is.na(mgH_usL1)), mgH_usH = sum(!is.na(mgH_usH1)), .groups = 'drop')
-    
-    a$dsLow = low; a$dsHi = hi
+for (low in c(0.1, 0.2, 0.3)) {
+  for (hi in c(0.9, 0.8, 0.7)) {
+    tmp <- getPairs(low, hi)
+
+    a <- tmp %>%
+      group_by(concept1, concept2) %>%
+      summarize(
+        n_con_pair = n(),
+        mgL_usL = sum(!is.na(mgL_usL1)), mgL_usH = sum(!is.na(mgL_usH1)),
+        mgH_usL = sum(!is.na(mgH_usL1)), mgH_usH = sum(!is.na(mgH_usH1)), .groups = "drop"
+      )
+
+    a$dsLow <- low
+    a$dsHi <- hi
     scatterDf <- rbind(scatterDf, a)
   }
 }
@@ -211,14 +236,14 @@ library(jsonlite)
 #   stringsAsFactors = FALSE
 # )
 
-## !!! NOTE The FILTER 
+## !!! NOTE The FILTER
 df <- final # %>% filter(mgL_usH1 == "WH", mgL_usH2 == "DP", mgH_usH1=="DG", mgH_usH2 == "BK")
 
 json_list <- list()
 for (i in 1:nrow(df)) {
   # Extract values for the current row
   row_data <- df[i, ]
-  
+
   # Define the JSON structure for the current row
   json_data <- list(
     concept1 = row_data$concept1,
@@ -226,7 +251,8 @@ for (i in 1:nrow(df)) {
     mgL_usH = list(row_data$mgL_usH1, row_data$mgL_usH2),
     mgH_usH = list(row_data$mgH_usH1, row_data$mgH_usH2),
     mgL_usL = list(row_data$mgL_usL1, row_data$mgL_usL2),
-    mgH_usL = list(row_data$mgH_usL1, row_data$mgH_usL2))
+    mgH_usL = list(row_data$mgH_usL1, row_data$mgH_usL2)
+  )
   json_list[[i]] <- json_data
 }
 
@@ -253,26 +279,26 @@ create_json_entry <- function(code) {
   if (nrow(entry) > 0) {
     return(list(color = code, hex = entry$hex, L = entry$L, a = entry$a, b = entry$b))
     # return(list(color = code, hex = entry$hex, L = entry$L))
-      } else {
-    return(NULL)  # Return NULL if the color code doesn't exist in df2
+  } else {
+    return(NULL) # Return NULL if the color code doesn't exist in df2
   }
 }
 
 # Replace color codes with JSON entries
 df_replaced <- df %>%
-  mutate(across(starts_with("mg"), ~map(.x, create_json_entry)))
+  mutate(across(starts_with("mg"), ~ map(.x, create_json_entry)))
 
 # Convert the transformed dataframe back to JSON
 output_json <- toJSON(df_replaced, pretty = TRUE, auto_unbox = TRUE)
 
 # cat(output_json)
 
-df_combined <- df_replaced %>% 
+df_combined <- df_replaced %>%
   mutate(mgL_usH = map2(mgL_usH1, mgL_usH2, ~ list(.x, .y))) %>%
   mutate(mgL_usL = map2(mgL_usL1, mgL_usL2, ~ list(.x, .y))) %>%
   mutate(mgH_usH = map2(mgH_usH1, mgH_usH2, ~ list(.x, .y))) %>%
   mutate(mgH_usL = map2(mgH_usL1, mgH_usL2, ~ list(.x, .y))) %>%
-  select(-mgL_usH1, -mgL_usH2, -mgL_usL1, -mgL_usL2, -mgH_usH1, -mgH_usH2, -mgH_usL1, -mgH_usL2 )  # Remove the original keys
+  select(-mgL_usH1, -mgL_usH2, -mgL_usL1, -mgL_usL2, -mgH_usH1, -mgH_usH2, -mgH_usL1, -mgH_usL2) # Remove the original keys
 
 # Convert the modified dataframe back to JSON
 output_json <- toJSON(df_combined, pretty = TRUE, auto_unbox = TRUE)
