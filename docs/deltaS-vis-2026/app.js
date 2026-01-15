@@ -86,12 +86,12 @@ function labcLine(code) {
     if (!d) return `${code}: (no Labc found)`;
     // keep it short so tooltip doesn’t explode
     return `${code}: L=${d.L.toFixed(1)} a=${d.a.toFixed(1)} b=${d.b.toFixed(1)} c=${d.c.toFixed(1)}`;
+    return `${code}: L=${d.L.toFixed(1)} a=${d.a.toFixed(1)} b=${d.b.toFixed(1)} c=${d.c.toFixed(1)}`;
 }
 
 function heatmapTooltipHTML(d) {
     const c1Css = cssForColorCode(d.c1);
     const c2Css = cssForColorCode(d.c2);
-
     return `
     <div><b>${d.c1} × ${d.c2}</b></div>
     <div>distance: <b>${d.d.toFixed(4)}</b></div>
@@ -99,12 +99,12 @@ function heatmapTooltipHTML(d) {
     <div style="display:flex; gap:10px; margin-top:8px; align-items:flex-start;">
       <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
         <div style="width:50px;height:50px;background:${c1Css};border:1px solid rgba(255,255,255,0.25);"></div>
-        <div style="font-size:11px; opacity:0.9;">${d.c1}</div>
+        <div style="font-size:11px; opacity:0.9;">${d.c1} <br/> ${d.name}</div>
       </div>
 
       <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
         <div style="width:50px;height:50px;background:${c2Css};border:1px solid rgba(255,255,255,0.25);"></div>
-        <div style="font-size:11px; opacity:0.9;">${d.c2}</div>
+        <div style="font-size:11px; opacity:0.9;">${d.c2} <br/> ${d.name}</div>
       </div>
     </div>
 
@@ -379,49 +379,9 @@ function renderHeatmap(container, records, title, compact = false) {
     const tiles = [];
     for (const c1 of colorOrder) {
         for (const c2 of colorOrder) {
-            tiles.push({ c1, c2, d: dist.get(`${c1}|||${c2}`) });
+            tiles.push({ c1, c2, d: dist.get(`${c1}|||${c2}`), name: COLOR_LOOKUP.get(c1)?.name });
         }
     }
-
-    // g.append("g")
-    //     .selectAll("rect")
-    //     .data(tiles)
-    //     .join("rect")
-    //     .attr("x", d => x(d.c1))
-    //     .attr("y", d => y(d.c2))
-    //     .attr("width", x.bandwidth())
-    //     .attr("height", y.bandwidth())
-    //     .attr("fill", d => fill(d.d))
-    //     .on("mousemove", (event, d) => {
-    //         const c1Css = cssForColorCode(d.c1);
-    //         const c2Css = cssForColorCode(d.c2);
-
-    //         setTooltip(
-    //             `
-    //     <div><b>${d.c1} × ${d.c2}</b></div>
-    //     <div>DeltaS: <b>${d.d.toFixed(4)}</b></div>
-
-    //     <div style="display:flex; gap:10px; margin-top:8px; align-items:flex-start;">
-    //     <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-    //         <div style="width:50px;height:50px;background:${c1Css};border:1px solid rgba(255,255,255,0.25);"></div>
-    //         <div style="font-size:11px; opacity:0.9;">${d.c1}</div>
-    //     </div>
-
-    //     <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-    //         <div style="width:50px;height:50px;background:${c2Css};border:1px solid rgba(255,255,255,0.25);"></div>
-    //         <div style="font-size:11px; opacity:0.9;">${d.c2}</div>
-    //     </div>
-    //     </div>
-
-    //     <div style="margin-top:8px; font-size:11px; opacity:0.9; line-height:1.25;">
-    //     <div>${labcLine(d.c1)}</div>
-    //     <div>${labcLine(d.c2)}</div>
-    //     </div>
-    // `,
-    //             event.clientX, event.clientY
-    //         );
-    //     })
-    //     .on("mouseleave", hideTooltip);
 
     g.append("g")
         .selectAll("rect")
