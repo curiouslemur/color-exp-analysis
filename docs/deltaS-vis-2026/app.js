@@ -76,7 +76,6 @@ function clamp255(x) {
 function cssForColorCode(code) {
     const d = COLOR_LOOKUP.get(code);
     if (!d || !d.hex) return "#fff";  // fallback
-    // Ensure it starts with '#'
     // return d.hex.startsWith("#") ? d.hex : `#${d.hex}`;
     return d.hex;
 }
@@ -84,9 +83,8 @@ function cssForColorCode(code) {
 function labcLine(code) {
     const d = COLOR_LOOKUP.get(code);
     if (!d) return `${code}: (no Labc found)`;
-    // keep it short so tooltip doesn’t explode
     return `${code}: L=${d.L.toFixed(1)} a=${d.a.toFixed(1)} b=${d.b.toFixed(1)} c=${d.c.toFixed(1)}`;
-    return `${code}: L=${d.L.toFixed(1)} a=${d.a.toFixed(1)} b=${d.b.toFixed(1)} c=${d.c.toFixed(1)}`;
+    // return `${code}: L=${d.L.toFixed(1)} a=${d.a.toFixed(1)} b=${d.b.toFixed(1)} c=${d.c.toFixed(1)}`;
 }
 
 function heatmapTooltipHTML(d) {
