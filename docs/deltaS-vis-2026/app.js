@@ -76,6 +76,7 @@ function clamp255(x) {
 function cssForColorCode(code) {
     const d = COLOR_LOOKUP.get(code);
     if (!d || !d.hex) return "#fff";  // fallback
+    // Ensure it starts with '#'
     // return d.hex.startsWith("#") ? d.hex : `#${d.hex}`;
     return d.hex;
 }
@@ -92,7 +93,7 @@ function heatmapTooltipHTML(d) {
     const c2Css = cssForColorCode(d.c2);
     return `
     <div><b>${d.c1} × ${d.c2}</b></div>
-    <div>distance: <b>${d.d.toFixed(4)}</b></div>
+    <div>&Delta;S: <b>${d.d.toFixed(4)}</b></div>
 
     <div style="display:flex; gap:10px; margin-top:8px; align-items:flex-start;">
       <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">

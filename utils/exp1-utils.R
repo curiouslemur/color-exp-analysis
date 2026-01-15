@@ -1,6 +1,7 @@
+# this utility file has the helper functions for exp1-analysis.Rmd (pre 2026 analysis file)
+
 library(tidyverse)
 library(dplyr)
-# library(RColorBrewer)
 library(readr)
 # library(tidytext)
 library(lme4)

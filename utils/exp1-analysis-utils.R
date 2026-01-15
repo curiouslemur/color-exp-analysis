@@ -1,3 +1,5 @@
+## Utility file with helper functions for the 2026 analysis
+
 # Pairwise semantic discriminability landscape (using Schloss-style uncertainty model)
 # ----------------------------------------------------------------------------
 # This version follows the paper's assumption:
@@ -97,3 +99,179 @@ make_pairwise_landscape <- function(summary_df, alpha_fit = 1.4, eps = 1e-12) {
     semantic_distance = semantic_distance,
     stringsAsFactors = FALSE )
 }
+
+
+# Helper functions for categorizing the different semantic distances in the landscapes as high and low
+# ----------------------------------------------------------------------------
+
+# Canonicalize concept-pair and color-pair ordering so joins are stable (alphabetically ordered names)
+# df is the semantic distance landscape dataset
+# ds_name should be deltaS_mg / deltaS_us : need to distinguish the two column names
+
+canon_pairs <- function(df, ds_col, ds_name) {
+  df %>%
+    mutate(
+      concept_lo = pmin(concept_a, concept_b),
+      concept_hi = pmax(concept_a, concept_b),
+      color_lo   = pmin(color_1, color_2),
+      color_hi   = pmax(color_1, color_2)) %>%
+    transmute(concept_lo, concept_hi, color_lo, color_hi, !!ds_name := .data[[ds_col]]) %>% 
+    rename(concept_a = concept_lo, concept_b = concept_hi, color_a = color_lo, color_b = color_hi)
+}
+
+compute_thresholds_quantile <- function(mg_ds, us_ds, low_q = 0.25, high_q = 0.75) {
+  list(
+    mg_low  = quantile(mg_ds, low_q,  na.rm = TRUE),
+    mg_high = quantile(mg_ds, high_q, na.rm = TRUE),
+    us_low  = quantile(us_ds, low_q,  na.rm = TRUE),
+    us_high = quantile(us_ds, high_q, na.rm = TRUE))
+}
+
+tag_quadrants <- function(joined, thr) {
+  joined %>%
+    mutate(
+      mg_level = case_when(
+        deltaS_mg >= thr$mg_high ~ "high",
+        deltaS_mg <= thr$mg_low  ~ "low", TRUE ~ "mid"),
+      us_level = case_when(
+        deltaS_us >= thr$us_high ~ "high",
+        deltaS_us <= thr$us_low  ~ "low", TRUE ~ "mid"),
+      category = case_when(
+        mg_level == "high" & us_level == "low"  ~ "MG_high__US_low",
+        mg_level == "high" & us_level == "high" ~ "MG_high__US_high",
+        mg_level == "low"  & us_level == "low"  ~ "MG_low__US_low",
+        mg_level == "low"  & us_level == "high" ~ "MG_low__US_high", TRUE ~ NA_character_)
+    ) %>% filter(!is.na(category))
+}
+
+# function to define how extreme the difference between teh two deltaS is
+add_extremeness <- function(df) {
+  df %>%
+    mutate(
+      extremeness = case_when(
+        category == "MG_high__US_low"  ~ (deltaS_mg - deltaS_us),
+        category == "MG_low__US_high"  ~ (deltaS_us - deltaS_mg),
+        category == "MG_high__US_high" ~ (deltaS_mg + deltaS_us),
+        category == "MG_low__US_low"   ~ -(deltaS_mg + deltaS_us),
+        TRUE ~ NA_real_)
+    )
+}
+
+# function to join us and mg deltaS datasets and tag which category each line belongs to
+load_and_join_tagged <- function(mg_deltaS, us_deltaS, thresholds = NULL, low_q = 0.25, high_q = 0.75) {
+  
+  # separately tag deltaS for mg and us datasets
+  mg <- canon_pairs(mg_deltaS, ds_col = "semantic_distance", ds_name = "deltaS_mg")
+  us <- canon_pairs(us_deltaS, ds_col = "semantic_distance", ds_name = "deltaS_us")
+  
+  if (is.null(thresholds)) {
+    thresholds <- compute_thresholds_quantile(mg$deltaS_mg, us$deltaS_us, low_q = low_q, high_q = high_q)
+  }
+  # join both deltaS datasets
+  joined <- mg %>% inner_join(us, by = c("concept_a","concept_b","color_a","color_b")) 
+  # tag categories
+  tagged <- joined %>% tag_quadrants(thresholds)
+  list(tagged = tagged, thresholds = thresholds)
+}
+
+##======================================================================
+## To categorize a DelatS as low or high, we need a threshold tL for low, and tH for high.
+## in our case, we use the values at 0.25 quantile for tL, and 0.75 quantile for tH
+## another option would be to hardcode the thresholds
+
+##======================================================================
+## Populating the four categories in the quadrants will help identify the colors and concepts that can be used 
+## in follow-up experiments. 
+## We propose the following ways below
+
+# names of the four categories
+CAT_NAMES <- c("MG_high__US_low", "MG_high__US_high", "MG_low__US_low", "MG_low__US_high")
+
+# ----------------------------
+# 1) Pick one random 2x2 set at random one per quadrant
+# ----------------------------
+pick_random1_per_quadrant <- function(mg_deltaS, us_deltaS, thresholds = NULL, low_q = 0.25, high_q = 0.75, seed = 1) {
+  # set.seed(seed)
+  x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
+  
+  picked <- x$tagged %>%
+    group_by(concept_a, concept_b, category) %>%
+    slice_sample(n = 1) %>% ungroup()
+  
+  # results <- x$tagged %>%
+  #   distinct(concept_a, concept_b) %>%
+  #   tidyr::expand(concept_a, concept_b, category = CAT_NAMES) #%>%
+  #   left_join(picked, by = c("concept_a","concept_b","category")) %>%
+  #   select(concept_a, concept_b, color_a, color_b,category, deltaS_mg, deltaS_us) %>% 
+  #   mutate(thr_mg_low = thresholds$mg_low, thr_mg_high = thresholds$mg_high,
+  #          thr_us_low = thresholds$us_low, thr_us_high = thresholds$us_high)
+  
+  results <- picked %>% 
+    mutate(thr_mg_low = thresholds$mg_low, thr_mg_high = thresholds$mg_high,
+           thr_us_low = thresholds$us_low, thr_us_high = thresholds$us_high)
+  
+  list(thresholds = x$thresholds, results = results)
+}
+
+# ----------------------------
+# 2) Deterministic: Pick "most extreme" per quadrant
+# ----------------------------
+pick_most_extreme1_per_quadrant <- function(mg_deltaS, us_deltaS, thresholds = NULL, low_q = 0.25, high_q = 0.75) {
+  x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
+  
+  picked <- x$tagged %>%
+    add_extremeness() %>%
+    group_by(concept_a, concept_b, category) %>%
+    arrange(desc(extremeness), .by_group = TRUE) %>%
+    slice_head(n = 1) %>% ungroup()
+  
+  # results <- x$tagged %>%
+  #   distinct(concept_a, concept_b) %>%
+  #   tidyr::expand(concept_a, concept_b, category = CAT_NAMES) %>%
+  #   left_join(picked %>% select(-mg_level, -us_level), by = c("concept_a","concept_b","category")) %>%
+  #   select(concept_a, concept_b, category, color_a, color_b, deltaS_mg, deltaS_us, extremeness) %>% 
+  #   mutate(thr_mg_low = thresholds$mg_low, thr_mg_high = thresholds$mg_high,
+  #          thr_us_low = thresholds$us_low, thr_us_high = thresholds$us_high)
+  
+  results <- picked %>% 
+    mutate(thr_mg_low = thresholds$mg_low, thr_mg_high = thresholds$mg_high,
+           thr_us_low = thresholds$us_low, thr_us_high = thresholds$us_high)
+  
+  list(thresholds = x$thresholds, results = results)
+}
+
+# ----------------------------
+# 3) Return ALL qualifying color-pairs per quadrant
+# ----------------------------
+pick_all_per_quadrant <- function(mg_deltaS, us_deltaS,
+                                  thresholds = NULL, low_q = 0.25, high_q = 0.75) {
+  x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
+  
+  results <- x$tagged %>%
+    filter(category %in% CAT_NAMES) %>%
+    select(concept_a, concept_b, category, color_a, color_b, deltaS_mg, deltaS_us) %>% 
+    mutate(thr_mg_low = thresholds$mg_low, thr_mg_high = thresholds$mg_high,
+           thr_us_low = thresholds$us_low, thr_us_high = thresholds$us_high)
+  
+  list(thresholds = x$thresholds, results = results)
+}
+
+# ----------------------------
+# 4) Return TOP K per quadrant (ranked by "extremeness")
+# ----------------------------
+pick_topK_per_quadrant <- function(mg_deltaS, us_deltaS, K = 5,
+                                   thresholds = NULL, low_q = 0.25, high_q = 0.75) {
+  x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
+  
+  results <- x$tagged %>% add_extremeness() %>%
+    group_by(concept_a, concept_b, category) %>%
+    arrange(desc(extremeness), .by_group = TRUE) %>%
+    slice_head(n = K) %>%
+    ungroup() %>%
+    select(concept_a, concept_b, category, color_a, color_b, deltaS_mg, deltaS_us, extremeness) %>% 
+    mutate(thr_mg_low = thresholds$mg_low, thr_mg_high = thresholds$mg_high,
+           thr_us_low = thresholds$us_low, thr_us_high = thresholds$us_high)
+  
+  list(thresholds = x$thresholds, results = results)
+}
+
