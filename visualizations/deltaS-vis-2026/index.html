@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Semantic Distance Explorer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Semantic Distance Explorer</h1>
+
+        <div class="controls">
+            <label>
+                Dataset:
+                <select id="groupSelect">
+                    <option value="mg">MG</option>
+                    <option value="us">US</option>
+                    <option value="both" selected>Both</option>
+                </select>
+            </label>
+
+            <label class="pairBlock">
+                Concept pairs:
+                <select id="pairSelect" multiple size="8"></select>
+                <div class="pairActions">
+                    <label class="inline">
+                        <input type="checkbox" id="allPairs" />
+                        Select all pairs
+                    </label>
+                    <button id="clearPairs" type="button">Clear</button>
+                    <div class="hint">Cmd-click to multi-select, Shift-click for ranges.</div>
+                </div>
+            </label>
+
+            <label>
+                View:
+                <select id="viewSelect">
+                    <option value="heatmap" selected>Heatmap (color×color)</option>
+                    <option value="dist">Distribution</option>
+                </select>
+            </label>
+
+            <label>
+                Color order:
+                <select id="orderSelect">
+                    <option value="alpha" selected>Alphabetical</option>
+                    <option value="cluster">By mean distance (heuristic)</option>
+                </select>
+            </label>
+
+            <label>
+                Columns per row:
+                <input id="colsInput" type="number" min="1" max="12" step="1" value="5" />
+            </label>
+        </div>
+    </header>
+
+    <main>
+        <div id="meta"></div>
+        <div id="viz"></div>
+    </main>
+
+    <div id="tooltip" class="tooltip" style="opacity:0;"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

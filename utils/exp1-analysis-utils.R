@@ -1,96 +1,99 @@
-### NOTE ###
-# In the paper schloss2021semantic, the proposed fit for standard deviation is: sd = 1.4*xbar*(1 - xbar)
-# where xbar is the mean association across all people for each {color and concept} pair
-###### Fitting function for the sd. Model s = a.xbar.(1-xbar)
-#### ======== function to get the value of the coeff a
-getFitSd <- function(data) {
-  d1 <- data[1, ]
-  a_start <- d1$sd_sample / (d1$xbar * (1 - d1$xbar))
-  fit <- nls(sd_sample ~ a * xbar * (1 - xbar), data = data, start = list(a = a_start))
-  return(fit)
-}
+# Pairwise semantic discriminability landscape (using Schloss-style uncertainty model)
+# ----------------------------------------------------------------------------
+# This version follows the paper's assumption:
+#   Each association x_i ~ Normal(mean = xbar_i, sd = sigma_i),
+#   where sigma_i = 1.4 * xbar_i * (1 - xbar_i) with xbar_i in [0, 1].
+#
+# For a given (concept_a=A, concept_b=B, color_1=C1, color_2=C2):
+#   D = (A->C1 + B->C2) - (A->C2 + B->C1)
+# If we assume independence between the four x_i's, then:
+#   D ~ Normal(mu_D, var_D)
+#   p_gt0 = P(D > 0) = pnorm(mu_D / sqrt(var_D))
+#   semantic_distance = |p_gt0 - p_swapped| = |2*p_gt0 - 1|
 
-#### using the sd = a * xbar ^ b model for fitting the standard deviation
-##### returns alpha a and beta b values
-getFitSd2 <- function(data) {
-  fit <- nls(sd_sample ~ a * xbar^b, data = data, start = list(a = 1, b = 1))
-  return(fit)
-}
-
-#### ======== function to get the values for xbars, sd_samples, and sd_fits for each pair of concepts and colors
-# the resulting dataframe is a representation of the bigram in the paper
-getXvalues <- function(data, concept_pairs, color_pairs, sd_fit_coef){
-  res <- data.frame()
-  # Loop through all concept pairs and color pairs to populate the res (for result) dataframe
-  for (i in 1:nrow(concept_pairs)) {
-    for (j in 1:nrow(color_pairs)) {
-      concept1 <- concept_pairs[i, 1]; concept2 <- concept_pairs[i, 2]
-      color1 <- color_pairs[j, 1]; color2 <- color_pairs[j, 2]
+# Function for computing the semantic distance landscape
+## Returns a table with columns: 
+### country | concept_a | concept_b | color_1 | color_2 | ... | deltaS
+make_pairwise_landscape <- function(summary_df, alpha_fit = 1.4, eps = 1e-12) {
+  xbar <- summary_df$mean_rating
   
-        # Combine into a new row
-        new_row <- data.frame(
-          concept1 = concept1, concept2 = concept2,
-          color1 = color1, color2 = color2,
-          xbar1 = data$xbar[data$concept == concept1 & data$color == color1],
-          xbar2 = data$xbar[data$concept == concept1 & data$color == color2],
-          xbar3 = data$xbar[data$concept == concept2 & data$color == color1],
-          xbar4 = data$xbar[data$concept == concept2 & data$color == color2], 
-          
-          sd_sample1 = data$sd_sample[data$concept == concept1 & data$color == color1],
-          sd_sample2 = data$sd_sample[data$concept == concept1 & data$color == color2],
-          sd_sample3 = data$sd_sample[data$concept == concept2 & data$color == color1],
-          sd_sample4 = data$sd_sample[data$concept == concept2 & data$color == color2]
-        )
-        
-        new_row <- mutate(new_row, 
-          sd_fit1 = sd_fit_coef * xbar1 * (1 - xbar1),
-          sd_fit2 = sd_fit_coef * xbar2 * (1 - xbar2),
-          sd_fit3 = sd_fit_coef * xbar3 * (1 - xbar3), 
-          sd_fit4 = sd_fit_coef * xbar4 * (1 - xbar4))
-        
-      # Add the new row to the result dataframe
-      res <- rbind(res, new_row)
-      # print(nrow(res))
-    }
-  }
-  return(res)
-}
-
-## !!! This is by far a more optimized version of the above function
-getXvalues_opt <- function(data, concept_pairs, color_pairs, sd_fit_coef){
-  df1 <- merge(concept_pairs, color_pairs)
-  # lookup_df = data # %>% select(concept, color, xbar)
+  concepts <- sort(unique(summary_df$concept)); concepts
+  colors   <- sort(unique(summary_df$color)); colors
+  nc <- length(concepts); nk <- length(colors)
   
-  extended_DF <- df1 %>%
-    left_join(data, by = c("concept1" = "concept", "color1" = "color")) %>%
-    rename(xbar1 = xbar, sd_sample1 = sd_sample) %>%
-    left_join(data, by = c("concept1" = "concept", "color2" = "color")) %>%
-    rename(xbar2 = xbar, sd_sample2 = sd_sample) %>%
-    left_join(data, by = c("concept2" = "concept", "color1" = "color")) %>%
-    rename(xbar3 = xbar, sd_sample3 = sd_sample) %>%
-    left_join(data, by = c("concept2" = "concept", "color2" = "color")) %>%
-    rename(xbar4 = xbar, sd_sample4 = sd_sample)
+  summary_df$concept <- factor(summary_df$concept, levels = concepts)
+  summary_df$color   <- factor(summary_df$color, levels = colors)
   
-  x_opt <- mutate(extended_DF, 
-                  sd_fit1 = sd_fit_coef * xbar1 * (1 - xbar1),
-                  sd_fit2 = sd_fit_coef * xbar2 * (1 - xbar2),
-                  sd_fit3 = sd_fit_coef * xbar3 * (1 - xbar3), 
-                  sd_fit4 = sd_fit_coef * xbar4 * (1 - xbar4)) %>% 
-    mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
+  # Lookup matrices for xbar
+  mean_mat <- matrix(NA_real_, nrow = nc, ncol = nk, dimnames = list(concepts, colors))
+  idx <- cbind(as.integer(summary_df$concept), as.integer(summary_df$color))
+  mean_mat[idx] <- summary_df$mean_rating
   
-  return(x_opt)
-}
-
-#### ======== function to get values of deltaS (either using sd_sample or fitted sd)
-getDeltaS <- function(data) {
-  data <- mutate(data,
-    ProbDelta_sample = pnorm(deltaX / sqrt(sd_sample1^2 + sd_sample2^2 + sd_sample3^2 + sd_sample4^2)),
-    ProbDelta_fit = pnorm(deltaX / sqrt(sd_fit1^2 + sd_fit2^2 + sd_fit3^2 + sd_fit4^2))
+  # Schloss-style sigma_i = 1.4 * xbar_i * (1 - xbar_i)
+  # Clamp to avoid exactly 0 variance and ties to dominate numerically
+  sigma_mat <- alpha_fit * mean_mat * (1 - mean_mat)
+  # sigma_mat_ <- pmax(sigma_mat, eps)
+  
+  # All unordered pairs (canonical) of concepts and colors
+  concept_pairs <- t(combn(seq_len(nc), 2))  # [a,b]
+  color_pairs   <- t(combn(seq_len(nk), 2))  # [c1,c2]
+  
+  # Cross join indices
+  grid <- expand.grid(
+    cp = seq_len(nrow(concept_pairs)),
+    kp = seq_len(nrow(color_pairs)))
+  
+  a  <- concept_pairs[grid$cp, 1]
+  b  <- concept_pairs[grid$cp, 2]
+  c1 <- color_pairs[grid$kp, 1]
+  c2 <- color_pairs[grid$kp, 2]
+  
+  # Means needed for mu_D
+  m_a_c1 <- mean_mat[cbind(a, c1)] # this is x1: conceptA -> color1 in the paper's bivariate figure
+  m_a_c2 <- mean_mat[cbind(a, c2)] # x2: conceptA -> color2
+  m_b_c1 <- mean_mat[cbind(b, c1)] # x3: conceptB -> color1
+  m_b_c2 <- mean_mat[cbind(b, c2)] # x4: conceptB -> color2
+  
+  # Sigmas needed for var_D (assuming independence)
+  s_a_c1 <- sigma_mat[cbind(a, c1)]
+  s_a_c2 <- sigma_mat[cbind(a, c2)]
+  s_b_c1 <- sigma_mat[cbind(b, c1)]
+  s_b_c2 <- sigma_mat[cbind(b, c2)]
+  
+  # mu_D stands for delta_X
+  mu_D  <- (m_a_c1 + m_b_c2) - (m_a_c2 + m_b_c1)
+  var_D <- (s_a_c1^2 + s_b_c2^2) + (s_a_c2^2 + s_b_c1^2)
+  denom <- sqrt(var_D)
+  
+  z <- mu_D / denom
+  
+  # p_gt0 stands for p greater than 0
+  p_gt0 <- case_when(
+    denom > 0 ~ stats::pnorm(z),
+    is.na(mu_D) | is.na(var_D) ~ NA_real_
+    # mu_D > 0 ~ 1, mu_D < 0 ~ 0, TRUE ~ 0.5
   )
-  data <- mutate(data,
-    deltaS_sample = abs(2 * ProbDelta_sample - 1),
-    deltaS_fit = abs(2 * ProbDelta_fit - 1)
-  )
-  return(data)
+  
+  # p_gt0 <- stats::pnorm(z)
+  p_swapped <- 1 - p_gt0
+  
+  semantic_distance <- abs(p_gt0 - p_swapped)  # == abs(2*p_gt0 - 1)
+  
+  data.frame(
+    country = unique(summary_df$country)[1],
+    concept_a = concepts[a], concept_b = concepts[b],
+    color_1 = colors[c1], color_2 = colors[c2],
+    # four x bars
+    A_to_C1 = m_a_c1, B_to_C2 = m_b_c2, 
+    A_to_C2 = m_a_c2, B_to_C1 = m_b_c1,
+    # sigmas 
+    sigma_A_C1 = s_a_c1, sigma_B_C2 = s_b_c2,
+    sigma_A_C2 = s_a_c2, sigma_B_C1 = s_b_c1,
+    # Delta x and variances
+    mu_D = mu_D,
+    var_D = var_D,
+    p_gt0 = p_gt0,
+    p_swapped = p_swapped,
+    semantic_distance = semantic_distance,
+    stringsAsFactors = FALSE )
 }
-

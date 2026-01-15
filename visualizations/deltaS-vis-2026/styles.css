@@ -1,0 +1,159 @@
+body {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    background: #fafafa;
+    color: #111;
+}
+
+header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e5e5e5;
+    background: white;
+}
+
+h1 {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    align-items: flex-start;
+}
+
+.controls label {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 14px;
+}
+
+select {
+    padding: 6px 8px;
+}
+
+.pairBlock {
+    align-items: flex-start !important;
+}
+
+#pairSelect {
+    min-width: 240px;
+}
+
+.pairActions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.pairActions .inline {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+}
+
+.pairActions button {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.pairActions button:hover {
+    background: #f5f5f5;
+}
+
+.hint {
+    font-size: 12px;
+    color: #666;
+}
+
+main {
+    padding: 16px 20px;
+}
+
+#meta {
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #444;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.axis text {
+    font-size: 10px;
+}
+
+.tooltip {
+    position: fixed;
+    pointer-events: none;
+    /* background: rgba(0, 0, 0, 0.85);  */
+    background: #8A8A82;
+    color: white;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 1.2;
+    max-width: 260px;
+}
+
+.tooltip.pinned {
+    opacity: 1 !important;
+    pointer-events: auto;
+    /* allow selecting/copying text, clicking inside */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.legend {
+    font-size: 12px;
+    color: #333;
+}
+
+/* 5 per row when multi-select */
+/* .grid5 {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+}
+
+@media (max-width: 1400px) {
+    .grid5 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1100px) {
+    .grid5 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 850px) {
+    .grid5 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .grid5 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+} */
+
+.gridN {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 5), minmax(0, 1fr));
+    gap: 10px;
+}

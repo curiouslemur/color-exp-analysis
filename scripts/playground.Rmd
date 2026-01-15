@@ -8,16 +8,85 @@ date: "2024-09-03"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r fitting sd}
-data <- dfus %>% group_by(concept, color) %>% summarise(xbar = mean(rating), sample_sd = sd(rating), .groups = 'drop')
+```{r plotting DeltaS with distribution ridge plots}
+#### PLAYGROUND == PLOTTING landscape datasets
+mg <- mg_landscape %>% select(country, concept_a, concept_b, color_1, color_2, semantic_distance) 
+us <- us_landscape %>% select(country, concept_a, concept_b, color_1, color_2, semantic_distance)
+# assume mg and us are your dataframes already loaded
+df <- bind_rows(mg, us) %>% 
+  # filter(concept_a %in% c("angry", "banana")) %>% 
+  mutate(pair = paste(concept_a, concept_b, sep = " — ")) 
 
-# fitting the function s = a * xbar * (1-xbar)
-d1 <- data[1,]
-start_a = d1$sample_sd / (d1$xbar *(1 - d1$xbar))
-fit <- nls( sample_sd ~ a * xbar * (1-xbar), data = data, start = list(a = start_a))
+library(ggridges)
+# order by median within each group (or overall)
+df <- df %>%
+  group_by(country, pair) %>%
+  mutate(pair_med = median(semantic_distance)) %>%
+  ungroup() %>%
+  mutate(pair = fct_reorder(pair, pair_med))
 
-summary(fit)
+p <- ggplot(df, aes(x = semantic_distance, y = pair, fill = country)) +
+  geom_density_ridges(alpha = 0.6, scale = 2) +
+  facet_wrap(~country, ncol = 2, scales = "free_y") +
+  labs(x = "Semantic distance", y = "Concept pair") +
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = 6)); p 
+  
+ggsave(file="output/pairwise-ridges.png", plot = p, width=10, height=14)
+```
 
-coef(fit)
+
+```{r plotting DeltaS for each concept pair in heatmaps}
+plot_semantic_distance_heatmap <- function(df, conceptA, conceptB, title_prefix = NULL) {
+  
+  sub <- df %>%
+    filter(
+      (concept_a == conceptA & concept_b == conceptB) |
+        (concept_a == conceptB & concept_b == conceptA)
+    ) %>%
+    select(concept_a, concept_b, color_1, color_2, semantic_distance)
+  
+  if (nrow(sub) == 0) stop("No rows found for that concept pair in this dataset.")
+  
+  colors <- sort(unique(c(sub$color_1, sub$color_2)))
+  
+  # make symmetric matrix by duplicating (c1,c2) and (c2,c1); add diagonal = 0
+  mat_long <- sub %>%
+    transmute(color_x = color_1, color_y = color_2, d = semantic_distance) %>%
+    bind_rows(sub %>% transmute(color_x = color_2, color_y = color_1, d = semantic_distance)) %>%
+    bind_rows(tibble(color_x = colors, color_y = colors, d = 0))
+  
+  # ensure full grid exists
+  mat_long <- mat_long %>% complete(color_x = colors, color_y = colors)
+  
+  # keep factor order stable
+  mat_long <- mat_long %>%
+    mutate(
+      color_x = factor(color_x, levels = colors),
+      color_y = factor(color_y, levels = colors))
+  
+  ttl <- paste0(
+    ifelse(is.null(title_prefix), "", paste0(title_prefix, " — ")),
+    conceptA, " vs ", conceptB)
+  
+  ggplot(mat_long, aes(x = color_x, y = color_y, fill = d)) +
+    geom_tile() +
+    coord_fixed() +
+    labs(
+      title = ttl,
+      x = "Color",
+      y = "Color",
+      fill = "Semantic\ndistance"
+    ) +
+    theme_minimal() +
+    theme(
+      axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+      axis.text.y = element_text(size = 8)
+    )
+}
+
+p_mg <- plot_semantic_distance_heatmap(mg, "happy", "sick", "MG")
+p_us <- plot_semantic_distance_heatmap(us, "happy", "sick", "US")
+grid.arrange(p_mg, p_us, ncol = 2)
 ```
 
