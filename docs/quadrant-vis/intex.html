@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Concept–Color Quadrant Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="titleblock">
+            <div class="title">Concept–Color Quadrant Explorer</div>
+            <div class="subtitle">Choose dataset → select concept pairs → inspect color pairs per quadrant</div>
+        </div>
+
+        <div class="controls">
+            <div class="control">
+                <label for="datasetSelect">Dataset</label>
+                <select id="datasetSelect">
+                    <option value="res_all">res_all</option>
+                    <option value="res_extreme">res_extreme</option>
+                    <option value="res_topK">res_topK</option>
+                    <option value="res_random">res_random</option>
+                </select>
+            </div>
+
+            <div class="control">
+                <label for="pairSearch">Search pairs</label>
+                <input id="pairSearch" type="text" placeholder="e.g., happy × sick" />
+            </div>
+
+            <div class="control buttons">
+                <button id="selectAllBtn" type="button">Select all (filtered)</button>
+                <button id="clearBtn" type="button">Clear</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="layout">
+        <aside class="sidebar">
+            <div class="panelHeader">
+                <div class="panelTitle">Concept pairs</div>
+                <div id="pairMeta" class="panelMeta">—</div>
+            </div>
+
+            <div id="pairList" class="pairList"></div>
+        </aside>
+
+        <section class="content">
+            <div id="status" class="status"></div>
+            <div id="viz" class="viz"></div>
+        </section>
+    </main>
+
+    <div id="tooltip" class="tooltip" style="opacity:0;"></div>
+    <script src="app.js"></script>
+</body>
+
+</html>
