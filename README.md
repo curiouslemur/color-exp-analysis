@@ -5,4 +5,4 @@
 
 ## Vis
 
-Go to [https://rakotondravony.com/color-exp-analysis/deltaS-vis-2026/](DeltaS-vis dashboard) to explore the ouput dataset of the first experiment, which is the DeltaS values of all pairwise combination of concepts and colors
+Go to [DeltaS-vis dashboard](https://rakotondravony.com/color-exp-analysis/deltaS-vis-2026/) to explore the ouput dataset of the first experiment, which is the DeltaS values of all pairwise combination of concepts and colors
