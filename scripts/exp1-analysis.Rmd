@@ -65,7 +65,7 @@ usdf_agg <- usdf %>%
   group_by(concept, color) %>%
   summarise(xbar = mean(rating), sd_sample = sd(rating), .groups = "drop")
 
-a_us <- coef(getFitSd(usdf_agg)) # alpha a_us = 1.384426 ~ 1.4
+a_us <- coef(getFitSd(usdf_agg)) # alpha a_us = 1.384426 which is ~ 1.4
 # Plotting the data points, and fitted curve
 plot(usdf_agg$xbar, usdf_agg$sd_sample,
   main = "Fit for model s = a * xbar * (1 - xbar)",

@@ -319,9 +319,9 @@ function renderViz() {
                     const mg = getDeltaMg(r);
                     const us = getDeltaUs(r);
                     const parts = [];
-                    if (ex !== null) parts.push(`ext: ${ex.toFixed(3)}`);
-                    if (mg !== null) parts.push(`mg: ${mg.toFixed(3)}`);
-                    if (us !== null) parts.push(`us: ${us.toFixed(3)}`);
+                    if (ex !== null) parts.push(`ext: ${ex.toFixed(2)}`);
+                    // if (mg !== null) parts.push(`mg: ${mg.toFixed(2)}`);
+                    // if (us !== null) parts.push(`us: ${us.toFixed(2)}`);
                     return parts.join("&nbsp;&nbsp;•&nbsp;&nbsp;");
                 });
         });
