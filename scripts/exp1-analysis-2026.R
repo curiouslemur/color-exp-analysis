@@ -32,9 +32,9 @@ write_csv(mg_landscape, "output/mg_pairwise_sem_dis_alpha_mg.csv")
 write_csv(us_landscape, "output/us_pairwise_sem_dis_alpha_us.csv")
 
 #### exporting data necessary for heatmap vis
-mg_landscape %>% select(country, concept_a, concept_b, color_1, color_2, semantic_distance) %>% 
+mg_landscape %>% select(country, concept_a, concept_b, color_1, color_2, mu_D, semantic_distance) %>% 
   write_csv("output/mg_pairwise_sem_dis_alpha_mg_vis.csv")
-us_landscape %>% select(country, concept_a, concept_b, color_1, color_2, semantic_distance) %>% 
+us_landscape %>% select(country, concept_a, concept_b, color_1, color_2, mu_D, semantic_distance) %>% 
   write_csv("output/us_pairwise_sem_dis_alpha_us_vis.csv")
 
 ##======================================================================
