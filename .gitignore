@@ -1,3 +1,5 @@
 .Rproj.user/
 cg/
-
+.RData
+.RDataTmp
+.Rhistory
