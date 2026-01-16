@@ -53,24 +53,28 @@ CAT_NAMES <- c("MG_high__US_low", "MG_high__US_high", "MG_low__US_low", "MG_low_
 # mg_landscape <- read_csv("output/mg_pairwise_sem_dis_alpha_mg.csv", show_col_types = FALSE)
 # us_landscape <- read_csv("output/us_pairwise_sem_dis_alpha_us.csv", show_col_types = FALSE)
 
-## !!! TODO: take tagged df out of pick function
+## take tagged df out of pick function
+x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
+write_csv(x$tagged, "output/joined_n_tagged_quadrant.csv")
 
 # 1) Pick one random 2x2 set at random one per quadrant
-res_random   <- pick_random1_per_quadrant(mg_landscape, us_landscape, low_q = 0.25, high_q = 0.75, seed = 42)
+res_random   <- pick_random1_per_quadrant(x, low_q = 0.25, high_q = 0.75, seed = 42)
 nrow(res_random$results)
 View(res_random$results)
+# write_csv(res_random$results, "output/res_random.csv")
 
 # 2) Deterministic: Pick "most extreme" per quadrant
-res_extreme  <- pick_most_extreme1_per_quadrant(mg_landscape, us_landscape, low_q = 0.25, high_q = 0.75)
-nrow(res_extreme$results)
+# res_extreme  <- pick_most_extreme1_per_quadrant(mg_landscape, us_landscape, low_q = 0.25, high_q = 0.75)
+res_extreme  <- pick_most_extreme1_per_quadrant(x, low_q = 0.25, high_q = 0.75)
 View(res_extreme$results)
+# write_csv(res_extreme$results, "output/res_extreme.csv")
 
 # 3) Return ALL qualifying color-pairs per quadrant
-res_all      <- pick_all_per_quadrant(mg_landscape, us_landscape, low_q = 0.25, high_q = 0.75)
+res_all      <- pick_all_per_quadrant(x, low_q = 0.25, high_q = 0.75)
 View(res_all$results %>% filter(concept_a %in% c("banana"), concept_b %in% c("happy"), category %in% c("MG_high__US_high")))
-nrow(res_all$results)
+# write_csv(res_all$results, "output/res_all.csv")
 
 # 4) Return TOP K per quadrant (ranked by "extremeness")
-res_topK     <- pick_topK_per_quadrant(mg_landscape, us_landscape, K = 5, low_q = 0.25, high_q = 0.75)
+res_topK     <- pick_topK_per_quadrant(x, K = 5, low_q = 0.25, high_q = 0.75)
 View(res_topK$results  %>% filter(concept_a %in% c("banana"), concept_b %in% c("happy"), category %in% c("MG_high__US_high")))
-
+# write_csv(res_topK$results, "output/res_topK.csv")

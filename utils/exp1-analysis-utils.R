@@ -153,8 +153,7 @@ add_extremeness <- function(df) {
         category == "MG_low__US_high"  ~ (deltaS_us - deltaS_mg),
         category == "MG_high__US_high" ~ (deltaS_mg + deltaS_us),
         category == "MG_low__US_low"   ~ -(deltaS_mg + deltaS_us),
-        TRUE ~ NA_real_)
-    )
+        TRUE ~ NA_real_))
 }
 
 # function to join us and mg deltaS datasets and tag which category each line belongs to
@@ -167,6 +166,7 @@ load_and_join_tagged <- function(mg_deltaS, us_deltaS, thresholds = NULL, low_q 
   if (is.null(thresholds)) {
     thresholds <- compute_thresholds_quantile(mg$deltaS_mg, us$deltaS_us, low_q = low_q, high_q = high_q)
   }
+  
   # join both deltaS datasets
   joined <- mg %>% inner_join(us, by = c("concept_a","concept_b","color_a","color_b")) 
   # tag categories
@@ -190,21 +190,16 @@ CAT_NAMES <- c("MG_high__US_low", "MG_high__US_high", "MG_low__US_low", "MG_low_
 # ----------------------------
 # 1) Pick one random 2x2 set at random one per quadrant
 # ----------------------------
-pick_random1_per_quadrant <- function(mg_deltaS, us_deltaS, thresholds = NULL, low_q = 0.25, high_q = 0.75, seed = 1) {
-  # set.seed(seed)
-  x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
+# pick_random1_per_quadrant <- function(mg_deltaS, us_deltaS, thresholds = NULL, low_q = 0.25, high_q = 0.75, seed = 1) {
+pick_random1_per_quadrant <- function(joined_n_tagged, thresholds = NULL, low_q = 0.25, high_q = 0.75, seed = 1) {
+    
+  set.seed(seed)
+  # x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
   
+  x <- joined_n_tagged
   picked <- x$tagged %>%
     group_by(concept_a, concept_b, category) %>%
     slice_sample(n = 1) %>% ungroup()
-  
-  # results <- x$tagged %>%
-  #   distinct(concept_a, concept_b) %>%
-  #   tidyr::expand(concept_a, concept_b, category = CAT_NAMES) #%>%
-  #   left_join(picked, by = c("concept_a","concept_b","category")) %>%
-  #   select(concept_a, concept_b, color_a, color_b,category, deltaS_mg, deltaS_us) %>% 
-  #   mutate(thr_mg_low = thresholds$mg_low, thr_mg_high = thresholds$mg_high,
-  #          thr_us_low = thresholds$us_low, thr_us_high = thresholds$us_high)
   
   results <- picked %>% 
     mutate(thr_mg_low = thresholds$mg_low, thr_mg_high = thresholds$mg_high,
@@ -216,22 +211,17 @@ pick_random1_per_quadrant <- function(mg_deltaS, us_deltaS, thresholds = NULL, l
 # ----------------------------
 # 2) Deterministic: Pick "most extreme" per quadrant
 # ----------------------------
-pick_most_extreme1_per_quadrant <- function(mg_deltaS, us_deltaS, thresholds = NULL, low_q = 0.25, high_q = 0.75) {
-  x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
+# pick_most_extreme1_per_quadrant <- function(mg_deltaS, us_deltaS, thresholds = NULL, low_q = 0.25, high_q = 0.75) {
+pick_most_extreme1_per_quadrant <- function(joined_n_tagged, thresholds = NULL, low_q = 0.25, high_q = 0.75) {
+    
+  # x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
+  x <- joined_n_tagged
   
-  picked <- x$tagged %>%
+  picked <- x$tagged %>% 
     add_extremeness() %>%
     group_by(concept_a, concept_b, category) %>%
     arrange(desc(extremeness), .by_group = TRUE) %>%
     slice_head(n = 1) %>% ungroup()
-  
-  # results <- x$tagged %>%
-  #   distinct(concept_a, concept_b) %>%
-  #   tidyr::expand(concept_a, concept_b, category = CAT_NAMES) %>%
-  #   left_join(picked %>% select(-mg_level, -us_level), by = c("concept_a","concept_b","category")) %>%
-  #   select(concept_a, concept_b, category, color_a, color_b, deltaS_mg, deltaS_us, extremeness) %>% 
-  #   mutate(thr_mg_low = thresholds$mg_low, thr_mg_high = thresholds$mg_high,
-  #          thr_us_low = thresholds$us_low, thr_us_high = thresholds$us_high)
   
   results <- picked %>% 
     mutate(thr_mg_low = thresholds$mg_low, thr_mg_high = thresholds$mg_high,
@@ -243,9 +233,10 @@ pick_most_extreme1_per_quadrant <- function(mg_deltaS, us_deltaS, thresholds = N
 # ----------------------------
 # 3) Return ALL qualifying color-pairs per quadrant
 # ----------------------------
-pick_all_per_quadrant <- function(mg_deltaS, us_deltaS,
+pick_all_per_quadrant <- function(joined_n_tagged,
                                   thresholds = NULL, low_q = 0.25, high_q = 0.75) {
-  x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
+  # x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
+  x <- joined_n_tagged
   
   results <- x$tagged %>%
     filter(category %in% CAT_NAMES) %>%
@@ -259,10 +250,10 @@ pick_all_per_quadrant <- function(mg_deltaS, us_deltaS,
 # ----------------------------
 # 4) Return TOP K per quadrant (ranked by "extremeness")
 # ----------------------------
-pick_topK_per_quadrant <- function(mg_deltaS, us_deltaS, K = 5,
+pick_topK_per_quadrant <- function(joined_n_tagged, K = 5,
                                    thresholds = NULL, low_q = 0.25, high_q = 0.75) {
-  x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
-  
+  # x <- load_and_join_tagged(mg_deltaS, us_deltaS, thresholds, low_q, high_q)
+  x <- joined_n_tagged
   results <- x$tagged %>% add_extremeness() %>%
     group_by(concept_a, concept_b, category) %>%
     arrange(desc(extremeness), .by_group = TRUE) %>%
