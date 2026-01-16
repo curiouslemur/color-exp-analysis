@@ -53,6 +53,8 @@ CAT_NAMES <- c("MG_high__US_low", "MG_high__US_high", "MG_low__US_low", "MG_low_
 # mg_landscape <- read_csv("output/mg_pairwise_sem_dis_alpha_mg.csv", show_col_types = FALSE)
 # us_landscape <- read_csv("output/us_pairwise_sem_dis_alpha_us.csv", show_col_types = FALSE)
 
+## !!! TODO: take tagged df out of pick function
+
 # 1) Pick one random 2x2 set at random one per quadrant
 res_random   <- pick_random1_per_quadrant(mg_landscape, us_landscape, low_q = 0.25, high_q = 0.75, seed = 42)
 nrow(res_random$results)
