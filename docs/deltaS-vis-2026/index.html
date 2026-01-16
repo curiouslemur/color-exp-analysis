@@ -39,7 +39,7 @@
             <label>
                 View:
                 <select id="viewSelect">
-                    <option value="heatmap" selected>Heatmap (color×color)</option>
+                    <option value="heatmap" selected> Heatmap (col_1 × col_2)</option>
                     <option value="dist">Distribution</option>
                 </select>
             </label>
@@ -49,6 +49,14 @@
                 <select id="orderSelect">
                     <option value="alpha" selected>Alphabetical</option>
                     <option value="cluster">By mean distance (heuristic)</option>
+                </select>
+            </label>
+
+            <label>
+                Heatmap region:
+                <select id="halfSelect">
+                    <option value="top">Top half</option>
+                    <option value="full" selected>Full</option>
                 </select>
             </label>
 

@@ -14,6 +14,7 @@ const state = {
     selectedPairs: [],        // <-- MULTI
     order: "alpha",
     cols: 5,
+    half: "full", // "full" | "top"
 };
 
 const els = {
@@ -27,6 +28,7 @@ const els = {
     meta: document.getElementById("meta"),
     tooltip: d3.select("#tooltip"),
     colsInput: document.getElementById("colsInput"),
+    halfSelect: document.getElementById("halfSelect"),
 };
 
 // ---------- helpers ----------
@@ -42,6 +44,7 @@ function parseRow(r, countryOverride) {
         color_1: r.color_1,
         color_2: r.color_2,
         semantic_distance: +r.semantic_distance,
+        mu_D: +r.mu_D,
     };
 }
 
@@ -68,11 +71,6 @@ function setSelectedPairKeys(keys) {
     }
 }
 
-function clamp255(x) {
-    const v = Math.round(x);
-    return Math.max(0, Math.min(255, v));
-}
-
 function cssForColorCode(code) {
     const d = COLOR_LOOKUP.get(code);
     if (!d || !d.hex) return "#fff";  // fallback
@@ -88,39 +86,8 @@ function labcLine(code) {
     // return `${code}: L=${d.L.toFixed(1)} a=${d.a.toFixed(1)} b=${d.b.toFixed(1)} c=${d.c.toFixed(1)}`;
 }
 
-function heatmapTooltipHTML(d) {
-    const c1Css = cssForColorCode(d.c1);
-    const c2Css = cssForColorCode(d.c2);
-    return `
-    <div><b>${d.c1} × ${d.c2}</b></div>
-    <div>&Delta;S: <b>${d.d.toFixed(4)}</b></div>
-
-    <div style="display:flex; gap:10px; margin-top:8px; align-items:flex-start;">
-      <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-        <div style="width:50px;height:50px;background:${c1Css};border:1px solid rgba(255,255,255,0.25);"></div>
-        <div style="font-size:11px; opacity:0.9;">${d.c1} <br/> ${d.name}</div>
-      </div>
-
-      <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-        <div style="width:50px;height:50px;background:${c2Css};border:1px solid rgba(255,255,255,0.25);"></div>
-        <div style="font-size:11px; opacity:0.9;">${d.c2} <br/> ${d.name}</div>
-      </div>
-    </div>
-
-    <div style="margin-top:8px; font-size:11px; opacity:0.9; line-height:1.25;">
-      <div>${labcLine(d.c1)}</div>
-      <div>${labcLine(d.c2)}</div>
-    </div>
-  `;
-}
-
-
 // key -> HTMLElement for pinned tooltips
 const PINNED = new Map();
-
-function pinnedKey(heatmapId, c1, c2) {
-    return `${heatmapId}|||${c1}|||${c2}`;
-}
 
 function makePinnedTooltip(key, html, x, y) {
     const div = document.createElement("div");
@@ -193,6 +160,11 @@ Promise.all([
         opt.textContent = `${a} — ${b}`;
         els.pairSelect.appendChild(opt);
     }
+
+    els.halfSelect.addEventListener("change", () => {
+        state.half = els.halfSelect.value; // "full" or "top"
+        render(all);
+    });
 
     // default: first pair selected
     state.selectedPairs = [pairKeys[0]];
@@ -296,17 +268,21 @@ function computeColorOrder(records) {
         .map(x => x.c);
 }
 
-// ---------- heatmap rendering (supports compact small-multiples) ----------
+// ---------- heatmap rendering  ----------
 function renderHeatmap(container, records, title, compact = false) {
-    const heatmapId = `hm-${Math.random().toString(16).slice(2)}`;
-
     container.innerHTML = "";
+    // mu_D exists only for the stored direction (color_1 < color_2)
+    const mu = new Map();
+    for (const d of records) {
+        mu.set(`${d.color_1}|||${d.color_2}`, d.mu_D);
+    }
 
     const card = document.createElement("div");
     card.className = "card";
     container.appendChild(card);
 
-    // compact sizes for small multiples
+    const heatmapId = `hm-${Math.random().toString(16).slice(2)}`;
+
     const width = compact ? 250 : 980;
     const height = compact ? 270 : 840;
 
@@ -334,37 +310,51 @@ function renderHeatmap(container, records, title, compact = false) {
         return;
     }
 
+    // Use a consistent order of colors on both axes (still fine),
+    // but the semantics are now explicit: y is color_1 (row), x is color_2 (column).
     const colorOrder = computeColorOrder(records);
 
-    // symmetric lookup
+    const idx = new Map(colorOrder.map((c, i) => [c, i]));
+
+    // Build lookup so we can retrieve distance for (rowColor, colColor)
+    // We include symmetric entries so the full matrix is populated.
     const dist = new Map();
     for (const d of records) {
         dist.set(`${d.color_1}|||${d.color_2}`, d.semantic_distance);
         dist.set(`${d.color_2}|||${d.color_1}`, d.semantic_distance);
     }
+    // diagonal
     for (const c of colorOrder) dist.set(`${c}|||${c}`, 0);
 
     const innerW = width - margin.left - margin.right;
     const innerH = height - margin.top - margin.bottom;
 
+    // x = columns = color_2
+    // y = rows    = color_1
     const x = d3.scaleBand().domain(colorOrder).range([0, innerW]);
     const y = d3.scaleBand().domain(colorOrder).range([0, innerH]);
 
+    // Values for color scale
     const vals = [];
-    for (const c1 of colorOrder) for (const c2 of colorOrder) vals.push(dist.get(`${c1}|||${c2}`));
+    for (const row of colorOrder) {
+        for (const col of colorOrder) {
+            vals.push(dist.get(`${row}|||${col}`));
+        }
+    }
     const vmin = d3.min(vals);
     const vmax = d3.max(vals);
-
     const fill = d3.scaleSequential(d3.interpolateViridis).domain([vmin, vmax]);
 
     const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // axes only when not compact
+    // Axes labels only when not compact
     if (!compact) {
+        // Left axis = rows = color_1
         g.append("g")
             .attr("class", "axis")
             .call(d3.axisLeft(y).tickSize(0));
 
+        // Top axis = columns = color_2
         g.append("g")
             .attr("class", "axis")
             .call(d3.axisTop(x).tickSize(0))
@@ -375,38 +365,105 @@ function renderHeatmap(container, records, title, compact = false) {
             .attr("dy", "-0.2em");
     }
 
+    // Tiles: row = color_1 (y), col = color_2 (x)
     const tiles = [];
-    for (const c1 of colorOrder) {
-        for (const c2 of colorOrder) {
-            tiles.push({ c1, c2, d: dist.get(`${c1}|||${c2}`), name: COLOR_LOOKUP.get(c1)?.name });
+    for (const row of colorOrder) {
+        for (const col of colorOrder) {
+            tiles.push({
+                rowColor: row,   // color_1
+                colColor: col,   // color_2
+                d: dist.get(`${row}|||${col}`),
+                rowName: COLOR_LOOKUP.get(row)?.name,
+                colName: COLOR_LOOKUP.get(col)?.name,
+                deltaX: (() => {
+                    if (row === col) return 0; // diagonal
+                    const key = (row < col) ? `${row}|||${col}` : `${col}|||${row}`; // stored direction
+                    const base = mu.get(key);
+                    if (!Number.isFinite(base)) return null;
+
+                    const upper = idx.get(row) <= idx.get(col); // above diag
+                    return upper ? base : -base;
+                })(),
+
+            });
         }
+    }
+
+    // Tooltip HTML uses the explicit row/col naming
+    function tooltipHTMLForCell(t) {
+        const c1Css = cssForColorCode(t.rowColor);
+        const c2Css = cssForColorCode(t.colColor);
+        return `
+      <div><b>Row (color_1): ${t.rowColor}</b></div>
+      <div><b>Col (color_2): ${t.colColor}</b></div>
+      <div style="margin-top:4px;">&Delta;S: <b>${t.d.toFixed(4)}</b></div>
+      <div>&Delta;x = <b>${t.deltaX === null ? "NA" : t.deltaX.toFixed(4)}</b></div>
+
+      <div style="display:flex; gap:10px; margin-top:8px; align-items:flex-start;">
+        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
+          <div style="width:50px;height:50px;background:${c1Css};border:1px solid rgba(255,255,255,0.25);"></div>
+          <div style="font-size:11px; opacity:0.9;">${t.rowColor} <br/> ${t.rowName}</div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
+          <div style="width:50px;height:50px;background:${c2Css};border:1px solid rgba(255,255,255,0.25);"></div>
+          <div style="font-size:11px; opacity:0.9;">${t.colColor} <br/> ${t.colName}</div>
+        </div>
+      </div>
+
+      <!-- <div style="margin-top:8px; font-size:11px; opacity:0.9; line-height:1.25;">
+        <div>${labcLine(t.rowColor)}</div>
+        <div>${labcLine(t.colColor)}</div>
+      </div> -->
+    `;
     }
 
     g.append("g")
         .selectAll("rect")
         .data(tiles)
         .join("rect")
-        .attr("x", d => x(d.c1))
-        .attr("y", d => y(d.c2))
+        .attr("x", t => x(t.colColor))   // columns
+        .attr("y", t => y(t.rowColor))   // rows
         .attr("width", x.bandwidth())
         .attr("height", y.bandwidth())
-        .attr("fill", d => fill(d.d))
-        .on("mousemove", (event, d) => {
-            // transient hover tooltip
-            setTooltip(heatmapTooltipHTML(d), event.clientX, event.clientY);
+        .attr("fill", t => {
+            const r = idx.get(t.rowColor);
+            const c = idx.get(t.colColor);
+            const show = (state.half === "full") || (r <= c);
+
+            if (show) return fill(t.d);
+
+            // faint placeholder for hidden bottom-half
+            return "rgba(107, 86, 86, 0.08)";
+        })
+        .attr("stroke", t => {
+            const r = idx.get(t.rowColor);
+            const c = idx.get(t.colColor);
+            const show = (state.half === "full") || (r <= c);
+
+            // no stroke for real cells; light grid for hidden
+            return show ? "none" : "rgba(130, 116, 116, 0.1)";
+        })
+        .style("pointer-events", t => {
+            const r = idx.get(t.rowColor);
+            const c = idx.get(t.colColor);
+            const show = (state.half === "full") || (r <= c);
+            return show ? "all" : "none";
+        })
+        .on("mousemove", (event, t) => {
+            setTooltip(tooltipHTMLForCell(t), event.clientX, event.clientY);
         })
         .on("mouseleave", () => {
-            // hide only the transient tooltip; pinned ones remain
             hideTooltip();
         })
-        .on("click", (event, d) => {
-            // toggle pin for THIS cell; allows multiple pinned tooltips across heatmaps
+        .on("click", (event, t) => {
             event.stopPropagation();
-            const key = pinnedKey(heatmapId, d.c1, d.c2);
-            togglePinnedTooltip(key, heatmapTooltipHTML(d), event.clientX, event.clientY);
+            // Pinned key must also be row/col aware now
+            const key = `${heatmapId}|||${t.rowColor}|||${t.colColor}`;
+            togglePinnedTooltip(key, tooltipHTMLForCell(t), event.clientX, event.clientY);
         });
 
-    // legend only for large view (keeps small multiples clean)
+    // Legend only for non-compact
     if (!compact) {
         const legendW = 240;
         const legendH = 10;
@@ -444,7 +501,7 @@ function renderHeatmap(container, records, title, compact = false) {
     }
 }
 
-// ---------- distribution rendering (compact-friendly) ----------
+// ---------- distribution rendering----------
 function renderDistribution(container, mg, us, title, compact = false) {
     container.innerHTML = "";
 
