@@ -1,5 +1,10 @@
 /* global d3 */
 
+import {
+    els, normalizePair, parseRow, setTooltip, hideTooltip, getSelectedPairKeys, setSelectedPairKeys,
+    makePinnedTooltip
+} from "./utils.js";
+
 const FILES = {
     mg: "data/mg_pairwise_sem_dis_alpha_mg_vis.csv",
     us: "data/us_pairwise_sem_dis_alpha_us_vis.csv",
@@ -17,64 +22,11 @@ const state = {
     half: "full", // "full" | "top"
 };
 
-const els = {
-    groupSelect: document.getElementById("groupSelect"),
-    pairSelect: document.getElementById("pairSelect"),
-    allPairs: document.getElementById("allPairs"),
-    clearPairs: document.getElementById("clearPairs"),
-    viewSelect: document.getElementById("viewSelect"),
-    orderSelect: document.getElementById("orderSelect"),
-    viz: document.getElementById("viz"),
-    meta: document.getElementById("meta"),
-    tooltip: d3.select("#tooltip"),
-    colsInput: document.getElementById("colsInput"),
-    halfSelect: document.getElementById("halfSelect"),
-};
-
 // ---------- helpers ----------
-function normalizePair(a, b) {
-    return (a < b) ? `${a}|||${b}` : `${b}|||${a}`;
-}
-
-function parseRow(r, countryOverride) {
-    return {
-        country: countryOverride ?? r.country,
-        concept_a: r.concept_a,
-        concept_b: r.concept_b,
-        color_1: r.color_1,
-        color_2: r.color_2,
-        semantic_distance: +r.semantic_distance,
-        mu_D: +r.mu_D,
-    };
-}
-
-function setTooltip(html, x, y) {
-    els.tooltip
-        .style("opacity", 1)
-        .html(html)
-        .style("left", `${x + 12}px`)
-        .style("top", `${y + 12}px`);
-}
-
-function hideTooltip() {
-    els.tooltip.style("opacity", 0);
-}
-
-function getSelectedPairKeys() {
-    return Array.from(els.pairSelect.selectedOptions).map(o => o.value);
-}
-
-function setSelectedPairKeys(keys) {
-    const keySet = new Set(keys);
-    for (const opt of els.pairSelect.options) {
-        opt.selected = keySet.has(opt.value);
-    }
-}
 
 function cssForColorCode(code) {
     const d = COLOR_LOOKUP.get(code);
     if (!d || !d.hex) return "#fff";  // fallback
-    // Ensure it starts with '#'
     // return d.hex.startsWith("#") ? d.hex : `#${d.hex}`;
     return d.hex;
 }
@@ -88,25 +40,6 @@ function labcLine(code) {
 
 // key -> HTMLElement for pinned tooltips
 const PINNED = new Map();
-
-function makePinnedTooltip(key, html, x, y) {
-    const div = document.createElement("div");
-    div.className = "tooltip pinned";
-    div.dataset.key = key;
-    div.style.opacity = 1;
-    div.style.left = `${x + 12}px`;
-    div.style.top = `${y + 12}px`;
-    div.innerHTML = html;
-
-    // Optional: click the pinned tooltip itself to close it
-    div.addEventListener("click", (e) => {
-        e.stopPropagation();
-        removePinnedTooltip(key);
-    });
-
-    document.body.appendChild(div);
-    return div;
-}
 
 function removePinnedTooltip(key) {
     const el = PINNED.get(key);
@@ -501,6 +434,225 @@ function renderHeatmap(container, records, title, compact = false) {
     }
 }
 
+// ---------- diff heatmap rendering  ----------
+function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = false) {
+    container.innerHTML = "";
+
+    const card = document.createElement("div");
+    card.className = "card";
+    container.appendChild(card);
+
+    const heatmapId = `diff-${Math.random().toString(16).slice(2)}`;
+
+    const width = compact ? 250 : 980;
+    const height = compact ? 270 : 840;
+
+    const margin = compact
+        ? { top: 28, right: 8, bottom: 8, left: 8 }
+        : { top: 70, right: 30, bottom: 30, left: 90 };
+
+    const svg = d3.select(card)
+        .append("svg")
+        .attr("viewBox", `0 0 ${width} ${height}`);
+
+    svg.append("text")
+        .attr("x", margin.left)
+        .attr("y", compact ? 18 : 28)
+        .attr("font-size", compact ? 12 : 14)
+        .attr("font-weight", 600)
+        .text(title);
+
+    if (!mgRecords?.length || !usRecords?.length) {
+        svg.append("text")
+            .attr("x", margin.left)
+            .attr("y", compact ? 38 : 55)
+            .attr("font-size", 12)
+            .text("No data.");
+        return;
+    }
+
+    // Use a consistent color order; use combined records so "cluster" order is stable
+    const combined = mgRecords.concat(usRecords);
+    const colorOrder = computeColorOrder(combined);
+    const idx = new Map(colorOrder.map((c, i) => [c, i]));
+
+    // Symmetric ΔS lookup for each group
+    const mgDist = new Map();
+    for (const d of mgRecords) {
+        mgDist.set(`${d.color_1}|||${d.color_2}`, d.semantic_distance);
+        mgDist.set(`${d.color_2}|||${d.color_1}`, d.semantic_distance);
+    }
+
+    const usDist = new Map();
+    for (const d of usRecords) {
+        usDist.set(`${d.color_1}|||${d.color_2}`, d.semantic_distance);
+        usDist.set(`${d.color_2}|||${d.color_1}`, d.semantic_distance);
+    }
+
+    // diagonal
+    for (const c of colorOrder) {
+        mgDist.set(`${c}|||${c}`, 0);
+        usDist.set(`${c}|||${c}`, 0);
+    }
+
+    const innerW = width - margin.left - margin.right;
+    const innerH = height - margin.top - margin.bottom;
+
+    const x = d3.scaleBand().domain(colorOrder).range([0, innerW]);
+    const y = d3.scaleBand().domain(colorOrder).range([0, innerH]);
+
+    // Build tiles + gather diffs for scale
+    const tiles = [];
+    const diffs = [];
+
+    for (const row of colorOrder) {
+        for (const col of colorOrder) {
+            const mgV = mgDist.get(`${row}|||${col}`);
+            const usV = usDist.get(`${row}|||${col}`);
+            const diff = usV - mgV; // US − MG
+
+            diffs.push(diff);
+
+            tiles.push({
+                rowColor: row,
+                colColor: col,
+                mgV,
+                usV,
+                diff,
+                rowName: COLOR_LOOKUP.get(row)?.name,
+                colName: COLOR_LOOKUP.get(col)?.name
+            });
+        }
+    }
+
+    // Diverging grayscale centered at 0: negative -> darker, positive -> lighter
+    const maxAbs = d3.max(diffs, d => Math.abs(d)) || 1;
+    const fill = d3.scaleSequential(d3.interpolateGreys).domain([maxAbs, -maxAbs]);
+
+    const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+    if (!compact) {
+        g.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(y).tickSize(0));
+
+        g.append("g")
+            .attr("class", "axis")
+            .call(d3.axisTop(x).tickSize(0))
+            .selectAll("text")
+            .attr("text-anchor", "start")
+            .attr("transform", "rotate(-90)")
+            .attr("dx", "0.6em")
+            .attr("dy", "-0.2em");
+    }
+
+    function tooltipHTMLForDiff(t) {
+        const c1Css = cssForColorCode(t.rowColor);
+        const c2Css = cssForColorCode(t.colColor);
+
+        return `
+          <div><b>Row (color_1): ${t.rowColor}</b></div>
+          <div><b>Col (color_2): ${t.colColor}</b></div>
+          <div style="margin-top:4px;">US &Delta;S: <b>${t.usV.toFixed(4)}</b></div>
+          <div>MG &Delta;S: <b>${t.mgV.toFixed(4)}</b></div>
+          <div><b>Diff (US − MG): ${t.diff.toFixed(4)}</b></div>
+
+          <div style="display:flex; gap:10px; margin-top:8px; align-items:flex-start;">
+            <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
+              <div style="width:50px;height:50px;background:${c1Css};border:1px solid rgba(255,255,255,0.25);"></div>
+              <div style="font-size:11px; opacity:0.9;">${t.rowColor} <br/> ${t.rowName}</div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
+              <div style="width:50px;height:50px;background:${c2Css};border:1px solid rgba(255,255,255,0.25);"></div>
+              <div style="font-size:11px; opacity:0.9;">${t.colColor} <br/> ${t.colName}</div>
+            </div>
+          </div>
+        `;
+    }
+
+    g.append("g")
+        .selectAll("rect")
+        .data(tiles)
+        .join("rect")
+        .attr("x", t => x(t.colColor))
+        .attr("y", t => y(t.rowColor))
+        .attr("width", x.bandwidth())
+        .attr("height", y.bandwidth())
+        .attr("fill", t => {
+            const r = idx.get(t.rowColor);
+            const c = idx.get(t.colColor);
+            const show = (state.half === "full") || (r <= c);
+
+            if (show) return fill(t.diff);
+
+            // faint placeholder for hidden bottom-half (same idea as your heatmap)
+            return "rgba(107, 86, 86, 0.08)";
+        })
+        .attr("stroke", t => {
+            const r = idx.get(t.rowColor);
+            const c = idx.get(t.colColor);
+            const show = (state.half === "full") || (r <= c);
+            return show ? "none" : "rgba(130, 116, 116, 0.1)";
+        })
+        .style("pointer-events", t => {
+            const r = idx.get(t.rowColor);
+            const c = idx.get(t.colColor);
+            const show = (state.half === "full") || (r <= c);
+            return show ? "all" : "none";
+        })
+        .on("mousemove", (event, t) => {
+            setTooltip(tooltipHTMLForDiff(t), event.clientX, event.clientY);
+        })
+        .on("mouseleave", hideTooltip)
+        .on("click", (event, t) => {
+            event.stopPropagation();
+            const key = `${heatmapId}|||${t.rowColor}|||${t.colColor}`;
+            togglePinnedTooltip(key, tooltipHTMLForDiff(t), event.clientX, event.clientY);
+        });
+
+    // Legend only for non-compact (like your other heatmap)
+    if (!compact) {
+        const legendW = 240;
+        const legendH = 10;
+        const legendX = margin.left;
+        const legendY = height - 28;
+
+        const legend = svg.append("g").attr("class", "legend");
+
+        legend.append("text")
+            .attr("x", legendX)
+            .attr("y", legendY - 8)
+            // .text(`diff scale (US−MG): ${(-maxAbs).toFixed(2)} → ${(maxAbs).toFixed(2)}`);
+            .text(`diff scale (US−MG): dark = ${(-maxAbs).toFixed(2)}  •  light = ${(maxAbs).toFixed(2)}`);
+
+
+        const gradId = `grad-diff-${Math.random().toString(16).slice(2)}`;
+        const defs = svg.append("defs");
+        const grad = defs.append("linearGradient")
+            .attr("id", gradId)
+            .attr("x1", "0%").attr("x2", "100%")
+            .attr("y1", "0%").attr("y2", "0%");
+
+        const stops = d3.range(0, 1.0001, 0.1);
+        grad.selectAll("stop")
+            .data(stops)
+            .join("stop")
+            .attr("offset", d => `${d * 100}%`)
+            // .attr("stop-color", d => fill(maxAbs + d * (-2 * maxAbs))); // +maxAbs -> -maxAbs
+            .attr("stop-color", d => fill(-maxAbs + d * (2 * maxAbs))); // -maxAbs -> +maxAbs (dark -> light)
+
+
+        legend.append("rect")
+            .attr("x", legendX)
+            .attr("y", legendY)
+            .attr("width", legendW)
+            .attr("height", legendH)
+            .attr("fill", `url(#${gradId})`)
+            .attr("stroke", "#ccc");
+    }
+}
+
 // ---------- distribution rendering----------
 function renderDistribution(container, mg, us, title, compact = false) {
     container.innerHTML = "";
@@ -625,18 +777,35 @@ function render(all) {
             } else {
                 if (state.group === "both") {
                     // stack MG + US compact heatmaps in the same small card cell
+                    // cell.innerHTML = "";
+                    // const wrapper = document.createElement("div");
+                    // wrapper.className = "card";
+                    // cell.appendChild(wrapper);
+
+                    // const top = document.createElement("div");
+                    // const bot = document.createElement("div");
+                    // wrapper.appendChild(top);
+                    // wrapper.appendChild(bot);
+
+                    // renderHeatmap(top, mg, `${title} (MG)`, true);
+                    // renderHeatmap(bot, us, `${title} (US)`, true);
+                    // stack MG + US + DIFF compact heatmaps in the same small card cell
                     cell.innerHTML = "";
                     const wrapper = document.createElement("div");
                     wrapper.className = "card";
                     cell.appendChild(wrapper);
 
                     const top = document.createElement("div");
+                    const mid = document.createElement("div");
                     const bot = document.createElement("div");
                     wrapper.appendChild(top);
+                    wrapper.appendChild(mid);
                     wrapper.appendChild(bot);
 
                     renderHeatmap(top, mg, `${title} (MG)`, true);
-                    renderHeatmap(bot, us, `${title} (US)`, true);
+                    renderHeatmap(mid, us, `${title} (US)`, true);
+                    renderDiffHeatmap(bot, mg, us, `${title} (Diff US−MG)`, true);
+
                 } else if (state.group === "mg") {
                     renderHeatmap(cell, mg, title, true);
                 } else {
@@ -661,17 +830,22 @@ function render(all) {
     if (state.group === "both") {
         const row = document.createElement("div");
         row.style.display = "grid";
-        row.style.gridTemplateColumns = "1fr 1fr";
-        row.style.gap = "12px";
+        row.style.gridTemplateColumns = "1fr 1fr 1fr";
+        row.style.gap = "10px";
         els.viz.appendChild(row);
 
         const left = document.createElement("div");
+        const mid = document.createElement("div");
         const right = document.createElement("div");
         row.appendChild(left);
+        row.appendChild(mid);
         row.appendChild(right);
 
         renderHeatmap(left, mg, `MG heatmap — ${A} — ${B}`, false);
-        renderHeatmap(right, us, `US heatmap — ${A} — ${B}`, false);
+        renderHeatmap(mid, us, `US heatmap — ${A} — ${B}`, false);
+
+        renderDiffHeatmap(right, mg, us, `Diff (US − MG) — ${A} — ${B}`, false);
+
     } else if (state.group === "mg") {
         renderHeatmap(els.viz, mg, `MG heatmap — ${A} — ${B}`, false);
     } else {
