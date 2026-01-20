@@ -1,8 +1,7 @@
 /* global d3 */
 
 import {
-    els, normalizePair, parseRow, setTooltip, hideTooltip, getSelectedPairKeys, setSelectedPairKeys,
-    makePinnedTooltip
+    els, normalizePair, parseRow, getSelectedPairKeys, setSelectedPairKeys
 } from "./utils.js";
 
 const FILES = {
@@ -23,6 +22,18 @@ const state = {
 };
 
 // ---------- helpers ----------
+
+function setTooltip(html, x, y) {
+    els.tooltip
+        .style("opacity", 1)
+        .html(html)
+        .style("left", `${x + 12}px`)
+        .style("top", `${y + 12}px`);
+}
+
+function hideTooltip() {
+    els.tooltip.style("opacity", 0);
+}
 
 function cssForColorCode(code) {
     const d = COLOR_LOOKUP.get(code);
@@ -58,6 +69,24 @@ function togglePinnedTooltip(key, html, x, y) {
     }
 }
 
+function makePinnedTooltip(key, html, x, y) {
+    const div = document.createElement("div");
+    div.className = "tooltip pinned";
+    div.dataset.key = key;
+    div.style.opacity = 1;
+    div.style.left = `${x + 12}px`;
+    div.style.top = `${y + 12}px`;
+    div.innerHTML = html;
+
+    // Optional: click the pinned tooltip itself to close it
+    div.addEventListener("click", (e) => {
+        e.stopPropagation();
+        removePinnedTooltip(key);
+    });
+
+    document.body.appendChild(div);
+    return div;
+}
 
 // ---------- load data ----------
 Promise.all([

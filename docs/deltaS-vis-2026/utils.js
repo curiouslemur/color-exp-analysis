@@ -28,18 +28,6 @@ export function parseRow(r, countryOverride) {
     };
 }
 
-export function setTooltip(html, x, y) {
-    els.tooltip
-        .style("opacity", 1)
-        .html(html)
-        .style("left", `${x + 12}px`)
-        .style("top", `${y + 12}px`);
-}
-
-export function hideTooltip() {
-    els.tooltip.style("opacity", 0);
-}
-
 export function getSelectedPairKeys() {
     return Array.from(els.pairSelect.selectedOptions).map(o => o.value);
 }
@@ -49,23 +37,4 @@ export function setSelectedPairKeys(keys) {
     for (const opt of els.pairSelect.options) {
         opt.selected = keySet.has(opt.value);
     }
-}
-
-export function makePinnedTooltip(key, html, x, y) {
-    const div = document.createElement("div");
-    div.className = "tooltip pinned";
-    div.dataset.key = key;
-    div.style.opacity = 1;
-    div.style.left = `${x + 12}px`;
-    div.style.top = `${y + 12}px`;
-    div.innerHTML = html;
-
-    // Optional: click the pinned tooltip itself to close it
-    div.addEventListener("click", (e) => {
-        e.stopPropagation();
-        removePinnedTooltip(key);
-    });
-
-    document.body.appendChild(div);
-    return div;
 }
