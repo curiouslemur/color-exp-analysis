@@ -49,25 +49,8 @@ function labcLine(code) {
     // return `${code}: L=${d.L.toFixed(1)} a=${d.a.toFixed(1)} b=${d.b.toFixed(1)} c=${d.c.toFixed(1)}`;
 }
 
-// key -> HTMLElement for pinned tooltips
+// key -> { tipEl: HTMLElement, cellEl: SVGRectElement }
 const PINNED = new Map();
-
-function removePinnedTooltip(key) {
-    const el = PINNED.get(key);
-    if (el) {
-        el.remove();
-        PINNED.delete(key);
-    }
-}
-
-function togglePinnedTooltip(key, html, x, y) {
-    if (PINNED.has(key)) {
-        removePinnedTooltip(key);
-    } else {
-        const el = makePinnedTooltip(key, html, x, y);
-        PINNED.set(key, el);
-    }
-}
 
 function makePinnedTooltip(key, html, x, y) {
     const div = document.createElement("div");
@@ -78,7 +61,7 @@ function makePinnedTooltip(key, html, x, y) {
     div.style.top = `${y + 12}px`;
     div.innerHTML = html;
 
-    // Optional: click the pinned tooltip itself to close it
+    // Clicking the pinned tooltip closes it (and will also remove highlight)
     div.addEventListener("click", (e) => {
         e.stopPropagation();
         removePinnedTooltip(key);
@@ -87,6 +70,35 @@ function makePinnedTooltip(key, html, x, y) {
     document.body.appendChild(div);
     return div;
 }
+
+function removePinnedTooltip(key) {
+    const entry = PINNED.get(key);
+    if (!entry) return;
+
+    // remove tooltip
+    entry.tipEl?.remove();
+
+    // remove highlight if the cell is still in DOM
+    if (entry.cellEl) {
+        d3.select(entry.cellEl).classed("cell-selected", false);
+    }
+
+    PINNED.delete(key);
+}
+
+function togglePinnedTooltip(key, html, x, y, cellEl) {
+    if (PINNED.has(key)) {
+        removePinnedTooltip(key);
+    } else {
+        const tipEl = makePinnedTooltip(key, html, x, y);
+        PINNED.set(key, { tipEl, cellEl });
+
+        // add highlight
+        if (cellEl) d3.select(cellEl).classed("cell-selected", true);
+    }
+}
+
+
 
 // ---------- load data ----------
 Promise.all([
@@ -272,8 +284,8 @@ function renderHeatmap(container, records, title, compact = false) {
         return;
     }
 
-    // Use a consistent order of colors on both axes (still fine),
-    // but the semantics are now explicit: y is color_1 (row), x is color_2 (column).
+    // Using a consistent order of colors on both axes (still fine),
+    // the semantics are now explicit: y is color_1 (row), x is color_2 (column).
     const colorOrder = computeColorOrder(records);
 
     const idx = new Map(colorOrder.map((c, i) => [c, i]));
@@ -418,12 +430,13 @@ function renderHeatmap(container, records, title, compact = false) {
         .on("mouseleave", () => {
             hideTooltip();
         })
-        .on("click", (event, t) => {
+        .on("click", function (event, t) {
             event.stopPropagation();
-            // Pinned key must also be row/col aware now
             const key = `${heatmapId}|||${t.rowColor}|||${t.colColor}`;
-            togglePinnedTooltip(key, tooltipHTMLForCell(t), event.clientX, event.clientY);
+            togglePinnedTooltip(key, tooltipHTMLForCell(t), event.clientX, event.clientY, this);
         });
+
+
 
     // Legend only for non-compact
     if (!compact) {
@@ -634,11 +647,13 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
             setTooltip(tooltipHTMLForDiff(t), event.clientX, event.clientY);
         })
         .on("mouseleave", hideTooltip)
-        .on("click", (event, t) => {
+        .on("click", function (event, t) {
             event.stopPropagation();
             const key = `${heatmapId}|||${t.rowColor}|||${t.colColor}`;
-            togglePinnedTooltip(key, tooltipHTMLForDiff(t), event.clientX, event.clientY);
+            togglePinnedTooltip(key, tooltipHTMLForDiff(t), event.clientX, event.clientY, this);
         });
+
+
 
     // Legend only for non-compact (like your other heatmap)
     if (!compact) {
