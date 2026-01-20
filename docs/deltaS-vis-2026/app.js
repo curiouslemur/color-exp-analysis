@@ -336,7 +336,8 @@ function renderHeatmap(container, records, title, compact = false) {
             .attr("text-anchor", "start")
             .attr("transform", "rotate(-90)")
             .attr("dx", "0.6em")
-            .attr("dy", "-0.2em");
+            .attr("dy", "0.6em");
+
     }
 
     // Tiles: row = color_1 (y), col = color_2 (x)
@@ -585,7 +586,7 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
             .attr("text-anchor", "start")
             .attr("transform", "rotate(-90)")
             .attr("dx", "0.6em")
-            .attr("dy", "-0.2em");
+            .attr("dy", "0.6em");
     }
 
     function tooltipHTMLForDiff(t) {
