@@ -251,6 +251,18 @@ function renderHeatmap(container, records, title, compact = false) {
         mu.set(`${d.color_1}|||${d.color_2}`, d.mu_D);
     }
 
+    // Association strengths exist only for stored direction (color_1 < color_2)
+    const assoc = new Map();
+    for (const d of records) {
+        assoc.set(`${d.color_1}|||${d.color_2}`, {
+            A_to_C1: d.A_to_C1,
+            A_to_C2: d.A_to_C2,
+            B_to_C1: d.B_to_C1,
+            B_to_C2: d.B_to_C2,
+        });
+    }
+
+
     const card = document.createElement("div");
     card.className = "card";
     container.appendChild(card);
@@ -347,149 +359,141 @@ function renderHeatmap(container, records, title, compact = false) {
     const tiles = [];
     for (const row of colorOrder) {
         for (const col of colorOrder) {
+            const storedKey = (row < col) ? `${row}|||${col}` : `${col}|||${row}`;
+            const baseAssoc = assoc.get(storedKey);
+            const swapped = !(row < col); // if row >= col, we're looking at the mirrored cell
+
+            // Map stored (C1,C2) strengths onto (rowColor,colColor)
+            const A_to_row = baseAssoc ? (swapped ? baseAssoc.A_to_C2 : baseAssoc.A_to_C1) : 0;
+            const A_to_col = baseAssoc ? (swapped ? baseAssoc.A_to_C1 : baseAssoc.A_to_C2) : 0;
+            const B_to_row = baseAssoc ? (swapped ? baseAssoc.B_to_C2 : baseAssoc.B_to_C1) : 0;
+            const B_to_col = baseAssoc ? (swapped ? baseAssoc.B_to_C1 : baseAssoc.B_to_C2) : 0;
+
             tiles.push({
-                rowColor: row,   // color_1
-                colColor: col,   // color_2
+                rowColor: row,   // shown as "color 1" in tooltip
+                colColor: col,   // shown as "color 2" in tooltip
                 d: dist.get(`${row}|||${col}`),
                 rowName: COLOR_LOOKUP.get(row)?.name,
                 colName: COLOR_LOOKUP.get(col)?.name,
+
+                // NEW: association strengths mapped to the orientation shown in tooltip
+                A_to_row,
+                A_to_col,
+                B_to_row,
+                B_to_col,
+
+                // mu_D / Δx: show only above diagonal; below diagonal => null (NA in tooltip)
                 deltaX: (() => {
-                    if (row === col) return 0; // diagonal
+                    if (row === col) return 0;
                     const key = (row < col) ? `${row}|||${col}` : `${col}|||${row}`; // stored direction
                     const base = mu.get(key);
                     if (!Number.isFinite(base)) return null;
 
-                    const upper = idx.get(row) <= idx.get(col); // above diag
-                    return upper ? base : -base;
+                    const upper = idx.get(row) <= idx.get(col); // above diag (by displayed order)
+                    return upper ? base : null;
                 })(),
-
             });
+
         }
     }
 
     // Tooltip HTML uses the explicit row/col naming
-    function tooltipHTMLForCell2(t) {
-        const c1Css = cssForColorCode(t.rowColor);
-        const c2Css = cssForColorCode(t.colColor);
-        return `
-      <div>Row (color1): <b>${t.rowColor}</b></div>
-      <div>Col (color2): <b>${t.colColor}</b></div>
-      <div style="margin-top:4px;">&Delta;S: <b>${t.d.toFixed(4)}</b></div>
-      <div>&Delta;x = <b>${t.deltaX === null ? "NA" : t.deltaX.toFixed(4)}</b></div>
-
-      <div style="display:flex; gap:10px; margin-top:8px; align-items:flex-start;">
-        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-          <div style="width:40px;height:40px;background:${c1Css};border:1px solid rgba(255,255,255,0.25);"></div>
-          <div style="font-size:11px; opacity:0.9;">${t.rowColor} (row)<br/> ${t.rowName}</div>
-        </div>
-
-        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-          <div style="width:40px;height:40px;background:${c2Css};border:1px solid rgba(255,255,255,0.25);"></div>
-          <div style="font-size:11px; opacity:0.9;">${t.colColor} (col)<br/> ${t.colName}</div>
-        </div>
-      </div>
-
-      <!-- <div style="margin-top:8px; font-size:11px; opacity:0.9; line-height:1.25;">
-        <div>${labcLine(t.rowColor)}</div>
-        <div>${labcLine(t.colColor)}</div>
-      </div> -->
-    `;
-    }
-
     function tooltipHTMLForCell(t) {
         const c1Css = cssForColorCode(t.rowColor);
         const c2Css = cssForColorCode(t.colColor);
 
-        // Above diagonal (or on it)
-        const upper = idx.get(t.rowColor) <= idx.get(t.colColor);
+        const conceptA = records[0]?.concept_a ?? "";
+        const conceptB = records[0]?.concept_b ?? "";
 
-        // Only show/use Δx when you already show it (above diagonal)
-        const dx = (upper && Number.isFinite(t.deltaX)) ? t.deltaX : null;
+        // 40x40 squares; moved down by 20px (squareY includes the extra 20)
+        const W = 230;
+        const H = 155;
+        const s = 40;
 
-        // Mini diagram geometry
-        const gap = 20;
-        const s = 40;            // square size (40x40)
-        const w = s * 2 + gap;   // svg width
-        const h = 110;           // svg height
+        const leftX = 30;
+        const rightX = 140;
 
-        const x1 = 0;
-        const x2 = s + gap;
+        const leftCx = leftX + s / 2;   // 50
+        const rightCx = rightX + s / 2; // 160
 
-        const yLabel = 14;
-        const yRect = 44;
-        const yRectMid = yRect + s / 2;
+        const labelY = 14;
+        const lineStartY = 26;
 
-        const xLabel1 = x1 + s / 2;
-        const xLabel2 = x2 + s / 2;
+        // squares moved down by +20px
+        const squareY = 60 + 20;
 
-        // Line endpoints (from label baseline to square center)
-        const yLineTop = yLabel + 4;
+        // endpoints
+        const leftTopMid = { x: leftCx, y: squareY };
+        const rightTopMid = { x: rightCx, y: squareY };
 
-        // Line mapping based on sign of Δx
-        // Δx > 0: conceptA->left, conceptB->right
-        // Δx < 0: conceptA->right, conceptB->left
-        let linesSVG = "";
-        if (dx !== null && dx !== 0) {
-            const direct = dx > 0;
+        // nearest corners for crossings
+        const rightTopLeft = { x: rightX, y: squareY };        // for A_to_col
+        const leftTopRight = { x: leftX + s, y: squareY };     // for B_to_row
 
-            // x positions are already the square centers
-            const aToX = direct ? xLabel1 : xLabel2;
-            const bToX = direct ? xLabel2 : xLabel1;
+        // Scale line widths "proportionate" to the values in the 4 columns
+        const vals = [
+            t.A_to_row, t.A_to_col, t.B_to_row, t.B_to_col
+        ].map(v => (Number.isFinite(v) ? v : 0));
 
-            // y endpoints:
-            //  - direct (Δx > 0): end at square center
-            //  - crossed (Δx < 0): end at middle of TOP edge
-            const yEndA = direct ? yRectMid : yRect;
-            const yEndB = direct ? yRectMid : yRect;
+        const maxV = Math.max(0, ...vals);
+        const w = (v) => {
+            const vv = Number.isFinite(v) ? v : 0;
+            if (maxV <= 0) return 0.5;
+            return 0.5 + 5 * (vv / maxV); // 0.5..4.0
+        };
 
-            linesSVG = `
-    <line x1="${xLabel1}" y1="${yLineTop}" x2="${aToX}" y2="${yEndA}"
-          stroke="white" stroke-width="1" opacity="0.9"></line>
-    <line x1="${xLabel2}" y1="${yLineTop}" x2="${bToX}" y2="${yEndB}"
-          stroke="white" stroke-width="1" opacity="0.9"></line>
-  `;
-        }
-
-
-        const dxLine = (upper)
-            ? `<div>&Delta;x = <b>${dx === null ? "NA" : dx.toFixed(4)}</b></div>`
-            : ``;
+        const stroke = "rgba(255,255,255,0.9)";
 
         return `
-      <div><b>Row (color_1):</b> ${t.rowColor}</div>
-      <div><b>Col (color_2):</b> ${t.colColor}</div>
-      <div style="margin-top:4px;">&Delta;S: <b>${t.d.toFixed(4)}</b></div>
-      ${dxLine}
+    <div><b>Row (color_1): ${t.rowColor}</b></div>
+    <div><b>Col (color_2): ${t.colColor}</b></div>
+    <div style="margin-top:4px;">&Delta;S: <b>${t.d.toFixed(4)}</b></div>
+    <div>&Delta;x = <b>${t.deltaX === null ? "NA" : t.deltaX.toFixed(4)}</b></div>
 
-      <div style="margin-top:10px;">
-        <svg width="${w}" height="${h}">
-          <!-- concept labels -->
-          <text x="${xLabel1}" y="${yLabel}" text-anchor="middle"
-                font-size="12" fill="white" opacity="0.95">${conceptA}</text>
-          <text x="${xLabel2}" y="${yLabel}" text-anchor="middle"
-                font-size="12" fill="white" opacity="0.95">${conceptB}</text>
+    <svg width="${W}" height="${H}" style="display:block; margin-top:8px;">
+      <!-- concept labels -->
+      <text x="${leftCx}" y="${labelY}" text-anchor="middle"
+            style="font-size:12px; font-weight:600; fill:white;">${conceptA}</text>
+      <text x="${rightCx}" y="${labelY}" text-anchor="middle"
+            style="font-size:12px; font-weight:600; fill:white;">${conceptB}</text>
 
-          ${linesSVG}
+      <!-- 4 association lines -->
+      <!-- Vertical: A_to_row -->
+      <line x1="${leftCx}" y1="${lineStartY}" x2="${leftTopMid.x}" y2="${leftTopMid.y}"
+            stroke="${stroke}" stroke-width="${w(t.A_to_row)}" stroke-linecap="round" />
+      <!-- Vertical: B_to_col -->
+      <line x1="${rightCx}" y1="${lineStartY}" x2="${rightTopMid.x}" y2="${rightTopMid.y}"
+            stroke="${stroke}" stroke-width="${w(t.B_to_col)}" stroke-linecap="round" />
 
-          <!-- color squares -->
-          <rect x="${x1}" y="${yRect}" width="${s}" height="${s}"
-                fill="${c1Css}" stroke="rgba(255,255,255,0.35)" stroke-width="1"></rect>
-          <rect x="${x2}" y="${yRect}" width="${s}" height="${s}"
-                fill="${c2Css}" stroke="rgba(255,255,255,0.35)" stroke-width="1"></rect>
+      <!-- Crossing: A_to_col ends on nearest corner of opposite square (right top-left) -->
+      <line x1="${leftCx}" y1="${lineStartY}" x2="${rightTopLeft.x}" y2="${rightTopLeft.y}"
+            stroke="${stroke}" stroke-width="${w(t.A_to_col)}" stroke-linecap="round" />
+      <!-- Crossing: B_to_row ends on nearest corner of opposite square (left top-right) -->
+      <line x1="${rightCx}" y1="${lineStartY}" x2="${leftTopRight.x}" y2="${leftTopRight.y}"
+            stroke="${stroke}" stroke-width="${w(t.B_to_row)}" stroke-linecap="round" />
 
-          <!-- color labels under squares -->
-          <text x="${xLabel1}" y="${yRect + s + 16}" text-anchor="middle"
-                font-size="11" fill="white" opacity="0.95">${t.rowColor}</text>
-          <text x="${xLabel2}" y="${yRect + s + 16}" text-anchor="middle"
-                font-size="11" fill="white" opacity="0.95">${t.colColor}</text>
+      <!-- squares -->
+      <rect x="${leftX}" y="${squareY}" width="${s}" height="${s}"
+            fill="${c1Css}" stroke="rgba(255,255,255,0.25)" />
+      <rect x="${rightX}" y="${squareY}" width="${s}" height="${s}"
+            fill="${c2Css}" stroke="rgba(255,255,255,0.25)" />
 
-          <text x="${xLabel1}" y="${yRect + s + 30}" text-anchor="middle"
-                font-size="10" fill="white" opacity="0.85">${t.rowName ?? ""}</text>
-          <text x="${xLabel2}" y="${yRect + s + 30}" text-anchor="middle"
-                font-size="10" fill="white" opacity="0.85">${t.colName ?? ""}</text>
-        </svg>
-      </div>
-    `;
+      <!-- color labels under squares -->
+      <text x="${leftCx}" y="${squareY + s + 14}" text-anchor="middle"
+            style="font-size:11px; fill:white;">${t.rowColor}</text>
+      <text x="${rightCx}" y="${squareY + s + 14}" text-anchor="middle"
+            style="font-size:11px; fill:white;">${t.colColor}</text>
+
+      <text x="${leftCx}" y="${squareY + s + 28}" text-anchor="middle"
+            style="font-size:10px; fill:rgba(255,255,255,0.9);">
+        ${t.rowName ?? ""}
+      </text>
+      <text x="${rightCx}" y="${squareY + s + 28}" text-anchor="middle"
+            style="font-size:10px; fill:rgba(255,255,255,0.9);">
+        ${t.colName ?? ""}
+      </text>
+    </svg>
+  `;
     }
 
 

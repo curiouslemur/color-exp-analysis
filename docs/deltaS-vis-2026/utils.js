@@ -16,7 +16,7 @@ export function normalizePair(a, b) {
     return (a < b) ? `${a}|||${b}` : `${b}|||${a}`;
 }
 
-export function parseRow(r, countryOverride) {
+export function parseRowOld(r, countryOverride) {
     return {
         country: countryOverride ?? r.country,
         concept_a: r.concept_a,
@@ -27,6 +27,25 @@ export function parseRow(r, countryOverride) {
         mu_D: +r.mu_D,
     };
 }
+
+export function parseRow(r, countryOverride) {
+    return {
+        country: countryOverride ?? r.country,
+        concept_a: r.concept_a,
+        concept_b: r.concept_b,
+        color_1: r.color_1,
+        color_2: r.color_2,
+        semantic_distance: +r.semantic_distance,
+        mu_D: +r.mu_D,
+
+        // NEW:
+        A_to_C1: +r.A_to_C1,
+        A_to_C2: +r.A_to_C2,
+        B_to_C1: +r.B_to_C1,
+        B_to_C2: +r.B_to_C2,
+    };
+}
+
 
 export function getSelectedPairKeys() {
     return Array.from(els.pairSelect.selectedOptions).map(o => o.value);
