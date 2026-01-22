@@ -27,8 +27,8 @@ function setTooltip(html, x, y) {
     els.tooltip
         .style("opacity", 1)
         .html(html)
-        .style("left", `${x + 12}px`)
-        .style("top", `${y + 12}px`);
+        .style("left", `${x + 1}px`)
+        .style("top", `${y + 1}px`);
 }
 
 function hideTooltip() {
@@ -445,8 +445,8 @@ function renderHeatmap(container, records, title, compact = false) {
         const stroke = "rgba(255,255,255,0.9)";
 
         return `
-    <div><b>Row (color_1): ${t.rowColor}</b></div>
-    <div><b>Col (color_2): ${t.colColor}</b></div>
+    <div>Row (color1): <b> ${t.rowColor}</b></div>
+    <div>Col (color2): <b> ${t.colColor}</b></div>
     <div style="margin-top:4px;">&Delta;S: <b>${t.d.toFixed(4)}</b></div>
     <div>&Delta;x = <b>${t.deltaX === null ? "NA" : t.deltaX.toFixed(4)}</b></div>
 
@@ -722,54 +722,6 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
             </div>
           </div>
         `;
-    }
-
-    function tooltipHTMLForDiff2(t) {
-        const c1Css = cssForColorCode(t.rowColor);
-        const c2Css = cssForColorCode(t.colColor);
-
-        const rowTag = conceptA ? ` <span style="opacity:0.95;">&lt;&gt; ${conceptA}</span>` : "";
-        const colTag = conceptB ? ` <span style="opacity:0.95;">&lt;&gt; ${conceptB}</span>` : "";
-
-        return `
-    <div style="display:flex; justify-content:space-between; gap:14px; align-items:flex-start;">
-      <div>
-        <div><b>Row (color1):</b> ${t.rowColor}${rowTag}</div>
-        <div><b>Col (color2):</b> ${t.colColor}${colTag}</div>
-      </div>
-
-      <div style="text-align:right;">
-        <div style="font-size:11px; opacity:0.95;">US − MG</div>
-        <div style="font-size:16px; font-weight:700;">${t.diff.toFixed(4)}</div>
-      </div>
-    </div>
-
-    <div style="display:flex; gap:12px; margin-top:10px; align-items:flex-start;">
-      <div style="display:flex; gap:10px;">
-        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-          <div style="width:40px;height:40px;background:${c1Css};border:1px solid rgba(255,255,255,0.35);"></div>
-          <div style="font-size:11px; opacity:0.95; text-align:center;">
-            ${t.rowColor}<br/>${t.rowName ?? ""}
-          </div>
-        </div>
-
-        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-          <div style="width:40px;height:40px;background:${c2Css};border:1px solid rgba(255,255,255,0.35);"></div>
-          <div style="font-size:11px; opacity:0.95; text-align:center;">
-            ${t.colColor}<br/>${t.colName ?? ""}
-          </div>
-        </div>
-      </div>
-
-      <div style="flex:1; min-width:140px;">
-        <div style="display:grid; grid-template-columns:auto auto; gap:4px 12px; font-size:12px; margin-top:2px;">
-          <div style="opacity:0.95;">MG &Delta;S</div><div style="text-align:right;"><b>${t.mgV.toFixed(4)}</b></div>
-          <div style="opacity:0.95;">US &Delta;S</div><div style="text-align:right;"><b>${t.usV.toFixed(4)}</b></div>
-          <div style="opacity:0.95;">Diff</div><div style="text-align:right;"><b>${t.diff.toFixed(4)}</b></div>
-        </div>
-      </div>
-    </div>
-  `;
     }
 
 
