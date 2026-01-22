@@ -284,6 +284,9 @@ function renderHeatmap(container, records, title, compact = false) {
         return;
     }
 
+    const conceptA = records[0]?.concept_a ?? "";
+    const conceptB = records[0]?.concept_b ?? "";
+
     // Using a consistent order of colors on both axes (still fine),
     // the semantics are now explicit: y is color_1 (row), x is color_2 (column).
     const colorOrder = computeColorOrder(records);
@@ -365,24 +368,24 @@ function renderHeatmap(container, records, title, compact = false) {
     }
 
     // Tooltip HTML uses the explicit row/col naming
-    function tooltipHTMLForCell(t) {
+    function tooltipHTMLForCell2(t) {
         const c1Css = cssForColorCode(t.rowColor);
         const c2Css = cssForColorCode(t.colColor);
         return `
-      <div><b>Row (color_1): ${t.rowColor}</b></div>
-      <div><b>Col (color_2): ${t.colColor}</b></div>
+      <div>Row (color1): <b>${t.rowColor}</b></div>
+      <div>Col (color2): <b>${t.colColor}</b></div>
       <div style="margin-top:4px;">&Delta;S: <b>${t.d.toFixed(4)}</b></div>
       <div>&Delta;x = <b>${t.deltaX === null ? "NA" : t.deltaX.toFixed(4)}</b></div>
 
       <div style="display:flex; gap:10px; margin-top:8px; align-items:flex-start;">
         <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-          <div style="width:50px;height:50px;background:${c1Css};border:1px solid rgba(255,255,255,0.25);"></div>
-          <div style="font-size:11px; opacity:0.9;">${t.rowColor} <br/> ${t.rowName}</div>
+          <div style="width:40px;height:40px;background:${c1Css};border:1px solid rgba(255,255,255,0.25);"></div>
+          <div style="font-size:11px; opacity:0.9;">${t.rowColor} (row)<br/> ${t.rowName}</div>
         </div>
 
         <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-          <div style="width:50px;height:50px;background:${c2Css};border:1px solid rgba(255,255,255,0.25);"></div>
-          <div style="font-size:11px; opacity:0.9;">${t.colColor} <br/> ${t.colName}</div>
+          <div style="width:40px;height:40px;background:${c2Css};border:1px solid rgba(255,255,255,0.25);"></div>
+          <div style="font-size:11px; opacity:0.9;">${t.colColor} (col)<br/> ${t.colName}</div>
         </div>
       </div>
 
@@ -392,6 +395,103 @@ function renderHeatmap(container, records, title, compact = false) {
       </div> -->
     `;
     }
+
+    function tooltipHTMLForCell(t) {
+        const c1Css = cssForColorCode(t.rowColor);
+        const c2Css = cssForColorCode(t.colColor);
+
+        // Above diagonal (or on it)
+        const upper = idx.get(t.rowColor) <= idx.get(t.colColor);
+
+        // Only show/use Δx when you already show it (above diagonal)
+        const dx = (upper && Number.isFinite(t.deltaX)) ? t.deltaX : null;
+
+        // Mini diagram geometry
+        const gap = 20;
+        const s = 40;            // square size (40x40)
+        const w = s * 2 + gap;   // svg width
+        const h = 110;           // svg height
+
+        const x1 = 0;
+        const x2 = s + gap;
+
+        const yLabel = 14;
+        const yRect = 44;
+        const yRectMid = yRect + s / 2;
+
+        const xLabel1 = x1 + s / 2;
+        const xLabel2 = x2 + s / 2;
+
+        // Line endpoints (from label baseline to square center)
+        const yLineTop = yLabel + 4;
+
+        // Line mapping based on sign of Δx
+        // Δx > 0: conceptA->left, conceptB->right
+        // Δx < 0: conceptA->right, conceptB->left
+        let linesSVG = "";
+        if (dx !== null && dx !== 0) {
+            const direct = dx > 0;
+
+            // x positions are already the square centers
+            const aToX = direct ? xLabel1 : xLabel2;
+            const bToX = direct ? xLabel2 : xLabel1;
+
+            // y endpoints:
+            //  - direct (Δx > 0): end at square center
+            //  - crossed (Δx < 0): end at middle of TOP edge
+            const yEndA = direct ? yRectMid : yRect;
+            const yEndB = direct ? yRectMid : yRect;
+
+            linesSVG = `
+    <line x1="${xLabel1}" y1="${yLineTop}" x2="${aToX}" y2="${yEndA}"
+          stroke="white" stroke-width="1" opacity="0.9"></line>
+    <line x1="${xLabel2}" y1="${yLineTop}" x2="${bToX}" y2="${yEndB}"
+          stroke="white" stroke-width="1" opacity="0.9"></line>
+  `;
+        }
+
+
+        const dxLine = (upper)
+            ? `<div>&Delta;x = <b>${dx === null ? "NA" : dx.toFixed(4)}</b></div>`
+            : ``;
+
+        return `
+      <div><b>Row (color_1):</b> ${t.rowColor}</div>
+      <div><b>Col (color_2):</b> ${t.colColor}</div>
+      <div style="margin-top:4px;">&Delta;S: <b>${t.d.toFixed(4)}</b></div>
+      ${dxLine}
+
+      <div style="margin-top:10px;">
+        <svg width="${w}" height="${h}">
+          <!-- concept labels -->
+          <text x="${xLabel1}" y="${yLabel}" text-anchor="middle"
+                font-size="12" fill="white" opacity="0.95">${conceptA}</text>
+          <text x="${xLabel2}" y="${yLabel}" text-anchor="middle"
+                font-size="12" fill="white" opacity="0.95">${conceptB}</text>
+
+          ${linesSVG}
+
+          <!-- color squares -->
+          <rect x="${x1}" y="${yRect}" width="${s}" height="${s}"
+                fill="${c1Css}" stroke="rgba(255,255,255,0.35)" stroke-width="1"></rect>
+          <rect x="${x2}" y="${yRect}" width="${s}" height="${s}"
+                fill="${c2Css}" stroke="rgba(255,255,255,0.35)" stroke-width="1"></rect>
+
+          <!-- color labels under squares -->
+          <text x="${xLabel1}" y="${yRect + s + 16}" text-anchor="middle"
+                font-size="11" fill="white" opacity="0.95">${t.rowColor}</text>
+          <text x="${xLabel2}" y="${yRect + s + 16}" text-anchor="middle"
+                font-size="11" fill="white" opacity="0.95">${t.colColor}</text>
+
+          <text x="${xLabel1}" y="${yRect + s + 30}" text-anchor="middle"
+                font-size="10" fill="white" opacity="0.85">${t.rowName ?? ""}</text>
+          <text x="${xLabel2}" y="${yRect + s + 30}" text-anchor="middle"
+                font-size="10" fill="white" opacity="0.85">${t.colName ?? ""}</text>
+        </svg>
+      </div>
+    `;
+    }
+
 
     g.append("g")
         .selectAll("rect")
@@ -486,6 +586,9 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
     container.appendChild(card);
 
     const heatmapId = `diff-${Math.random().toString(16).slice(2)}`;
+
+    const conceptA = mgRecords[0]?.concept_a ?? "";
+    const conceptB = mgRecords[0]?.concept_b ?? "";
 
     const width = compact ? 250 : 980;
     const height = compact ? 270 : 840;
@@ -593,26 +696,78 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
         const c1Css = cssForColorCode(t.rowColor);
         const c2Css = cssForColorCode(t.colColor);
 
+        const rowTag = conceptA ? ` <span style="opacity:0.95;">&lt;&gt; ${conceptA}</span>` : "";
+        const colTag = conceptB ? ` <span style="opacity:0.95;">&lt;&gt; ${conceptB}</span>` : "";
+
         return `
-          <div><b>Row (color_1): ${t.rowColor}</b></div>
-          <div><b>Col (color_2): ${t.colColor}</b></div>
+          <div>Row (color1): <b> ${t.rowColor}${rowTag} </b></div>
+          <div>Col (color2): <b> ${t.colColor}${colTag}</b></div>
           <div style="margin-top:4px;">US &Delta;S: <b>${t.usV.toFixed(4)}</b></div>
           <div>MG &Delta;S: <b>${t.mgV.toFixed(4)}</b></div>
           <div><b>Diff (US − MG): ${t.diff.toFixed(4)}</b></div>
 
           <div style="display:flex; gap:10px; margin-top:8px; align-items:flex-start;">
             <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-              <div style="width:50px;height:50px;background:${c1Css};border:1px solid rgba(255,255,255,0.25);"></div>
+              <div style="width:40px;height:40px;background:${c1Css};border:1px solid rgba(255,255,255,0.25);"></div>
               <div style="font-size:11px; opacity:0.9;">${t.rowColor} <br/> ${t.rowName}</div>
             </div>
 
             <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-              <div style="width:50px;height:50px;background:${c2Css};border:1px solid rgba(255,255,255,0.25);"></div>
+              <div style="width:40px;height:40px;background:${c2Css};border:1px solid rgba(255,255,255,0.25);"></div>
               <div style="font-size:11px; opacity:0.9;">${t.colColor} <br/> ${t.colName}</div>
             </div>
           </div>
         `;
     }
+
+    function tooltipHTMLForDiff2(t) {
+        const c1Css = cssForColorCode(t.rowColor);
+        const c2Css = cssForColorCode(t.colColor);
+
+        const rowTag = conceptA ? ` <span style="opacity:0.95;">&lt;&gt; ${conceptA}</span>` : "";
+        const colTag = conceptB ? ` <span style="opacity:0.95;">&lt;&gt; ${conceptB}</span>` : "";
+
+        return `
+    <div style="display:flex; justify-content:space-between; gap:14px; align-items:flex-start;">
+      <div>
+        <div><b>Row (color1):</b> ${t.rowColor}${rowTag}</div>
+        <div><b>Col (color2):</b> ${t.colColor}${colTag}</div>
+      </div>
+
+      <div style="text-align:right;">
+        <div style="font-size:11px; opacity:0.95;">US − MG</div>
+        <div style="font-size:16px; font-weight:700;">${t.diff.toFixed(4)}</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:12px; margin-top:10px; align-items:flex-start;">
+      <div style="display:flex; gap:10px;">
+        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
+          <div style="width:40px;height:40px;background:${c1Css};border:1px solid rgba(255,255,255,0.35);"></div>
+          <div style="font-size:11px; opacity:0.95; text-align:center;">
+            ${t.rowColor}<br/>${t.rowName ?? ""}
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
+          <div style="width:40px;height:40px;background:${c2Css};border:1px solid rgba(255,255,255,0.35);"></div>
+          <div style="font-size:11px; opacity:0.95; text-align:center;">
+            ${t.colColor}<br/>${t.colName ?? ""}
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1; min-width:140px;">
+        <div style="display:grid; grid-template-columns:auto auto; gap:4px 12px; font-size:12px; margin-top:2px;">
+          <div style="opacity:0.95;">MG &Delta;S</div><div style="text-align:right;"><b>${t.mgV.toFixed(4)}</b></div>
+          <div style="opacity:0.95;">US &Delta;S</div><div style="text-align:right;"><b>${t.usV.toFixed(4)}</b></div>
+          <div style="opacity:0.95;">Diff</div><div style="text-align:right;"><b>${t.diff.toFixed(4)}</b></div>
+        </div>
+      </div>
+    </div>
+  `;
+    }
+
 
     g.append("g")
         .selectAll("rect")
@@ -847,8 +1002,8 @@ function render(all) {
                     wrapper.appendChild(mid);
                     wrapper.appendChild(bot);
 
-                    renderHeatmap(top, mg, `${title} (MG)`, true);
-                    renderHeatmap(mid, us, `${title} (US)`, true);
+                    renderHeatmap(top, us, `${title} (US)`, true);
+                    renderHeatmap(mid, mg, `${title} (MG)`, true);
                     renderDiffHeatmap(bot, mg, us, `${title} (Diff US−MG)`, true);
 
                 } else if (state.group === "mg") {
@@ -886,14 +1041,13 @@ function render(all) {
         row.appendChild(mid);
         row.appendChild(right);
 
-        renderHeatmap(left, mg, `MG heatmap — ${A} — ${B}`, false);
-        renderHeatmap(mid, us, `US heatmap — ${A} — ${B}`, false);
-
+        renderHeatmap(left, us, `USA heatmap — ${A} — ${B}`, false);
+        renderHeatmap(mid, mg, `MDG heatmap — ${A} — ${B}`, false);
         renderDiffHeatmap(right, mg, us, `Diff (US − MG) — ${A} — ${B}`, false);
 
     } else if (state.group === "mg") {
-        renderHeatmap(els.viz, mg, `MG heatmap — ${A} — ${B}`, false);
+        renderHeatmap(els.viz, mg, `MDG heatmap — ${A} — ${B}`, false);
     } else {
-        renderHeatmap(els.viz, us, `US heatmap — ${A} — ${B}`, false);
+        renderHeatmap(els.viz, us, `USA heatmap — ${A} — ${B}`, false);
     }
 }
