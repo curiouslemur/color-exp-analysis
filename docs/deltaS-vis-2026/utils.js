@@ -58,6 +58,36 @@ export function setSelectedPairKeys(keys) {
     }
 }
 
+// ---------- subset for a given pairKey ----------
+export function getSubsetForPair(all, pairKey, state) {
+    const [A, B] = pairKey.split("|||");
+    const byPair = all.filter(d => normalizePair(d.concept_a, d.concept_b) === pairKey);
+
+    if (state.group === "mg") return { A, B, mg: byPair.filter(d => d.country === "mg"), us: [] };
+    if (state.group === "us") return { A, B, mg: [], us: byPair.filter(d => d.country === "us") };
+    return { A, B, mg: byPair.filter(d => d.country === "mg"), us: byPair.filter(d => d.country === "us") };
+}
+
+// ---------- ordering for colors ----------
+export function computeColorOrder(records, state) {
+    const colors = Array.from(new Set(records.flatMap(d => [d.color_1, d.color_2]))).sort();
+    if (state.order === "alpha") return colors;
+
+    // heuristic: mean distance per color
+    const sums = new Map(colors.map(c => [c, { sum: 0, n: 0 }]));
+    for (const d of records) {
+        sums.get(d.color_1).sum += d.semantic_distance; sums.get(d.color_1).n += 1;
+        sums.get(d.color_2).sum += d.semantic_distance; sums.get(d.color_2).n += 1;
+    }
+    return colors
+        .map(c => {
+            const s = sums.get(c);
+            return { c, mean: s.n ? s.sum / s.n : 0 };
+        })
+        .sort((a, b) => a.mean - b.mean)
+        .map(x => x.c);
+}
+
 export function drawHist(binData, label, color, g, x, y, innerH, hideTooltip) {
     if (!binData.length) return;
 

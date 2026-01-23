@@ -1,7 +1,7 @@
 /* global d3 */
 
 import {
-    els, normalizePair, parseRow, getSelectedPairKeys, setSelectedPairKeys, drawHist, tooltipHTMLForCell, tooltipHTMLForDiff
+    els, normalizePair, parseRow, getSelectedPairKeys, setSelectedPairKeys, getSubsetForPair, computeColorOrder, drawHist, tooltipHTMLForCell, tooltipHTMLForDiff
 } from "./utils.js";
 
 const FILES = {
@@ -97,8 +97,6 @@ function togglePinnedTooltip(key, html, x, y, cellEl) {
         if (cellEl) d3.select(cellEl).classed("cell-selected", true);
     }
 }
-
-
 
 // ---------- load data ----------
 Promise.all([
@@ -212,36 +210,6 @@ Promise.all([
     render(all);
 });
 
-// ---------- subset for a given pairKey ----------
-function getSubsetForPair(all, pairKey) {
-    const [A, B] = pairKey.split("|||");
-    const byPair = all.filter(d => normalizePair(d.concept_a, d.concept_b) === pairKey);
-
-    if (state.group === "mg") return { A, B, mg: byPair.filter(d => d.country === "mg"), us: [] };
-    if (state.group === "us") return { A, B, mg: [], us: byPair.filter(d => d.country === "us") };
-    return { A, B, mg: byPair.filter(d => d.country === "mg"), us: byPair.filter(d => d.country === "us") };
-}
-
-// ---------- ordering for colors ----------
-function computeColorOrder(records) {
-    const colors = Array.from(new Set(records.flatMap(d => [d.color_1, d.color_2]))).sort();
-    if (state.order === "alpha") return colors;
-
-    // heuristic: mean distance per color
-    const sums = new Map(colors.map(c => [c, { sum: 0, n: 0 }]));
-    for (const d of records) {
-        sums.get(d.color_1).sum += d.semantic_distance; sums.get(d.color_1).n += 1;
-        sums.get(d.color_2).sum += d.semantic_distance; sums.get(d.color_2).n += 1;
-    }
-    return colors
-        .map(c => {
-            const s = sums.get(c);
-            return { c, mean: s.n ? s.sum / s.n : 0 };
-        })
-        .sort((a, b) => a.mean - b.mean)
-        .map(x => x.c);
-}
-
 // ---------- heatmap rendering  ----------
 function renderHeatmap(container, records, title, compact = false) {
     container.innerHTML = "";
@@ -261,7 +229,6 @@ function renderHeatmap(container, records, title, compact = false) {
             B_to_C2: d.B_to_C2,
         });
     }
-
 
     const card = document.createElement("div");
     card.className = "card";
@@ -301,7 +268,7 @@ function renderHeatmap(container, records, title, compact = false) {
 
     // Using a consistent order of colors on both axes (still fine),
     // the semantics are now explicit: y is color_1 (row), x is color_2 (column).
-    const colorOrder = computeColorOrder(records);
+    const colorOrder = computeColorOrder(records, state);
 
     const idx = new Map(colorOrder.map((c, i) => [c, i]));
 
@@ -352,7 +319,6 @@ function renderHeatmap(container, records, title, compact = false) {
             .attr("transform", "rotate(-90)")
             .attr("dx", "0.6em")
             .attr("dy", "0.6em");
-
     }
 
     // Tiles: row = color_1 (y), col = color_2 (x)
@@ -521,7 +487,7 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
 
     // Use a consistent color order; use combined records so "cluster" order is stable
     const combined = mgRecords.concat(usRecords);
-    const colorOrder = computeColorOrder(combined);
+    const colorOrder = computeColorOrder(combined, state);
     const idx = new Map(colorOrder.map((c, i) => [c, i]));
 
     // Symmetric ΔS lookup for each group
@@ -771,7 +737,7 @@ function render(all) {
             const cell = document.createElement("div");
             grid.appendChild(cell);
 
-            const { A, B, mg, us } = getSubsetForPair(all, pairKey);
+            const { A, B, mg, us } = getSubsetForPair(all, pairKey, state);
             const title = `${A} — ${B}`;
 
             if (state.view === "dist") {
@@ -808,7 +774,7 @@ function render(all) {
     // single selection: keep the detailed large view
     if (selected.length === 0) return;
     const pairKey = selected[0];
-    const { A, B, mg, us } = getSubsetForPair(all, pairKey);
+    const { A, B, mg, us } = getSubsetForPair(all, pairKey, state);
 
     if (state.view === "dist") {
         renderDistribution(els.viz, mg, us, `Distribution — ${A} — ${B}`, false);
