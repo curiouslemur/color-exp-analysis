@@ -123,7 +123,7 @@ export function tooltipHTMLForCell(t, records, cssForColorCode) {
     // 40x40 squares; moved down by 20px (squareY includes the extra 20)
     const W = 230;
     const H = 155;
-    const s = 40;
+    const s = 30;
 
     const leftX = 30;
     const rightX = 140;
