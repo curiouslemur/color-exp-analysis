@@ -148,9 +148,11 @@ plotWeight_Err <- function(data, title){
   data$con = factor(data$concept, levels=conceptListEn3) # to order the facet strips 
   p1 <- data %>% 
     # filter(concept %in% c("mango", "tree", "angry", "happy", "death")) %>%
-    ggplot(aes(reorder_within(color, weight, concept), weight, fill = hex, color = barStroke)) + 
+    # ggplot(aes(reorder_within(color, mean_rating, concept), mean_rating, fill = hex, color = barStroke)) + 
+    ggplot(aes(color, mean_rating, fill = hex, color = barStroke)) + 
     geom_bar(stat = 'identity',size = 0.15, width = 0.80) + 
-    geom_errorbar( aes(x=reorder_within(color, weight, concept), ymin=weight-se, ymax=weight+se), width=0.4, colour="black", alpha=0.6, size=0.25)+
+    # geom_errorbar( aes(x=reorder_within(color, mean_rating, concept), ymin=mean_rating-se, ymax=mean_rating+se), width=0.4, colour="black", alpha=0.6, size=0.25)+
+    geom_errorbar( aes(x=color, ymin=mean_rating-se, ymax=mean_rating+se), width=0.4, colour="black", alpha=0.6, size=0.25)+
     scale_fill_identity() + scale_color_identity() +
     scale_x_reordered() +
     scale_y_continuous(expand = c(0, 0), limits = c(0, 1)) +

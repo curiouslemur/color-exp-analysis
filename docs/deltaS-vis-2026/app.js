@@ -18,7 +18,7 @@ const state = {
     selectedPairs: [],        // <-- MULTI
     order: "alpha",
     cols: 5,
-    half: "full", // "full" | "top"
+    half: "top", // "full" | "top"
 };
 
 // ---------- helpers ----------
@@ -51,6 +51,19 @@ function labcLine(code) {
 
 // key -> { tipEl: HTMLElement, cellEl: SVGRectElement }
 const PINNED = new Map();
+// coordKey -> Set<SVGRectElement> for all currently-rendered heatmap cells
+const CELL_REGISTRY = new Map();
+
+function coordKey(rowColor, colColor) {
+    return `${rowColor}|||${colColor}`;
+}
+
+function registerCell(rowColor, colColor, el) {
+    const k = coordKey(rowColor, colColor);
+    if (!CELL_REGISTRY.has(k)) CELL_REGISTRY.set(k, new Set());
+    CELL_REGISTRY.get(k).add(el);
+}
+
 
 function makePinnedTooltip(key, html, x, y) {
     const div = document.createElement("div");
@@ -78,25 +91,32 @@ function removePinnedTooltip(key) {
     // remove tooltip
     entry.tipEl?.remove();
 
-    // remove highlight if the cell is still in DOM
-    if (entry.cellEl) {
-        d3.select(entry.cellEl).classed("cell-selected", false);
+    // remove highlight from ALL linked cells
+    for (const el of entry.cellEls ?? []) {
+        d3.select(el).classed("cell-selected", false);
     }
 
     PINNED.delete(key);
 }
 
-function togglePinnedTooltip(key, html, x, y, cellEl) {
+function togglePinnedTooltip(key, html, x, y, rowColor, colColor) {
     if (PINNED.has(key)) {
         removePinnedTooltip(key);
     } else {
         const tipEl = makePinnedTooltip(key, html, x, y);
-        PINNED.set(key, { tipEl, cellEl });
 
-        // add highlight
-        if (cellEl) d3.select(cellEl).classed("cell-selected", true);
+        const k = coordKey(rowColor, colColor);
+        const cellEls = Array.from(CELL_REGISTRY.get(k) ?? []);
+
+        // highlight ALL matching cells
+        for (const el of cellEls) {
+            d3.select(el).classed("cell-selected", true);
+        }
+
+        PINNED.set(key, { tipEl, cellEls });
     }
 }
+
 
 // ---------- load data ----------
 Promise.all([
@@ -266,7 +286,7 @@ function renderHeatmap(container, records, title, compact = false) {
     const conceptA = records[0]?.concept_a ?? "";
     const conceptB = records[0]?.concept_b ?? "";
 
-    // Using a consistent order of colors on both axes (still fine),
+    // Using a consistent order of colors on both axes,
     // the semantics are now explicit: y is color_1 (row), x is color_2 (column).
     const colorOrder = computeColorOrder(records, state);
 
@@ -367,6 +387,9 @@ function renderHeatmap(container, records, title, compact = false) {
         .selectAll("rect")
         .data(tiles)
         .join("rect")
+        .each(function (t) {
+            registerCell(t.rowColor, t.colColor, this);
+        })
         .attr("x", t => x(t.colColor))   // columns
         .attr("y", t => y(t.rowColor))   // rows
         .attr("width", x.bandwidth())
@@ -402,24 +425,32 @@ function renderHeatmap(container, records, title, compact = false) {
             hideTooltip();
         })
         .on("click", function (event, t) {
+            console.log(t)
             event.stopPropagation();
             const key = `${heatmapId}|||${t.rowColor}|||${t.colColor}`;
-            togglePinnedTooltip(key, tooltipHTMLForCell(t, records, cssForColorCode), event.clientX, event.clientY, this);
+            togglePinnedTooltip(key,
+                tooltipHTMLForCell(t, records, cssForColorCode),
+                event.clientX,
+                event.clientY,
+                t.rowColor,
+                t.colColor
+            );
+
         });
 
     // Legend only for non-compact
     if (!compact) {
         const legendW = 240;
-        const legendH = 10;
+        const legendH = 14;
         const legendX = margin.left;
-        const legendY = height - 28;
+        const legendY = height - 25;
 
         const legend = svg.append("g").attr("class", "legend");
 
         legend.append("text")
             .attr("x", legendX)
-            .attr("y", legendY - 8)
-            .text(`scale: ${vmin.toFixed(2)} → ${vmax.toFixed(2)}`);
+            .attr("y", legendY + 25)
+            .text(`DeltaS scale: ${vmin.toFixed(2)} → ${vmax.toFixed(2)}`);
 
         const gradId = `grad-${Math.random().toString(16).slice(2)}`;
         const defs = svg.append("defs");
@@ -564,6 +595,9 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
         .selectAll("rect")
         .data(tiles)
         .join("rect")
+        .each(function (t) {
+            registerCell(t.rowColor, t.colColor, this);
+        })
         .attr("x", t => x(t.colColor))
         .attr("y", t => y(t.rowColor))
         .attr("width", x.bandwidth())
@@ -597,7 +631,15 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
         .on("click", function (event, t) {
             event.stopPropagation();
             const key = `${heatmapId}|||${t.rowColor}|||${t.colColor}`;
-            togglePinnedTooltip(key, tooltipHTMLForDiff(t, conceptA, conceptB, cssForColorCode), event.clientX, event.clientY, this);
+            togglePinnedTooltip(
+                key,
+                tooltipHTMLForDiff(t, conceptA, conceptB, cssForColorCode),
+                event.clientX,
+                event.clientY,
+                t.rowColor,
+                t.colColor
+            );
+
         });
 
 
@@ -605,17 +647,17 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
     // Legend only for non-compact (like your other heatmap)
     if (!compact) {
         const legendW = 240;
-        const legendH = 10;
+        const legendH = 14;
         const legendX = margin.left;
-        const legendY = height - 28;
+        const legendY = height - 25;
 
         const legend = svg.append("g").attr("class", "legend");
 
         legend.append("text")
             .attr("x", legendX)
-            .attr("y", legendY - 8)
+            .attr("y", legendY + 25)
             // .text(`diff scale (US−MG): ${(-maxAbs).toFixed(2)} → ${(maxAbs).toFixed(2)}`);
-            .text(`diff scale (US−MG): dark = ${(-maxAbs).toFixed(2)}  •  light = ${(maxAbs).toFixed(2)}`);
+            .text(`diff DeltaS scale (US−MG): dark = ${(-maxAbs).toFixed(2)}  •  light = ${(maxAbs).toFixed(2)}`);
 
 
         const gradId = `grad-diff-${Math.random().toString(16).slice(2)}`;
@@ -725,6 +767,7 @@ function render(all) {
     els.meta.innerHTML = metaParts.join(" &nbsp;&nbsp;|&nbsp;&nbsp; ");
 
     els.viz.innerHTML = "";
+    CELL_REGISTRY.clear();
 
     // 5 per row when multiple; otherwise single large
     if (many) {

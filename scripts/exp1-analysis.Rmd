@@ -48,7 +48,7 @@ p12
 ```{r eval=FALSE}
 # ggsave(file="./fig/weight-mg.png", plot = p1, width=10, height=16)
 # ggsave(file="./fig/weight-us.png", plot = p2, width=10, height=16)
-# ggsave(file="./fig/weight-both.png", plot = p12, width=10, height=16)
+ ggsave(file="./output/fig/weight-both-unsorted.png", plot = p12, width=16, height=18)
 ```
 
 #### Unique pairs of concepts and pairs of colors without repetition 
