@@ -4,12 +4,16 @@ library(tidyr)
 library(purrr)
 
 source(file = "./utils/stimuli.R")
-source(file = "./utils/exp1-analysis-utils.R")
+source(file = "./utils/exp1-deltaS-utils.R")
 
 alpha_mg = 1.54; alpha_us = 1.38
 
+#----------------------------------
+# R file for computing deltaS
+#----------------------------------
+
 # loading datasets
-dataPath <- "data/exp1/csv/2026/"
+dataPath <- "data/exp1/csv/"
 mgdem <- read_csv(paste(dataPath, "mg-dem.csv", sep = ""), show_col_types = FALSE)
 mgdf <- read_csv(paste(dataPath, "mg-df.csv", sep = ""), show_col_types = FALSE)
 mgdf_w <- read_csv(paste(dataPath, "mg-df-summary.csv", sep = ""), show_col_types = FALSE)
@@ -39,8 +43,7 @@ us_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1
 
 ##======================================================================
 ## To categorize a DelatS as low or high, we need a threshold tL for low, and tH for high.
-## in our case, we use the values at 0.25 quantile for tL, and 0.75 quantile for tH
-## another option would be to hardcode the thresholds
+## set tL as .3 and tH as .7
 
 ##======================================================================
 ## Populating the four categories in the quadrants will help identify the colors and concepts that can be used 

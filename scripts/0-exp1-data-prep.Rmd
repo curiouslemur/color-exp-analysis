@@ -1,13 +1,16 @@
 ---
 title: "exp1-data-prep 2026"
 output: html_document
-date: "2025-12-17"
+date: "2026-01-14"
 ---
 
 This file contains the preparation for the datasets to be analyzed for ``us`` and ``mg`` participants
 
 usdem = us demography data; usdf = us trial data
 mgdem = mg demography data; mgdf = mg trial data
+
+data prep needs to be done only once. 
+Outputs are written to the data folder since they will be used in subsequent analysis
 
 ```{r}
 source(file = './utils/exp1-utils.R')  # loads all necessary packages //NOTE: some packages
@@ -89,11 +92,11 @@ rm(usdf1, usdf2, usdf3, usdf3alt, usdf123)
 ```
 
 ```{r write data}
-write_csv(usdem, "data/exp1/csv/2026/us-dem.csv")
-write_csv(usdf, "data/exp1/csv/2026/us-df.csv")
-
-write_csv(mgdem, "data/exp1/csv/2026/mg-dem.csv")
-write_csv(mgdf, "data/exp1/csv/2026/mg-df.csv")
+# write_csv(usdem, "data/exp1/csv/us-dem.csv")
+# write_csv(usdf, "data/exp1/csv/us-df.csv")
+# 
+# write_csv(mgdem, "data/exp1/csv/mg-dem.csv")
+# write_csv(mgdf, "data/exp1/csv/mg-df.csv")
 ```
 
 ## Computing weights and SE
@@ -113,8 +116,8 @@ usdf_w$country = 'usa'
 ```
 
 ```{r write data with weights}
-write_csv(usdf_w, "data/exp1/csv/2026/us-df-summary.csv")
-write_csv(mgdf_w, "data/exp1/csv/2026/mg-df-summary.csv")
+# write_csv(usdf_w, "data/exp1/csv/us-df-summary.csv")
+# write_csv(mgdf_w, "data/exp1/csv/mg-df-summary.csv")
 ```
 
 
