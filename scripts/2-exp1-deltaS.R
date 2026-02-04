@@ -28,23 +28,24 @@ usdf_w <- read_csv(paste(dataPath, "us-df-summary.csv", sep = ""), show_col_type
 # Computing landscapes from the summary data that have weight (mean_rating) ---
 ## note: alpha_fit is set to 1.4 in schloss's paper
 ## alpha_mg and alpha_us are calculated in exp1-analysis.Rmd
-mg_landscape <- make_pairwise_landscape(mgdf_w, alpha_fit = alpha_mg)
-us_landscape <- make_pairwise_landscape(usdf_w, alpha_fit = alpha_us)
-# head(mg_landscape, 10)
+mg_landscape <- make_pairwise_landscape(mgdf_w, alpha_mg)
+us_landscape <- make_pairwise_landscape(usdf_w, alpha_us)
+### !!! NOTE that DeltaS (from exp1-analysis.Rmd) and landscape dataframes 
+### yield the same delta S and delta X. a win!
 
 # Save outputs: pairwise_sem_dis == pairwise_semantic_discriminability 
 write_csv(mg_landscape, "output/mg_pairwise_sem_dis_alpha_mg.csv")
-write_csv(us_landscape, "output/us_pairwise_sem_dis_alpha_us.csv")
+write_csv(us_landscape, "output/us_pairwise_sem_dis_alpha_both.csv")
 
 #### exporting data necessary for heatmap vis
-mg_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1, A_to_C2, B_to_C1, B_to_C2, mu_D, semantic_distance) %>% 
-  write_csv("output/mg_pairwise_sem_dis_alpha_mg_vis.csv")
-us_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1, A_to_C2, B_to_C1, B_to_C2, mu_D, semantic_distance) %>% 
-  write_csv("output/us_pairwise_sem_dis_alpha_us_vis.csv")
+# mg_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1, A_to_C2, B_to_C1, B_to_C2, mu_D, semantic_distance) %>% 
+#   write_csv("output/mg_pairwise_sem_dis_alpha_mg_vis.csv")
+# us_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1, A_to_C2, B_to_C1, B_to_C2, mu_D, semantic_distance) %>% 
+#   write_csv("output/us_pairwise_sem_dis_alpha_us_vis.csv")
 
 
 #--------------------------------------------------------------------
-# 2026-02-06 following zoom update 
+# 2026-02-04 following zoom update 
 # Code for exporting delat (landscape) file for exploratory filtering & sorting
 # BEGIN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 selCols = c('concept_a', 'concept_b', 'color_1', 'color_2', 
@@ -54,6 +55,7 @@ colsNewNames = c('conA', 'conB', 'col1', 'col2',
                  'x1', 'x2', 'x3', 'x4',
                  'dX', 'p_gt0', 'dS')
 
+# expMg == export for MG
 expMg <- mg_landscape %>% select(selCols)
 names(expMg) <- paste0(colsNewNames, '_mg')
 expMg <- expMg %>% rename(conA = conA_mg, conB = conB_mg, col1 = col1_mg, col2 = col2_mg)
@@ -62,7 +64,8 @@ expUs <- us_landscape %>% select(selCols)
 names(expUs) <- paste0(colsNewNames, '_us')
 expUs <- expUs %>% rename(conA = conA_us, conB = conB_us, col1 = col1_us, col2 = col2_us)
 
-expBoth <- left_join(expMg, expUs, by = c('conA', 'conB', 'col1', 'col2'))
+expBoth <- left_join(expUs, expMg, by = c('conA', 'conB', 'col1', 'col2')) %>% 
+  mutate(dS_diff = round(dS_us - dS_mg, digits = 4))
 write_csv(expBoth, "output/exp-ds-mg-us.csv")
 
 # END <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

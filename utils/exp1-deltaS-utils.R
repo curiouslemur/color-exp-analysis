@@ -16,7 +16,7 @@
 # Function for computing the semantic distance landscape
 ## Returns a table with columns: 
 ### country | concept_a | concept_b | color_1 | color_2 | ... | deltaS
-make_pairwise_landscape <- function(summary_df, alpha_fit = 1.4, eps = 1e-12) {
+make_pairwise_landscape <- function(summary_df, alpha_fit, eps = 1e-12) {
   xbar <- summary_df$mean_rating
   
   concepts <- sort(unique(summary_df$concept)); concepts

@@ -103,6 +103,7 @@ mgdf_agg <- mgdf %>% group_by(concept, color) %>%
 
 a_mg <- round(coef(getFitSd(mgdf_agg)), digits = 2) # a = 1.536
 plotFitSd(a_mg, mgdf_agg, "MDG data")
+curve(a_both * x * (1 - x), add = TRUE, col = "red", lwd = 2)
 
 # a_mg2 <- round(coef(getFitSd2(mgdf_agg)), digits = 2)
 # plotFitSd2(a_mg2, mgdf_agg, "MDG data")
@@ -114,14 +115,12 @@ plotFitSd(a_mg, mgdf_agg, "MDG data")
 
 # get deltaX values with optimal alpha
 xMg <- getXvalues_opt(mgdf_agg, concept_pairs, color_pairs, a_mg) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
-
 ### Verifying if the outputs of getXvalues and getXvalues_opt are the same (using the same method as in the chunk above)
 ### -> YES, THEY ARE
 
 deltaS_mg <- getDeltaS(xMg) %>% mutate(deltaSdiff = deltaS_fit - deltaS_sample) 
 summary(deltaS_mg$deltaSdiff); sd(deltaS_mg$deltaSdiff)
-
-deltaS_mg <- deltaS_mg %>% select(concept1, concept2, color1, color2, deltaS_sample, deltaS_fit) 
+deltaS_mg <- deltaS_mg %>% select(concept_a, concept_b, color1, color2, deltaS_sample, deltaS_fit) 
 ```
 
 ```{r}
@@ -142,6 +141,35 @@ plotFitSd(a_both, bothdf_agg, "Both data combined")
 sd_diff_both <- a_both*bothdf_agg$xbar*(1-bothdf_agg$xbar) - bothdf_agg$sd_sample; var(sd_diff_both)
 
 i=9; a_both*bothdf_agg$xbar[i]*(1-bothdf_agg$xbar[i]) - bothdf_agg$sd_sample[i];
+```
+
+
+EVALUATING DELTA S deviation.
+i.e comparing delatS values when using alpha_ng vs alpha_both
+
+```{r eval- mg data}
+# with alpha_mg
+deltaS_mg_a_mg <- deltaS_mg %>% select(concept_a, concept_b, color1, color2, deltaS_sample, deltaS_fit) 
+# diff(deltaS_mg_a_mg , deltaS_sample) is minimal
+
+#  deltaS w/ alpha_both
+deltaS_mg_a_both <- getXvalues_opt(mgdf_agg, concept_pairs, color_pairs, a_both) %>% 
+  mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3)) %>% 
+ getDeltaS() %>% mutate(deltaSdiff = deltaS_fit - deltaS_sample) 
+summary(deltaS_mg_a_both$deltaSdiff); sd(deltaS_mg_a_both$deltaSdiff)
+deltaS_mg_a_both <- deltaS_mg_a_both %>% select(concept_a, concept_b, color1, color2, deltaS_sample, deltaS_fit) 
+# diff(deltaS_mg_a_both , deltaS_sample) is minimal
+
+# delta w/ alpha_mg vs alpha_both
+deltaS_mg_compare <- left_join(deltaS_mg_a_mg, deltaS_mg_a_both, by = c("concept_a", "concept_b", "color1", "color2")) %>% select(-c(deltaS_sample.x, deltaS_sample.y)) %>% 
+  rename(deltaS_fit_a_mg = deltaS_fit.x, deltaS_fit_a_both = deltaS_fit.y) %>% 
+  mutate(delatS_fit_a_diff = deltaS_fit_a_mg - deltaS_fit_a_both)
+summary(deltaS_mg_compare$delatS_fit_a_diff); sd(deltaS_mg_compare$delatS_fit_a_diff)
+# it looks like the deltaS diff between using a_mg and a_both is also minimal for MG datasets
+
+# Also verigied if deltaX are the same (just for sanity check) and yes, they are
+# main diff between mg_landscape and deltaS_mg datasets are in the canonical order of concepts and color pairs.
+# but deltaX match regardless
 ```
 
 ## Cross-cultural analysis
