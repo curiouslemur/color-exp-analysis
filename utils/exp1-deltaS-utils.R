@@ -92,11 +92,11 @@ make_pairwise_landscape <- function(summary_df, alpha_fit = 1.4, eps = 1e-12) {
     sigma_A_C1 = s_a_c1, sigma_B_C2 = s_b_c2,
     sigma_A_C2 = s_a_c2, sigma_B_C1 = s_b_c1,
     # Delta x and variances
-    mu_D = mu_D,
-    var_D = var_D,
-    p_gt0 = p_gt0,
-    p_swapped = p_swapped,
-    semantic_distance = semantic_distance,
+    mu_D = round(mu_D, digits = 4),
+    var_D = round(var_D, digits = 4),
+    p_gt0 = round(p_gt0, digits = 4),
+    p_swapped = round(p_swapped, digits = 4),
+    semantic_distance = round(semantic_distance, digits = 4),
     stringsAsFactors = FALSE )
 }
 

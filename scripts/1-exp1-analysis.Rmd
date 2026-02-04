@@ -1,15 +1,17 @@
 ---
 title: "exp1-p3"
 output: html_document
-date: "2026-01-04"
+date: "2026-02-04"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 source(file = "./utils/exp1-utils.R") # loads all necessary packages
-source(file = "./utils/exp1-analysis-utils.R")
+source(file = "./utils/exp1-deltaS-utils.R")
 source(file = "./utils/stimuli.R")
 ```
+
+This file has initial computation including variables like alpha for variance fit.
 
 # Malagasy dataset
 ### Analysis of scaled data collection
@@ -48,7 +50,7 @@ p12
 ```{r eval=FALSE}
 # ggsave(file="./fig/weight-mg.png", plot = p1, width=10, height=16)
 # ggsave(file="./fig/weight-us.png", plot = p2, width=10, height=16)
- ggsave(file="./output/fig/weight-both-unsorted.png", plot = p12, width=16, height=18)
+# ggsave(file="./output/fig/weight-both-unsorted.png", plot = p12, width=16, height=18)
 ```
 
 #### Unique pairs of concepts and pairs of colors without repetition 
@@ -58,81 +60,91 @@ concept_pairs <- as.data.frame(t(combn(unique(usdf$concept), 2))) %>% rename(con
 color_pairs <- as.data.frame(t(combn(unique(mgdf$color), 2))) %>% rename(color1 = V1, color2 = V2)
 ```
 
-Estimating the value of alpha in the fit for standard deviation.
+## Alphas
+Estimating the value of alphas in the fit for standard deviation.
+
 ```{r US data}
 # Aggregated data (x = average rating for each color of each concept)
-usdf_agg <- usdf %>%
-  group_by(concept, color) %>%
+usdf_agg <- usdf %>% group_by(concept, color) %>%
   summarise(xbar = mean(rating), sd_sample = sd(rating), .groups = "drop")
 
-a_us <- coef(getFitSd(usdf_agg)) # alpha a_us = 1.384426 which is ~ 1.4
-# Plotting the data points, and fitted curve
-plot(usdf_agg$xbar, usdf_agg$sd_sample,
-  main = "Fit for model s = a * xbar * (1 - xbar)",
-  xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16
-)
-curve(coef(getFitSd(usdf_agg)) * x * (1 - x), add = TRUE, col = "orange", lwd = 2)
+a_us <- round(coef(getFitSd(usdf_agg)), digits = 2) # alpha a_us = 1.384426 which is ~ 1.4
+plotFitSd(a_us, usdf_agg, "USA data")
 
-a_us2 <- coef(getFitSd2(usdf_agg)) # alpha a = 0.37, beta b = 0.32
-plot(usdf_agg$xbar, usdf_agg$sd_sample,
-  main = "Fit for model s = a * xbar^b",
-  xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16
-)
-curve(coef(getFitSd2(usdf_agg))[1] * x^coef(getFitSd2(usdf_agg))[2], add = TRUE, col = "red", lwd = 2)
+# a_us2 <- round(coef(getFitSd2(usdf_agg)), digits = 2) # alpha a = 0.38, beta b = 0.32
+# plotFitSd2(a_us2, usdf_agg, "USA")
+# curve(a_us * x * (1 - x), add = TRUE, col = "orange", lwd = 2)
 
-# -> The first model w/ a_us fits the data better, so we will use a_us from here
+# -> The first model w/ a_us (s = 1.4 * xbar * (1-xbar)) fits the data better, so we will use a_us from here
 # Note that in the paper, a_us is set to 1.4. Model is s = 1.4 * xbar * (1-xbar)
 
 # xUs <- getXvalues(usdf_agg, concept_pairs, color_pairs, a_us) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
-xUs2 <- getXvalues_opt(usdf_agg, concept_pairs, color_pairs, a_us) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
+# get deltaX values with optimal alpha
+xUs <- getXvalues_opt(usdf_agg, concept_pairs, color_pairs, a_us) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
 
 ### Verifying if the outputs of getXvalues and getXvalues_opt are the same
-### -> Yes, they are the same
 # xus <- xUs[order(names(xUs))]; xus <- xus[order(row.names(xus)), ]
 # xus2 <- xUs2[order(names(xUs2))]; xus2 <- xus2[order(row.names(xus2)),]
 # anti_join(xus, xus2) # if nrow here == 0 then all rows in xus can be found in xus2, i.e. the two df are identical
 # nrow(merge(xus, xus2))
+### -> Yes, they are the same
 
-deltaS_us <- getDeltaS(xUs2) %>% select(concept1, concept2, color1, color2, deltaS_sample, deltaS_fit)
+deltaS_us <- getDeltaS(xUs) %>% mutate(deltaSdiff = deltaS_fit - deltaS_sample) 
+summary(deltaS_us$deltaSdiff); sd(deltaS_us$deltaSdiff)
+
+deltaS_us <- deltaS_us %>% select(concept_a, concept_b, color1, color2, deltaS_sample, deltaS_fit) 
 # mean(deltaS_us$deltaS_sample - deltaS_us$deltaS_fit) ~= -0.007, i.e. the fitted S is correct
 ```
 
 
 ```{r MG data}
-mgdf_agg <- mgdf %>%
-  group_by(concept, color) %>%
+mgdf_agg <- mgdf %>% group_by(concept, color) %>%
   summarise(xbar = mean(rating), sd_sample = sd(rating), .groups = "drop")
 
-a_mg <- coef(getFitSd(mgdf_agg)) # a = 1.536
-# Plotting the data points, and fitted curve
-plot(mgdf_agg$xbar, mgdf_agg$sd_sample,
-  main = "MDG data: Fit for the Function s = a * xbar * (1 - xbar)",
-  xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16
-)
-curve(coef(getFitSd(mgdf_agg)) * x * (1 - x), add = TRUE, col = "orange", lwd = 2)
+a_mg <- round(coef(getFitSd(mgdf_agg)), digits = 2) # a = 1.536
+plotFitSd(a_mg, mgdf_agg, "MDG data")
 
-a_mg2 <- coef(getFitSd2(mgdf_agg))
-plot(mgdf_agg$xbar, mgdf_agg$sd_sample,
-  main = "Fit for model s = a * xbar^b",
-  xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16
-)
-curve(coef(getFitSd2(mgdf_agg))[1] * x^coef(getFitSd2(mgdf_agg))[2], add = TRUE, col = "red", lwd = 2)
+# a_mg2 <- round(coef(getFitSd2(mgdf_agg)), digits = 2)
+# plotFitSd2(a_mg2, mgdf_agg, "MDG data")
+# curve(a_mg * x * (1 - x), add = TRUE, col = "orange", lwd = 2)
 
-# The first model w/ a_mg fits the data better, so we will use a_mg from here
+# The 1st model w/ a_mg fits the data better, so we'll use a_mg from here
+# sd_diff_mg <- a_mg*mgdf_agg$xbar*(1-mgdf_agg$xbar) - mgdf_agg$sd_sample; mean(sd_diff_mg)
+# i=9; a_mg*mgdf_agg$xbar[i]*(1-mgdf_agg$xbar[i]) - mgdf_agg$sd_sample[i]
 
-# xMg <- getXvalues(mgdf_agg, concept_pairs, color_pairs, a_mg) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
-xMg2 <- getXvalues_opt(mgdf_agg, concept_pairs, color_pairs, a_mg) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
+# get deltaX values with optimal alpha
+xMg <- getXvalues_opt(mgdf_agg, concept_pairs, color_pairs, a_mg) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
 
 ### Verifying if the outputs of getXvalues and getXvalues_opt are the same (using the same method as in the chunk above)
 ### -> YES, THEY ARE
 
-deltaS_mg <- getDeltaS(xMg2) %>% select(concept1, concept2, color1, color2, deltaS_sample, deltaS_fit)
+deltaS_mg <- getDeltaS(xMg) %>% mutate(deltaSdiff = deltaS_fit - deltaS_sample) 
+summary(deltaS_mg$deltaSdiff); sd(deltaS_mg$deltaSdiff)
+
+deltaS_mg <- deltaS_mg %>% select(concept1, concept2, color1, color2, deltaS_sample, deltaS_fit) 
 ```
 
 ```{r}
 # write_csv(deltaS_mg, "output/mg-deltaS.csv")
 # write_csv(deltaS_us, "output/us-deltaS.csv")
 ```
+
+Fitting alpha value from the US and MG data combined
+```{r}
+bothdf_agg <- rbind(select(mgdf, -conceptFr), usdf) %>%
+  group_by(country, concept, color) %>%
+  summarise(xbar = mean(rating), sd_sample = sd(rating), .groups = "drop")
+  
+a_both <- round(coef(getFitSd(bothdf_agg)), digits = 2) # a = 1.47
+# Plotting the data points, and fitted curve
+plotFitSd(a_both, bothdf_agg, "Both data combined")
+
+sd_diff_both <- a_both*bothdf_agg$xbar*(1-bothdf_agg$xbar) - bothdf_agg$sd_sample; var(sd_diff_both)
+
+i=9; a_both*bothdf_agg$xbar[i]*(1-bothdf_agg$xbar[i]) - bothdf_agg$sd_sample[i];
+```
+
+## Cross-cultural analysis
 
 ```{r cross-cultural analysis}
 # Finding four pairs of colors for each pair of concepts such that

@@ -167,8 +167,11 @@ plotWeight_Err <- function(data, title){
 
 
 ### NOTE ###
-# In the paper schloss2021semantic, the proposed fit for standard deviation is: sd = 1.4*xbar*(1 - xbar)
-# where xbar is the mean association across all people for each {color and concept} pair
+# In the paper schloss2021semantic, the proposed fit for standard deviation is: 
+# sd = 1.4*xbar*(1 - xbar)
+# where xbar is the mean association across all people 
+# for each {color and concept} pair
+
 ###### Fitting function for the sd. Model s = a.xbar.(1-xbar)
 #### ======== function to get the value of the coeff a
 getFitSd <- function(data) {
@@ -178,6 +181,14 @@ getFitSd <- function(data) {
   return(fit)
 }
 
+plotFitSd <- function(a, df_agg, dftype){
+  plot(df_agg$xbar, df_agg$sd_sample,
+       main = paste0(dftype, ": Fit for s = ", a, " * xbar * (1 - xbar)"),
+       xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16
+  )
+  curve(a * x * (1 - x), add = TRUE, col = "orange", lwd = 2)
+}
+
 #### using the sd = a * xbar ^ b model for fitting the standard deviation
 ##### returns alpha a and beta b values
 getFitSd2 <- function(data) {
@@ -185,6 +196,13 @@ getFitSd2 <- function(data) {
   return(fit)
 }
 
+plotFitSd2 <- function(a, df_agg, dftype){
+  plot(df_agg$xbar, df_agg$sd_sample,
+       main = paste0(dftype, ": Fit for model s =", a[1], " * xbar^",a[2]),
+       xlab = "Mean (xbar)", ylab = "Standard Deviation (s)", pch = 16
+  )
+  curve(a[1] * x^a[2], add = TRUE, col = "red", lwd = 2)
+}
 #### ======== function to get the values for xbars, sd_samples, and sd_fits for each pair of concepts and colors
 # the resulting dataframe is a representation of the bigram in the paper
 getXvalues <- function(data, concept_pairs, color_pairs, sd_fit_coef){
@@ -197,7 +215,7 @@ getXvalues <- function(data, concept_pairs, color_pairs, sd_fit_coef){
       
       # Combine into a new row
       new_row <- data.frame(
-        concept1 = concept1, concept2 = concept2,
+        concept_a = concept1, concept_b = concept2,
         color1 = color1, color2 = color2,
         xbar1 = data$xbar[data$concept == concept1 & data$color == color1],
         xbar2 = data$xbar[data$concept == concept1 & data$color == color2],
@@ -244,7 +262,8 @@ getXvalues_opt <- function(data, concept_pairs, color_pairs, sd_fit_coef){
                   sd_fit2 = sd_fit_coef * xbar2 * (1 - xbar2),
                   sd_fit3 = sd_fit_coef * xbar3 * (1 - xbar3), 
                   sd_fit4 = sd_fit_coef * xbar4 * (1 - xbar4)) %>% 
-    mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
+    mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3)) %>% 
+    rename(concept_a = concept1, concept_b = concept2)
   
   return(x_opt)
 }
@@ -256,9 +275,8 @@ getDeltaS <- function(data) {
                  ProbDelta_fit = pnorm(deltaX / sqrt(sd_fit1^2 + sd_fit2^2 + sd_fit3^2 + sd_fit4^2))
   )
   data <- mutate(data,
-                 deltaS_sample = abs(2 * ProbDelta_sample - 1),
-                 deltaS_fit = abs(2 * ProbDelta_fit - 1)
-  )
+                 deltaS_sample = round(abs(2 * ProbDelta_sample - 1), digits = 4),
+                 deltaS_fit = round(abs(2 * ProbDelta_fit - 1), digits = 4))
   return(data)
 }
 

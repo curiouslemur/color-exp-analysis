@@ -7,6 +7,7 @@ source(file = "./utils/stimuli.R")
 source(file = "./utils/exp1-deltaS-utils.R")
 
 alpha_mg = 1.54; alpha_us = 1.38
+alpha_both = 1.47
 
 #----------------------------------
 # R file for computing deltaS
@@ -40,6 +41,33 @@ mg_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1
   write_csv("output/mg_pairwise_sem_dis_alpha_mg_vis.csv")
 us_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1, A_to_C2, B_to_C1, B_to_C2, mu_D, semantic_distance) %>% 
   write_csv("output/us_pairwise_sem_dis_alpha_us_vis.csv")
+
+
+#--------------------------------------------------------------------
+# 2026-02-06 following zoom update 
+# Code for exporting delat (landscape) file for exploratory filtering & sorting
+# BEGIN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+selCols = c('concept_a', 'concept_b', 'color_1', 'color_2', 
+            'A_to_C1', 'A_to_C2', 'B_to_C1', 'B_to_C2', 
+            'mu_D', 'p_gt0', 'semantic_distance')
+colsNewNames = c('conA', 'conB', 'col1', 'col2', 
+                 'x1', 'x2', 'x3', 'x4',
+                 'dX', 'p_gt0', 'dS')
+
+expMg <- mg_landscape %>% select(selCols)
+names(expMg) <- paste0(colsNewNames, '_mg')
+expMg <- expMg %>% rename(conA = conA_mg, conB = conB_mg, col1 = col1_mg, col2 = col2_mg)
+
+expUs <- us_landscape %>% select(selCols)
+names(expUs) <- paste0(colsNewNames, '_us')
+expUs <- expUs %>% rename(conA = conA_us, conB = conB_us, col1 = col1_us, col2 = col2_us)
+
+expBoth <- left_join(expMg, expUs, by = c('conA', 'conB', 'col1', 'col2'))
+write_csv(expBoth, "output/exp-ds-mg-us.csv")
+
+# END <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
 
 ##======================================================================
 ## To categorize a DelatS as low or high, we need a threshold tL for low, and tH for high.
@@ -81,3 +109,4 @@ View(res_all$results %>% filter(concept_a %in% c("banana"), concept_b %in% c("ha
 res_topK     <- pick_topK_per_quadrant(x, K = 5, low_q = 0.25, high_q = 0.75)
 View(res_topK$results  %>% filter(concept_a %in% c("banana"), concept_b %in% c("happy"), category %in% c("MG_high__US_high")))
 # write_csv(res_topK$results, "output/res_topK.csv")
+
