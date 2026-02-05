@@ -589,15 +589,16 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
         }
     }
 
-    // Diverging grayscale centered at 0: negative -> darker, positive -> lighter
+    // Diverging grayscale centered at 0
     const maxAbs = d3.max(diffs, d => Math.abs(d)) || 1;
-    const fill = d3.scaleSequential(d3.interpolateGreys).domain([maxAbs, -maxAbs]);
+    const fill = d3.scaleLinear()
+        .domain([-maxAbs, 0, maxAbs])
+        .range(["#000", "#fff", "#f0d000"]);
 
     const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
     if (!compact) {
-        g.append("g")
-            .attr("class", "axis")
+        g.append("g").attr("class", "axis")
             .call(d3.axisLeft(y).tickSize(0));
 
         g.append("g")
@@ -614,9 +615,7 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
         .selectAll("rect")
         .data(tiles)
         .join("rect")
-        .each(function (t) {
-            registerCell(t.rowColor, t.colColor, this);
-        })
+        .each(function (t) { registerCell(t.rowColor, t.colColor, this); })
         .attr("x", t => x(t.colColor))
         .attr("y", t => y(t.rowColor))
         .attr("width", x.bandwidth())
@@ -662,8 +661,7 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
         });
 
 
-
-    // Legend only for non-compact (like your other heatmap)
+    // Legend only for non-compact
     if (!compact) {
         const legendW = 240;
         const legendH = 14;
@@ -675,8 +673,9 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
         legend.append("text")
             .attr("x", legendX)
             .attr("y", legendY + 25)
-            // .text(`diff scale (US−MG): ${(-maxAbs).toFixed(2)} → ${(maxAbs).toFixed(2)}`);
-            .text(`diff DeltaS scale (US−MG): dark = ${(-maxAbs).toFixed(2)}  •  light = ${(maxAbs).toFixed(2)}`);
+            // .text(`diff DeltaS scale (US−MG): dark = ${(-maxAbs).toFixed(2)}  •  light = ${(maxAbs).toFixed(2)}`);
+            .text(`diff scale (US−MG): black = -${maxAbs.toFixed(2)}  |  white = 0  | yellow = +${maxAbs.toFixed(2)}`);
+
 
 
         const gradId = `grad-diff-${Math.random().toString(16).slice(2)}`;
@@ -692,8 +691,10 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
             .join("stop")
             .attr("offset", d => `${d * 100}%`)
             // .attr("stop-color", d => fill(maxAbs + d * (-2 * maxAbs))); // +maxAbs -> -maxAbs
-            .attr("stop-color", d => fill(-maxAbs + d * (2 * maxAbs))); // -maxAbs -> +maxAbs (dark -> light)
-
+            .attr("stop-color", d => {
+                const v = -maxAbs + d * (2 * maxAbs); // -maxAbs -> +maxAbs
+                return fill(v);
+            });
 
         legend.append("rect")
             .attr("x", legendX)
