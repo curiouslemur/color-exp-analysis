@@ -448,7 +448,18 @@ function renderHeatmap(container, records, title, compact = false) {
         .attr("cx", t => x(t.colColor) + x.bandwidth() / 2)
         .attr("cy", t => y(t.rowColor) + y.bandwidth() / 2)
         .attr("r", dotR)
-        .attr("fill", "#ffffff")
+        // .attr("fill", "#ffffff")
+        .attr("fill", t => {
+            // same fill scale you use for the heatmap cells
+            const c = d3.color(fill(t.d));
+            if (!c) return "#000";
+
+            // perceived luminance (0..255)
+            const L = 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b;
+
+            // dark cell -> white dot, bright/yellow cell -> black dot
+            return (L < 140) ? "#fff" : "#000";
+        })
         .attr("pointer-events", "none")
         .style("display", t => {
             const r = idx.get(t.rowColor);
