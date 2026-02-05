@@ -438,6 +438,25 @@ function renderHeatmap(container, records, title, compact = false) {
 
         });
 
+    const dotR = compact ? 1.6 : 2.6;
+
+    g.append("g")
+        .selectAll("circle.neg-dot")
+        .data(tiles.filter(t => Number.isFinite(t.deltaX) && t.deltaX < 0))
+        .join("circle")
+        .attr("class", "neg-dot")
+        .attr("cx", t => x(t.colColor) + x.bandwidth() / 2)
+        .attr("cy", t => y(t.rowColor) + y.bandwidth() / 2)
+        .attr("r", dotR)
+        .attr("fill", "#000")
+        .attr("pointer-events", "none")
+        .style("display", t => {
+            const r = idx.get(t.rowColor);
+            const c = idx.get(t.colColor);
+            const show = (state.half === "full") || (r <= c);
+            return show ? null : "none";
+        });
+
     // Legend only for non-compact
     if (!compact) {
         const legendW = 240;
