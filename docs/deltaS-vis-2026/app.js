@@ -448,7 +448,7 @@ function renderHeatmap(container, records, title, compact = false) {
         .attr("cx", t => x(t.colColor) + x.bandwidth() / 2)
         .attr("cy", t => y(t.rowColor) + y.bandwidth() / 2)
         .attr("r", dotR)
-        .attr("fill", "#000")
+        .attr("fill", "#ffffff")
         .attr("pointer-events", "none")
         .style("display", t => {
             const r = idx.get(t.rowColor);
