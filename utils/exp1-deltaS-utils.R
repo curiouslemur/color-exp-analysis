@@ -266,3 +266,9 @@ pick_topK_per_quadrant <- function(joined_n_tagged, K = 5,
   list(thresholds = x$thresholds, results = results)
 }
 
+
+# ------------------------
+# install.packages("googlesheets4")
+library(googlesheets4)
+lowUS_highMG <- function(expBoth, tL, tH){return(expBoth %>% filter(dS_us < tL, dS_mg > tH))}
+highUS_lowMG <- function(expBoth, tL, tH){return(expBoth %>% filter(dS_us > tH, dS_mg < tL))}

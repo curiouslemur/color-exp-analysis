@@ -70,6 +70,7 @@ usdf_agg <- usdf %>% group_by(concept, color) %>%
 
 a_us <- round(coef(getFitSd(usdf_agg)), digits = 2) # alpha a_us = 1.384426 which is ~ 1.4
 plotFitSd(a_us, usdf_agg, "USA data")
+curve(a_both * x * (1 - x), add = TRUE, col = "red", lwd = 2)
 
 # a_us2 <- round(coef(getFitSd2(usdf_agg)), digits = 2) # alpha a = 0.38, beta b = 0.32
 # plotFitSd2(a_us2, usdf_agg, "USA")
@@ -145,7 +146,7 @@ i=9; a_both*bothdf_agg$xbar[i]*(1-bothdf_agg$xbar[i]) - bothdf_agg$sd_sample[i];
 
 
 EVALUATING DELTA S deviation.
-i.e comparing delatS values when using alpha_ng vs alpha_both
+i.e comparing delatS values when using alpha_mg vs alpha_both
 
 ```{r eval- mg data}
 # with alpha_mg
@@ -233,30 +234,6 @@ bcp37 <- read_csv("utils/color_values_bcp37.csv") # %>% select('name', 'color', 
 write_csv(final, paste("output/", gsub("\\.", "", dsL), "-", gsub("\\.", "", dsH), "-final.csv", sep = ""))
 ```
 
-
-```{r more analysis}
-# TODO: a scatterplot of xaxis: min deltaS, yaxis: max deltaS
-# scatterplot shows the number of concepts we find for different combination of {min deltaS,max deltaS}
-
-scatterDf <- data.frame()
-for (low in c(0.1, 0.2, 0.3)) {
-  for (hi in c(0.9, 0.8, 0.7)) {
-    tmp <- getPairs(low, hi)
-
-    a <- tmp %>%
-      group_by(concept1, concept2) %>%
-      summarize(
-        n_con_pair = n(),
-        mgL_usL = sum(!is.na(mgL_usL1)), mgL_usH = sum(!is.na(mgL_usH1)),
-        mgH_usL = sum(!is.na(mgH_usL1)), mgH_usH = sum(!is.na(mgH_usH1)), .groups = "drop"
-      )
-
-    a$dsLow <- low
-    a$dsHi <- hi
-    scatterDf <- rbind(scatterDf, a)
-  }
-}
-```
 
 ```{r generate data for d3 visualization}
 library(jsonlite)

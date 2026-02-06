@@ -28,14 +28,14 @@ usdf_w <- read_csv(paste(dataPath, "us-df-summary.csv", sep = ""), show_col_type
 # Computing landscapes from the summary data that have weight (mean_rating) ---
 ## note: alpha_fit is set to 1.4 in schloss's paper
 ## alpha_mg and alpha_us are calculated in exp1-analysis.Rmd
-mg_landscape <- make_pairwise_landscape(mgdf_w, alpha_mg)
-us_landscape <- make_pairwise_landscape(usdf_w, alpha_us)
+mg_landscape <- make_pairwise_landscape(mgdf_w, alpha_both)
+us_landscape <- make_pairwise_landscape(usdf_w, alpha_both)
 ### !!! NOTE that DeltaS (from exp1-analysis.Rmd) and landscape dataframes 
 ### yield the same delta S and delta X. a win!
 
 # Save outputs: pairwise_sem_dis == pairwise_semantic_discriminability 
-write_csv(mg_landscape, "output/mg_pairwise_sem_dis_alpha_mg.csv")
-write_csv(us_landscape, "output/us_pairwise_sem_dis_alpha_both.csv")
+# write_csv(mg_landscape, "output/mg_pairwise_sem_dis_alpha_both.csv")
+# write_csv(us_landscape, "output/us_pairwise_sem_dis_alpha_both.csv")
 
 #### exporting data necessary for heatmap vis
 # mg_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1, A_to_C2, B_to_C1, B_to_C2, mu_D, semantic_distance) %>% 
@@ -66,8 +66,30 @@ expUs <- expUs %>% rename(conA = conA_us, conB = conB_us, col1 = col1_us, col2 =
 
 expBoth <- left_join(expUs, expMg, by = c('conA', 'conB', 'col1', 'col2')) %>% 
   mutate(dS_diff = round(dS_us - dS_mg, digits = 4))
-write_csv(expBoth, "output/exp-ds-mg-us.csv")
+write_csv(expBoth, "output/exp-ds-mg-us-both.csv")
 
+
+#---------------------------------------------------------------------
+tL = 0.3; tH = 0.7
+
+hus_lmg <- highUS_lowMG(expBoth, tL, tH); lus_hmg <- lowUS_highMG(expBoth, tL, tH)
+
+conPairs_hus_lmg <- hus_lmg %>% distinct(conA, conB); conPairs_lus_hmg <- lus_hmg %>% distinct(conA, conB)
+conPairs_overlap <- conPairs_lus_hmg %>% semi_join(conPairs_hus_lmg, by = c("conA", "conB"))
+
+hus_lmg_overlap <- hus_lmg %>% semi_join(conPairs_overlap, by = c("conA", "conB"))
+lus_hmg_overlap <- lus_hmg %>% semi_join(conPairs_overlap, by = c("conA", "conB"))
+
+sheet_url <- "https://docs.google.com/spreadsheets/d/1YlpES6Sn_Uimo3ACYpuK0xZM35DmqJSIKCCZMTeE_Vg/edit?usp=sharing"
+
+sheet_write(hus_lmg_overlap, ss = sheet_url, sheet = paste0("Lus_Lmg_overlap-", 
+                                                            round(max(hus_lmg_overlap$dS_mg), digits = 2),"-", 
+                                                            round(min(hus_lmg_overlap$dS_us), digits = 2)))
+sheet_write(lus_hmg_overlap, ss = sheet_url, sheet = paste0("Hus_Hmg_overlap-", 
+                                                            round(max(lus_hmg_overlap$dS_us), digits = 2),"-", 
+                                                            round(min(lus_hmg_overlap$dS_mg), digits = 3)))
+# sheet_write(lus_hmg_overlap, ss = sheet_url, sheet = paste0("lus_hmg_overlap-",tL,"-",tH))
+# sheet_write(hus_lmg, ss = sheet_url, sheet = paste0("hus_lmg-",tL,"-",tH))
 # END <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 

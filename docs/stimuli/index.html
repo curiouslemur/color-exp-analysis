@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Concept–Color Distance Dashboard</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="title">
+      <div class="h1">Concept–Color Distance Dashboard</div>
+      <div class="sub">Filter view + data table (local CSV)</div>
+    </div>
+    <div class="stats" id="stats">Loading…</div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="panelTitle">Filter view</div>
+
+      <div class="group">
+        <div class="row">
+          <label class="check">
+            <input type="checkbox" id="canonPair" checked />
+            Alphabetize concept pairs (conA ≤ conB)
+          </label>
+        </div>
+
+        <div class="row">
+          <label>Sort by</label>
+          <select id="sortBy">
+            <option value="conA">conA (A→Z), then conB</option>
+            <option value="conB">conB (A→Z), then conA</option>
+            <option value="dS_us_desc">dS_us (high→low)</option>
+            <option value="dS_us_asc">dS_us (low→high)</option>
+            <option value="dS_mg_desc">dS_mg (high→low)</option>
+            <option value="dS_mg_asc">dS_mg (low→high)</option>
+            <option value="dX_us_desc">dX_us (high→low)</option>
+            <option value="dX_us_asc">dX_us (low→high)</option>
+            <option value="dX_mg_desc">dX_mg (high→low)</option>
+            <option value="dX_mg_asc">dX_mg (low→high)</option>
+            <option value="withinPair_dSdiff_desc">Within each (conA, conB): |dS_diff| (high→low)</option>
+            <option value="withinPair_dSdiff_asc">Within each (conA, conB): |dS_diff| (low→high)</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <label>Search concepts</label>
+          <input id="search" type="text" placeholder="e.g., angry OR banana" />
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="groupTitle">Threshold filters</div>
+        <div class="hint">Enable a filter, pick ≤ or ≥, then set the threshold slider.</div>
+
+        <div class="filter" data-col="dS_us">
+          <div class="fHead">
+            <label class="check"><input type="checkbox" class="fEnable" /> dS_us</label>
+            <select class="fOp">
+              <option value=">=">&ge;</option>
+              <option value="<=">&le;</option>
+            </select>
+            <span class="fValue mono"></span>
+          </div>
+          <input class="fSlider" type="range" step="0.0001" />
+          <div class="range mono"><span class="fMin"></span><span class="fMax"></span></div>
+        </div>
+
+        <div class="filter" data-col="dS_mg">
+          <div class="fHead">
+            <label class="check"><input type="checkbox" class="fEnable" /> dS_mg</label>
+            <select class="fOp">
+              <option value=">=">&ge;</option>
+              <option value="<=">&le;</option>
+            </select>
+            <span class="fValue mono"></span>
+          </div>
+          <input class="fSlider" type="range" step="0.0001" />
+          <div class="range mono"><span class="fMin"></span><span class="fMax"></span></div>
+        </div>
+
+        <div class="filter" data-col="dS_diff">
+          <div class="fHead">
+            <label class="check">
+              <input type="checkbox" class="fEnable" /> |dS_diff|
+            </label>
+            <select class="fOp">
+              <option value=">=">&ge;</option>
+              <option value="<=">&le;</option>
+            </select>
+            <span class="fValue mono"></span>
+          </div>
+
+          <input class="fSlider" type="range" step="0.0001" />
+
+          <div class="range mono">
+            <span class="fMin"></span>
+            <span class="fMax"></span>
+          </div>
+        </div>
+
+        <div class="filter" data-col="dX_us">
+          <div class="fHead">
+            <label class="check"><input type="checkbox" class="fEnable" /> dX_us</label>
+            <select class="fOp">
+              <option value=">=">&ge;</option>
+              <option value="<=">&le;</option>
+            </select>
+            <span class="fValue mono"></span>
+          </div>
+          <input class="fSlider" type="range" step="0.0001" />
+          <div class="range mono"><span class="fMin"></span><span class="fMax"></span></div>
+        </div>
+
+        <div class="filter" data-col="dX_mg">
+          <div class="fHead">
+            <label class="check"><input type="checkbox" class="fEnable" /> dX_mg</label>
+            <select class="fOp">
+              <option value=">=">&ge;</option>
+              <option value="<=">&le;</option>
+            </select>
+            <span class="fValue mono"></span>
+          </div>
+          <input class="fSlider" type="range" step="0.0001" />
+          <div class="range mono"><span class="fMin"></span><span class="fMax"></span></div>
+        </div>
+
+        <div class="btnRow">
+          <button id="reset">Reset filters</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="tableBar">
+        <div class="left">
+          <span class="mono" id="resultCount">—</span>
+        </div>
+        <div class="right">
+          <label>Rows/page</label>
+          <select id="pageSize">
+            <option>25</option>
+            <option>50</option>
+            <option selected>100</option>
+            <option>250</option>
+            <option>500</option>
+          </select>
+          <button id="prev">&larr;</button>
+          <span class="mono" id="pageInfo">—</span>
+          <button id="next">&rarr;</button>
+          <button id="exportXlsx">Export (.xlsx)</button>
+        </div>
+      </div>
+
+      <div class="tableWrap">
+        <table id="tbl">
+          <thead>
+            <tr id="theadRow"></tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Tip: run via a local server (e.g., <span class="mono">python3 -m http.server</span>) so the browser can load the
+    CSVs.
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+
+</html>
