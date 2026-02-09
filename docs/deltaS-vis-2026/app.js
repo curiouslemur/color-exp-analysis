@@ -605,7 +605,8 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
     }
 
     // Diverging grayscale centered at 0
-    const maxAbs = d3.max(diffs, d => Math.abs(d)) || 1;
+    // const maxAbs = d3.max(diffs, d => Math.abs(d)) || 1;
+    const maxAbs = 1
     const fill = d3.scaleLinear()
         .domain([-maxAbs, 0, maxAbs])
         .range(["#000", "#fff", "#f0d000"]);
