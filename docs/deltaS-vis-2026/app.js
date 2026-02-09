@@ -318,8 +318,11 @@ function renderHeatmap(container, records, title, compact = false) {
             vals.push(dist.get(`${row}|||${col}`));
         }
     }
-    const vmin = d3.min(vals);
-    const vmax = d3.max(vals);
+    // const vmin = d3.min(vals);
+    // const vmax = d3.max(vals);
+    const vmin = 0;
+    const vmax = 1;
+
     const fill = d3.scaleSequential(d3.interpolateViridis).domain([vmin, vmax]);
 
     const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
