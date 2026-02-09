@@ -38,10 +38,10 @@ us_landscape <- make_pairwise_landscape(usdf_w, alpha_both)
 # write_csv(us_landscape, "output/us_pairwise_sem_dis_alpha_both-signed.csv")
 
 #### exporting data necessary for heatmap vis
-# mg_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1, A_to_C2, B_to_C1, B_to_C2, mu_D, semantic_distance) %>% 
-#   write_csv("output/mg_pairwise_sem_dis_alpha_mg_vis.csv")
-# us_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1, A_to_C2, B_to_C1, B_to_C2, mu_D, semantic_distance) %>% 
-#   write_csv("output/us_pairwise_sem_dis_alpha_us_vis.csv")
+# mg_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1, A_to_C2, B_to_C1, B_to_C2, mu_D, semantic_distance) %>%
+#   write_csv("docs/deltaS-vis-2026/data/mg_pairwise_sem_dis_alpha_mg_vis.csv")
+# us_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1, A_to_C2, B_to_C1, B_to_C2, mu_D, semantic_distance) %>%
+#   write_csv("docs/deltaS-vis-2026/data/us_pairwise_sem_dis_alpha_us_vis.csv")
 
 
 #--------------------------------------------------------------------
