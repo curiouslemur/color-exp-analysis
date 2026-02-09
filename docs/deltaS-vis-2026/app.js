@@ -588,7 +588,8 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
         for (const col of colorOrder) {
             const mgV = mgDist.get(`${row}|||${col}`);
             const usV = usDist.get(`${row}|||${col}`);
-            const diff = usV - mgV; // US − MG
+            // const diff = usV - mgV; // US − MG
+            const diff = mgV - usV; // MG - US
 
             diffs.push(diff);
 
