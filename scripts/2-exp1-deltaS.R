@@ -34,8 +34,8 @@ us_landscape <- make_pairwise_landscape(usdf_w, alpha_both)
 ### yield the same delta S and delta X. a win!
 
 # Save outputs: pairwise_sem_dis == pairwise_semantic_discriminability 
-# write_csv(mg_landscape, "output/mg_pairwise_sem_dis_alpha_both.csv")
-# write_csv(us_landscape, "output/us_pairwise_sem_dis_alpha_both.csv")
+# write_csv(mg_landscape, "output/mg_pairwise_sem_dis_alpha_both-signed.csv")
+# write_csv(us_landscape, "output/us_pairwise_sem_dis_alpha_both-signed.csv")
 
 #### exporting data necessary for heatmap vis
 # mg_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1, A_to_C2, B_to_C1, B_to_C2, mu_D, semantic_distance) %>% 
@@ -49,11 +49,11 @@ us_landscape <- make_pairwise_landscape(usdf_w, alpha_both)
 # Code for exporting delat (landscape) file for exploratory filtering & sorting
 # BEGIN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 selCols = c('concept_a', 'concept_b', 'color_1', 'color_2', 
-            'A_to_C1', 'A_to_C2', 'B_to_C1', 'B_to_C2', 
-            'mu_D', 'p_gt0', 'semantic_distance')
+            'A_to_C1', 'A_to_C2', 'B_to_C1', 'B_to_C2', 'p_gt0', 
+            'mu_D', 'semantic_distance')
 colsNewNames = c('conA', 'conB', 'col1', 'col2', 
-                 'x1', 'x2', 'x3', 'x4',
-                 'dX', 'p_gt0', 'dS')
+                 'x1', 'x2', 'x3', 'x4', 'p_gt0',
+                 'dX', 'dS')
 
 # expMg == export for MG
 expMg <- mg_landscape %>% select(selCols)
@@ -66,13 +66,14 @@ expUs <- expUs %>% rename(conA = conA_us, conB = conB_us, col1 = col1_us, col2 =
 
 expBoth <- left_join(expUs, expMg, by = c('conA', 'conB', 'col1', 'col2')) %>% 
   mutate(dS_diff = round(dS_us - dS_mg, digits = 4))
-write_csv(expBoth, "output/exp-ds-mg-us-both.csv")
+# write_csv(expBoth, "output/exp-ds-mg-us-both.csv")
 
 
 #---------------------------------------------------------------------
 tL = 0.3; tH = 0.7
 
-hus_lmg <- highUS_lowMG(expBoth, tL, tH); lus_hmg <- lowUS_highMG(expBoth, tL, tH)
+hus_lmg <- highUS_lowMG(expBoth, tL, tH); 
+lus_hmg <- lowUS_highMG(expBoth, tL, tH)
 
 conPairs_hus_lmg <- hus_lmg %>% distinct(conA, conB); conPairs_lus_hmg <- lus_hmg %>% distinct(conA, conB)
 conPairs_overlap <- conPairs_lus_hmg %>% semi_join(conPairs_hus_lmg, by = c("conA", "conB"))
@@ -82,12 +83,22 @@ lus_hmg_overlap <- lus_hmg %>% semi_join(conPairs_overlap, by = c("conA", "conB"
 
 sheet_url <- "https://docs.google.com/spreadsheets/d/1YlpES6Sn_Uimo3ACYpuK0xZM35DmqJSIKCCZMTeE_Vg/edit?usp=sharing"
 
-sheet_write(hus_lmg_overlap, ss = sheet_url, sheet = paste0("Lus_Lmg_overlap-", 
-                                                            round(max(hus_lmg_overlap$dS_mg), digits = 2),"-", 
-                                                            round(min(hus_lmg_overlap$dS_us), digits = 2)))
-sheet_write(lus_hmg_overlap, ss = sheet_url, sheet = paste0("Hus_Hmg_overlap-", 
-                                                            round(max(lus_hmg_overlap$dS_us), digits = 2),"-", 
-                                                            round(min(lus_hmg_overlap$dS_mg), digits = 3)))
+hus_lmg_overlap %>% 
+  select(-c('x1_us', 'x2_us', 'x3_us', 'x4_us', 'p_gt0_us', 'x1_mg', 'x2_mg', 'x3_mg', 'x4_mg', 'p_gt0_mg')) %>%
+  # filter(abs(dS_diff) >= abs(tH-tL)) %>% 
+  filter(abs(dS_diff) >= 0.5) %>% 
+  sheet_write(ss = sheet_url, 
+              # sheet = paste0("Lus_Lmg_ovrlp-", round(max(hus_lmg_overlap$dS_mg), digits = 2),"-", round(min(hus_lmg_overlap$dS_us), digits = 2))
+              sheet = paste0("hUs_lMg_ovrlp-", tL, "-", tH, "  dS>0.5")
+  )
+lus_hmg_overlap %>% 
+  select(-c('x1_us', 'x2_us', 'x3_us', 'x4_us', 'p_gt0_us', 'x1_mg', 'x2_mg', 'x3_mg', 'x4_mg', 'p_gt0_mg')) %>%
+  # filter(abs(dS_diff)>= abs(tH-tL)) %>% 
+  filter(abs(dS_diff) >= 0.5) %>% 
+  sheet_write(ss = sheet_url, 
+            # sheet = paste0("Hus_Hmg_ovrlp-", round(max(lus_hmg_overlap$dS_us), digits = 2),"-", round(min(lus_hmg_overlap$dS_mg), digits = 3))
+            sheet = paste0("lUs_hMg_ovrlp-", tL, "-", tH, "  dS>0.5")
+  )
 # sheet_write(lus_hmg_overlap, ss = sheet_url, sheet = paste0("lus_hmg_overlap-",tL,"-",tH))
 # sheet_write(hus_lmg, ss = sheet_url, sheet = paste0("hus_lmg-",tL,"-",tH))
 # END <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

@@ -70,8 +70,8 @@ function makePinnedTooltip(key, html, x, y) {
     div.className = "tooltip pinned";
     div.dataset.key = key;
     div.style.opacity = 1;
-    div.style.left = `${x + 12}px`;
-    div.style.top = `${y + 12}px`;
+    div.style.left = `${x + 7}px`;
+    div.style.top = `${y + 2}px`;
     div.innerHTML = html;
 
     // Clicking the pinned tooltip closes it (and will also remove highlight)
@@ -214,6 +214,7 @@ Promise.all([
 
     els.clearPairs.addEventListener("click", () => {
         els.allPairs.checked = false;
+        d3.selectAll("div.tooltip.pinned").remove()
         // clear selection, then select first (so we always render something)
         for (const opt of els.pairSelect.options) opt.selected = false;
         if (els.pairSelect.options.length > 0) {
@@ -425,7 +426,7 @@ function renderHeatmap(container, records, title, compact = false) {
             hideTooltip();
         })
         .on("click", function (event, t) {
-            console.log(t)
+            // console.log(t)
             event.stopPropagation();
             const key = `${heatmapId}|||${t.rowColor}|||${t.colColor}`;
             togglePinnedTooltip(key,

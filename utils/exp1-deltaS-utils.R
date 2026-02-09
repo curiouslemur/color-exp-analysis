@@ -80,6 +80,7 @@ make_pairwise_landscape <- function(summary_df, alpha_fit, eps = 1e-12) {
   p_swapped <- 1 - p_gt0
   
   semantic_distance <- abs(p_gt0 - p_swapped)  # == abs(2*p_gt0 - 1)
+  signed_dS <- (p_gt0 - p_swapped)
   
   data.frame(
     country = unique(summary_df$country)[1],
@@ -97,6 +98,7 @@ make_pairwise_landscape <- function(summary_df, alpha_fit, eps = 1e-12) {
     p_gt0 = round(p_gt0, digits = 4),
     p_swapped = round(p_swapped, digits = 4),
     semantic_distance = round(semantic_distance, digits = 4),
+    sem_dis_signed = round(signed_dS, digits = 4),
     stringsAsFactors = FALSE )
 }
 
