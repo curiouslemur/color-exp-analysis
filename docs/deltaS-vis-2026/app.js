@@ -323,7 +323,7 @@ function renderHeatmap(container, records, title, compact = false) {
     const vmin = 0;
     const vmax = 1;
 
-    const fill = d3.scaleSequential(d3.interpolateViridis).domain([vmin, vmax]);
+    const fill = d3.scaleSequential(d3.interpolateViridis).domain([vmax, vmin]); // dark is more 
 
     const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -609,7 +609,8 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
     const maxAbs = 1
     const fill = d3.scaleLinear()
         .domain([-maxAbs, 0, maxAbs])
-        .range(["#000", "#fff", "#f0d000"]);
+        // .range(["#000", "#fff", "#f0d000"]);
+        .range(["#f0d000", "#fff", "#000"]);
 
     const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -689,10 +690,7 @@ function renderDiffHeatmap(container, mgRecords, usRecords, title, compact = fal
         legend.append("text")
             .attr("x", legendX)
             .attr("y", legendY + 25)
-            // .text(`diff DeltaS scale (US−MG): dark = ${(-maxAbs).toFixed(2)}  •  light = ${(maxAbs).toFixed(2)}`);
-            .text(`diff scale (US−MG): black = -${maxAbs.toFixed(2)}  |  white = 0  | yellow = +${maxAbs.toFixed(2)}`);
-
-
+            .text(`diff scale (US−MG): yellow = -${maxAbs.toFixed(2)}  |  white = 0  | black = +${maxAbs.toFixed(2)}`);
 
         const gradId = `grad-diff-${Math.random().toString(16).slice(2)}`;
         const defs = svg.append("defs");
