@@ -81,7 +81,9 @@ curve(a_both * x * (1 - x), add = TRUE, col = "red", lwd = 2)
 
 # xUs <- getXvalues(usdf_agg, concept_pairs, color_pairs, a_us) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
 # get deltaX values with optimal alpha
-xUs <- getXvalues_opt(usdf_agg, concept_pairs, color_pairs, a_us) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
+xUs <- getXvalues_opt(usdf_agg, concept_pairs, color_pairs, 1.4) %>% 
+  mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3)) # %>% 
+  mutate(sd_diff1 = sd_sample1 - sd_fit1)
 
 ### Verifying if the outputs of getXvalues and getXvalues_opt are the same
 # xus <- xUs[order(names(xUs))]; xus <- xus[order(row.names(xus)), ]
@@ -104,7 +106,7 @@ mgdf_agg <- mgdf %>% group_by(concept, color) %>%
 
 a_mg <- round(coef(getFitSd(mgdf_agg)), digits = 2) # a = 1.536
 plotFitSd(a_mg, mgdf_agg, "MDG data")
-curve(a_both * x * (1 - x), add = TRUE, col = "red", lwd = 2)
+curve(1.4 * x * (1 - x), add = TRUE, col = "green", lwd = 2)
 
 # a_mg2 <- round(coef(getFitSd2(mgdf_agg)), digits = 2)
 # plotFitSd2(a_mg2, mgdf_agg, "MDG data")
@@ -115,7 +117,8 @@ curve(a_both * x * (1 - x), add = TRUE, col = "red", lwd = 2)
 # i=9; a_mg*mgdf_agg$xbar[i]*(1-mgdf_agg$xbar[i]) - mgdf_agg$sd_sample[i]
 
 # get deltaX values with optimal alpha
-xMg <- getXvalues_opt(mgdf_agg, concept_pairs, color_pairs, a_mg) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3))
+xMg <- getXvalues_opt(mgdf_agg, concept_pairs, color_pairs, a_mg) %>% mutate(deltaX = (xbar1 + xbar4) - (xbar2 + xbar3)) #%>% 
+  mutate(sd_diff1 = sd_sample1 - sd_fit1)
 ### Verifying if the outputs of getXvalues and getXvalues_opt are the same (using the same method as in the chunk above)
 ### -> YES, THEY ARE
 

@@ -28,14 +28,31 @@ usdf_w <- read_csv(paste(dataPath, "us-df-summary.csv", sep = ""), show_col_type
 # Computing landscapes from the summary data that have weight (mean_rating) ---
 ## note: alpha_fit is set to 1.4 in schloss's paper
 ## alpha_mg and alpha_us are calculated in exp1-analysis.Rmd
-mg_landscape <- make_pairwise_landscape(mgdf_w, alpha_both)
-us_landscape <- make_pairwise_landscape(usdf_w, alpha_both)
+mg_landscape <- make_pairwise_landscape(mgdf_w, alpha_mg)
+us_landscape <- make_pairwise_landscape(usdf_w, alpha_us)
 ### !!! NOTE that DeltaS (from exp1-analysis.Rmd) and landscape dataframes 
 ### yield the same delta S and delta X. a win!
 
+# checking for alph = 1.4 as in KS paper
+mg_landscapeS <- make_pairwise_landscape(mgdf_w, 1.4)
+us_landscapeS <- make_pairwise_landscape(usdf_w, 1.4)
+
+mgX <- left_join(
+  mg_landscape %>% select(c("concept_a", "concept_b", "color_1", "color_2", "semantic_distance")),
+  mg_landscapeS %>% select(c("concept_a", "concept_b", "color_1", "color_2", "semantic_distance")),
+  by = c("concept_a", "concept_b", "color_1", "color_2")
+) %>% mutate(dS_diff_abs = (semantic_distance.x-semantic_distance.y))
+
+usX <- left_join(
+  us_landscape %>% select(c("concept_a", "concept_b", "color_1", "color_2", "semantic_distance")),
+  us_landscapeS %>% select(c("concept_a", "concept_b", "color_1", "color_2", "semantic_distance")),
+  by = c("concept_a", "concept_b", "color_1", "color_2")
+) %>% mutate(dS_diff_abs = (semantic_distance.x-semantic_distance.y))
+
+
 # Save outputs: pairwise_sem_dis == pairwise_semantic_discriminability 
-# write_csv(mg_landscape, "output/mg_pairwise_sem_dis_alpha_both-signed.csv")
-# write_csv(us_landscape, "output/us_pairwise_sem_dis_alpha_both-signed.csv")
+# write_csv(mg_landscape, "output/mg_pairwise_sem_dis_alpha_alpha_mg.csv")
+# write_csv(us_landscape, "output/us_pairwise_sem_dis_alpha_alpha_us.csv")
 
 #### exporting data necessary for heatmap vis
 # mg_landscape %>% select(country, concept_a, concept_b, color_1, color_2, A_to_C1, A_to_C2, B_to_C1, B_to_C2, mu_D, semantic_distance) %>%
@@ -70,7 +87,7 @@ expBoth <- left_join(expUs, expMg, by = c('conA', 'conB', 'col1', 'col2')) %>%
 
 
 #---------------------------------------------------------------------
-tL = 0.3; tH = 0.7
+tL = 0.3; tH = 0.6
 
 hus_lmg <- highUS_lowMG(expBoth, tL, tH); 
 lus_hmg <- lowUS_highMG(expBoth, tL, tH)
@@ -83,25 +100,62 @@ lus_hmg_overlap <- lus_hmg %>% semi_join(conPairs_overlap, by = c("conA", "conB"
 
 sheet_url <- "https://docs.google.com/spreadsheets/d/1YlpES6Sn_Uimo3ACYpuK0xZM35DmqJSIKCCZMTeE_Vg/edit?usp=sharing"
 
-hus_lmg_overlap %>% 
-  select(-c('x1_us', 'x2_us', 'x3_us', 'x4_us', 'p_gt0_us', 'x1_mg', 'x2_mg', 'x3_mg', 'x4_mg', 'p_gt0_mg')) %>%
-  # filter(abs(dS_diff) >= abs(tH-tL)) %>% 
-  filter(abs(dS_diff) >= 0.5) %>% 
+# hus_lmg_overlap %>% 
+hus_lmg %>% 
+  select(-c('x1_us', 'x2_us', 'x3_us', 'x4_us', 'p_gt0_us', 
+            'x1_mg', 'x2_mg', 'x3_mg', 'x4_mg', 'p_gt0_mg'))  %>% 
+  group_by(conA, conB) %>%
+  arrange(desc(abs_dS_diff), .by_group = TRUE) %>%
+  ungroup() # %>%
+  # filter(abs(dS_diff) >= (tH-tL) + 0.5*(tH-tL)) %>% 
   sheet_write(ss = sheet_url, 
               # sheet = paste0("Lus_Lmg_ovrlp-", round(max(hus_lmg_overlap$dS_mg), digits = 2),"-", round(min(hus_lmg_overlap$dS_us), digits = 2))
-              sheet = paste0("hUs_lMg_ovrlp-", tL, "-", tH, "  dS>0.5")
-  )
-lus_hmg_overlap %>% 
-  select(-c('x1_us', 'x2_us', 'x3_us', 'x4_us', 'p_gt0_us', 'x1_mg', 'x2_mg', 'x3_mg', 'x4_mg', 'p_gt0_mg')) %>%
+              # sheet = paste0("hUs_lMg-", tL, "-", tH, "-new")
+              sheet = paste0("acciden--"))
+
+# lus_hmg_overlap %>% 
+lus_hmg %>%
+  select(-c('x1_us', 'x2_us', 'x3_us', 'x4_us', 'p_gt0_us', 
+            'x1_mg', 'x2_mg', 'x3_mg', 'x4_mg', 'p_gt0_mg')) %>%
+ group_by(conA, conB) %>%
+  arrange(desc(abs_dS_diff), .by_group = TRUE) %>%
+  mutate(flag = if_else(row_number() == 1, "*", "")) %>%
+  ungroup() %>%
   # filter(abs(dS_diff)>= abs(tH-tL)) %>% 
-  filter(abs(dS_diff) >= 0.5) %>% 
   sheet_write(ss = sheet_url, 
             # sheet = paste0("Hus_Hmg_ovrlp-", round(max(lus_hmg_overlap$dS_us), digits = 2),"-", round(min(lus_hmg_overlap$dS_mg), digits = 3))
-            sheet = paste0("lUs_hMg_ovrlp-", tL, "-", tH, "  dS>0.5")
+            sheet = paste0("lUs_hMg-")
   )
+
 # sheet_write(lus_hmg_overlap, ss = sheet_url, sheet = paste0("lus_hmg_overlap-",tL,"-",tH))
 # sheet_write(hus_lmg, ss = sheet_url, sheet = paste0("hus_lmg-",tL,"-",tH))
+
+### Looking for lowUS_lowMG
+hus_hmg_conPairs7 <- highUS_highMG(expBoth, 0.7) %>%   
+  filter(abs(dS_diff) < 0.1) %>% 
+  distinct(conA, conB)
+
+hus_hmg <- highUS_highMG(expBoth, 0.45) %>% 
+  select(-c('x1_us', 'x2_us', 'x3_us', 'x4_us', 'p_gt0_us', 
+            'x1_mg', 'x2_mg', 'x3_mg', 'x4_mg', 'p_gt0_mg')) %>%
+  group_by(conA, conB) %>%  arrange(abs_dS_diff, .by_group = TRUE) %>%
+  mutate(flag = if_else(row_number() == 1, "*", "")) %>% ungroup() %>%
+  sheet_write(ss = sheet_url, sheet = paste0("hUs_hMg-feb10"))
+
+lus_lmg_conPairs3 <- lowUS_lowMG(expBoth, 0.3) %>% 
+  filter(abs(dS_diff) < 0.1) %>% distinct(conA, conB)
+
+lus_lmg <- lowUS_lowMG(expBoth, 0.45) %>% 
+  select(-c('x1_us', 'x2_us', 'x3_us', 'x4_us', 'p_gt0_us', 
+            'x1_mg', 'x2_mg', 'x3_mg', 'x4_mg', 'p_gt0_mg')) %>%
+  group_by(conA, conB) %>%  arrange(abs_dS_diff, .by_group = TRUE) %>%
+  mutate(flag = if_else(row_number() == 1, "*", "")) %>% ungroup() %>%
+  sheet_write(ss = sheet_url, sheet = paste0("lUs_lMg-feb10"))
+
 # END <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
 
 
 

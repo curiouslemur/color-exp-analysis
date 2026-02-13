@@ -272,5 +272,26 @@ pick_topK_per_quadrant <- function(joined_n_tagged, K = 5,
 # ------------------------
 # install.packages("googlesheets4")
 library(googlesheets4)
-lowUS_highMG <- function(expBoth, tL, tH){return(expBoth %>% filter(dS_us < tL, dS_mg > tH))}
-highUS_lowMG <- function(expBoth, tL, tH){return(expBoth %>% filter(dS_us > tH, dS_mg < tL))}
+lowUS_highMG <- function(expBoth, tL, tH){
+  expBoth <- expBoth %>% mutate(
+    sign_dXs = ifelse((dX_us > 0 & dX_mg >0) | (dX_us <0 & dX_mg <0), "same", "opp"),
+    abs_dS_diff = abs(dS_diff))  
+  return(expBoth %>% filter(dS_us < tL, dS_mg > tH))}
+
+highUS_lowMG <- function(expBoth, tL, tH){
+  expBoth <- expBoth %>% mutate(
+    sign_dXs = ifelse((dX_us > 0 & dX_mg >0) | (dX_us <0 & dX_mg <0), "same", "opp"),
+    abs_dS_diff = abs(dS_diff))   
+  return(expBoth %>% filter(dS_us > tH, dS_mg < tL))}
+
+highUS_highMG <- function(expBoth, tH){
+  expBoth <- expBoth %>% mutate(
+    sign_dXs = ifelse((dX_us > 0 & dX_mg >0) | (dX_us <0 & dX_mg <0), "same", "opp"),
+    abs_dS_diff = abs(dS_diff))  
+  return(expBoth %>% filter(dS_us > tH, dS_mg > tH))}
+
+lowUS_lowMG <- function(expBoth, tL){
+  expBoth <- expBoth %>% mutate(
+    sign_dXs = ifelse((dX_us > 0 & dX_mg >0) | (dX_us <0 & dX_mg <0), "same", "opp"),
+    abs_dS_diff = abs(dS_diff))  
+  return(expBoth %>% filter(dS_us < tL, dS_mg < tL))}
