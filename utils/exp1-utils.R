@@ -1,4 +1,4 @@
-# this utility file has the helper functions for exp1-analysis.Rmd (pre 2026 analysis file)
+# this utility file has the helper functions for exp1-analysis.Rmd
 
 library(tidyverse)
 library(dplyr)
