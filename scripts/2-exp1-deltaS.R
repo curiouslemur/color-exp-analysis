@@ -7,7 +7,7 @@ source(file = "./utils/stimuli.R")
 source(file = "./utils/exp1-deltaS-utils.R")
 
 alpha_mg = 1.54; alpha_us = 1.38
-alpha_both = 1.47
+alpha_both = 1.47 ## decided following meeting w/ Ks
 
 #----------------------------------
 # R file for computing deltaS
@@ -28,8 +28,8 @@ usdf_w <- read_csv(paste(dataPath, "us-df-summary.csv", sep = ""), show_col_type
 # Computing landscapes from the summary data that have weight (mean_rating) ---
 ## note: alpha_fit is set to 1.4 in schloss's paper
 ## alpha_mg and alpha_us are calculated in exp1-analysis.Rmd
-mg_landscape <- make_pairwise_landscape(mgdf_w, alpha_mg)
-us_landscape <- make_pairwise_landscape(usdf_w, alpha_us)
+mg_landscape <- make_pairwise_landscape(mgdf_w, 1.54)
+us_landscape <- make_pairwise_landscape(usdf_w, 1.38)
 ### !!! NOTE that DeltaS (from exp1-analysis.Rmd) and landscape dataframes 
 ### yield the same delta S and delta X. a win!
 
@@ -73,17 +73,18 @@ colsNewNames = c('conA', 'conB', 'col1', 'col2',
                  'dX', 'dS')
 
 # expMg == export for MG
-expMg <- mg_landscape %>% select(selCols)
+expMg <- mg_landscapeS %>% select(selCols)
 names(expMg) <- paste0(colsNewNames, '_mg')
 expMg <- expMg %>% rename(conA = conA_mg, conB = conB_mg, col1 = col1_mg, col2 = col2_mg)
 
-expUs <- us_landscape %>% select(selCols)
+expUs <- us_landscapeS %>% select(selCols)
 names(expUs) <- paste0(colsNewNames, '_us')
 expUs <- expUs %>% rename(conA = conA_us, conB = conB_us, col1 = col1_us, col2 = col2_us)
 
 expBoth <- left_join(expUs, expMg, by = c('conA', 'conB', 'col1', 'col2')) %>% 
   mutate(dS_diff = round(dS_us - dS_mg, digits = 4))
-# write_csv(expBoth, "output/exp-ds-mg-us-both.csv")
+write_csv(expBoth, "output/exp-ds-mg-us-bothS.csv")
+
 
 
 #---------------------------------------------------------------------
@@ -108,7 +109,7 @@ hus_lmg %>%
   arrange(desc(abs_dS_diff), .by_group = TRUE) %>%
   ungroup() # %>%
   # filter(abs(dS_diff) >= (tH-tL) + 0.5*(tH-tL)) %>% 
-  sheet_write(ss = sheet_url, 
+  sheet_write(ss = sheet_url0, 
               # sheet = paste0("Lus_Lmg_ovrlp-", round(max(hus_lmg_overlap$dS_mg), digits = 2),"-", round(min(hus_lmg_overlap$dS_us), digits = 2))
               # sheet = paste0("hUs_lMg-", tL, "-", tH, "-new")
               sheet = paste0("acciden--"))
@@ -122,9 +123,9 @@ lus_hmg %>%
   mutate(flag = if_else(row_number() == 1, "*", "")) %>%
   ungroup() %>%
   # filter(abs(dS_diff)>= abs(tH-tL)) %>% 
-  sheet_write(ss = sheet_url, 
+  sheet_write(ss = sheet_url0, 
             # sheet = paste0("Hus_Hmg_ovrlp-", round(max(lus_hmg_overlap$dS_us), digits = 2),"-", round(min(lus_hmg_overlap$dS_mg), digits = 3))
-            sheet = paste0("lUs_hMg-")
+            sheet = paste0("acciden-")
   )
 
 # sheet_write(lus_hmg_overlap, ss = sheet_url, sheet = paste0("lus_hmg_overlap-",tL,"-",tH))
