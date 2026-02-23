@@ -8,6 +8,8 @@ library(lme4)
 library(pwr)
 library(gridExtra)
 library(grid)
+library(jsonlite)
+library(purrr)
 
 # install.packages("pacman")
 

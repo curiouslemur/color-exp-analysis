@@ -5,5 +5,107 @@ output: html_document
 
 ```{r}
 knitr::opts_chunk$set(echo = TRUE)
+source(file = "./utils/exp1-utils.R") # loads all necessary packages
 ```
 
+```{r data load}
+dataPath <- "data/exp2/"
+mg_pilot_df <- read_csv(paste(dataPath, "pilot-mg.csv", sep = ""), show_col_types = FALSE)
+us_pilot_df <- read_csv(paste(dataPath, "pilot-us.csv", sep = ""), show_col_types = FALSE)
+```
+
+```{r filtered out partial data}
+manual_keep_ids <- c(
+  "09b12105-8844-4979-b829-450cea06e9ee"
+)
+
+mg_pilot_df_finished <- mg_pilot_df %>%
+  mutate(
+    percentComplete = na_if(percentComplete, "undefined"),
+    percentComplete = na_if(percentComplete, "null"),
+    percentComplete = as.numeric(percentComplete)
+  ) %>%
+  group_by(participantId) %>%
+  filter(
+    (
+      any(!is.na(percentComplete)) &&
+      max(percentComplete, na.rm = TRUE) == 100
+    ) ||
+    any(participantId %in% manual_keep_ids)
+  ) %>%
+  ungroup()
+
+us_pilot_df_finished <- us_pilot_df %>%
+  mutate(
+    percentComplete = na_if(percentComplete, "undefined"),
+    percentComplete = na_if(percentComplete, "null"),
+    percentComplete = as.numeric(percentComplete)
+  ) %>%
+  group_by(participantId) %>%
+  filter(
+    any(!is.na(percentComplete)) &&
+    max(percentComplete, na.rm = TRUE) == 100
+  ) %>%
+  ungroup()
+```
+
+
+```{r}
+# ID, Concept A, Concept B, Answer, Response Time, Category(MG_US_level), Color_left, Color_right, left_height, right_height
+mg_ppt_response_df <- mg_pilot_df_finished %>%
+  filter(
+    responseId == "choice",
+    str_detect(trialId, "^p[^_]*_s[^_]*_t[^_]*$")
+  ) %>%
+  select(participantId, trialId, answer)
+
+mg_ppt_clean_data <- mg_ppt_response_df %>%
+  mutate(parsed = map(answer, fromJSON)) %>%
+  transmute(
+    participantId,
+    trialId,
+    answer,
+    conceptA = map_chr(parsed, ~ .x$conceptA$text),
+    conceptA_color = map_chr(parsed, ~ .x$conceptA$chosenColorCode),
+    conceptB = map_chr(parsed, ~ .x$conceptB$text),
+    conceptB_color = map_chr(parsed, ~ .x$conceptB$chosenColorCode),
+    responseTime = map_dbl(parsed, ~ as.numeric(.x$responseTime)),
+    mgLevel = map_chr(parsed, ~ .x$mgLevel),
+    usLevel = map_chr(parsed, ~ .x$usLevel),
+    leftColorCode = map_chr(parsed, ~ .x$leftColorCode),
+    rightColorCode = map_chr(parsed, ~ .x$rightColorCode),
+    leftHeight = map_dbl(parsed, ~ as.numeric(.x$leftHeight)),
+    rightHeight = map_dbl(parsed, ~ as.numeric(.x$rightHeight))
+  )
+
+us_ppt_response_df <- us_pilot_df_finished %>%
+  filter(
+    responseId == "choice",
+    str_detect(trialId, "^p[^_]*_s[^_]*_t[^_]*$")
+  ) %>%
+  select(participantId, trialId, answer)
+
+us_ppt_clean_data <- us_ppt_response_df %>%
+  mutate(parsed = map(answer, fromJSON)) %>%
+  transmute(
+    participantId,
+    trialId,
+    answer,
+    conceptA = map_chr(parsed, ~ .x$conceptA$text),
+    conceptA_color = map_chr(parsed, ~ .x$conceptA$chosenColorCode),
+    conceptB = map_chr(parsed, ~ .x$conceptB$text),
+    conceptB_color = map_chr(parsed, ~ .x$conceptB$chosenColorCode),
+    responseTime = map_dbl(parsed, ~ as.numeric(.x$responseTime)),
+    mgLevel = map_chr(parsed, ~ .x$mgLevel),
+    usLevel = map_chr(parsed, ~ .x$usLevel),
+    leftColorCode = map_chr(parsed, ~ .x$leftColorCode),
+    rightColorCode = map_chr(parsed, ~ .x$rightColorCode),
+    leftHeight = map_dbl(parsed, ~ as.numeric(.x$leftHeight)),
+    rightHeight = map_dbl(parsed, ~ as.numeric(.x$rightHeight))
+  )
+```
+
+```{r save data}
+write.csv(mg_ppt_clean_data, "data/exp2/pilot-mg-clean.csv", row.names = FALSE)
+write.csv(us_ppt_clean_data, "data/exp2/pilot-us-clean.csv", row.names = FALSE)
+```
