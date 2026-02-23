@@ -1,9 +1,0 @@
----
-title: "3-exp2-pilot"
-output: html_document
----
-
-```{r}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
