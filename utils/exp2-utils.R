@@ -119,3 +119,119 @@ getCleanData <- function(response_df){
   return(tmp)
 }
 
+
+# color text used in attention check
+color_code_family_en <- c(
+  SR="red", LR="red", MR="red", DR="red",
+  SO="orange", LO="orange", MO="orange", DO="orange",
+  SY="yellow", LY="yellow", MY="yellow", DY="yellow",
+  SH="chartreuse", LH="chartreuse", MH="chartreuse", DH="chartreuse",
+  SG="green", LG="green", MG="green", DG="green",
+  SC="cyan", LC="cyan", MC="cyan", DC="cyan",
+  SB="blue", LB="blue", MB="blue", DB="blue",
+  SP="purple", LP="purple", MP="purple", DP="purple",
+  BK="black", A1="gray", A2="gray", A3="gray", WH="white",
+  PK="pink", BR="brown", GR="gray", GD="gold"
+)
+
+color_code_family_fr <- c(
+  SR="rouge", LR="rouge", MR="rouge", DR="rouge",
+  SO="orange", LO="orange", MO="orange", DO="orange",
+  SY="jaune", LY="jaune", MY="jaune", DY="jaune",
+  SH="chartreuse", LH="chartreuse", MH="chartreuse", DH="chartreuse",
+  SG="vert", LG="vert", MG="vert", DG="vert",
+  SC="cyan", LC="cyan", MC="cyan", DC="cyan",
+  SB="bleu", LB="bleu", MB="bleu", DB="bleu",
+  SP="violet", LP="violet", MP="violet", DP="violet",
+  BK="noir", A1="gris", A2="gris", A3="gris", WH="blanc",
+  PK="rose", BR="brun", GR="gris", GD="dore"
+)
+
+# For MG/French keys like concept_doré
+normalize_fr <- function(x) {
+  x %>%
+    tolower() %>%
+    iconv(from = "UTF-8", to = "ASCII//TRANSLIT") %>%  # doré -> dore
+    str_squish()
+}
+
+# helper for parsing json
+`%||%` <- function(x, y) if (is.null(x)) y else x
+
+get_ishihara_fail_ids <- function(df, fail_threshold = 2) {
+  df %>%
+    filter(responseId == "ishiharaResponse") %>%
+    mutate(
+      parsed = map(answer, ~ tryCatch(fromJSON(.x), error = function(e) NULL)),
+      isCorrect = map_lgl(parsed, ~ {
+        if (is.null(.x)) return(NA)
+        val <- .x$isCorrect %||% NA
+        if (is.na(val)) return(NA)
+        as.logical(val)
+      })
+    ) %>%
+    group_by(participantId) %>%
+    summarise(
+      n_ishihara = sum(!is.na(isCorrect)),
+      n_failed = sum(isCorrect == FALSE, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    filter(n_failed > fail_threshold) %>%
+    pull(participantId)
+}
+
+score_attention_from_parsed <- function(x, normalize_keys = FALSE) {
+  if (is.null(x)) return(NA)
+  
+  conceptA_id <- x$conceptA$id %||% NA_character_
+  conceptB_id <- x$conceptB$id %||% NA_character_
+  conceptA_chosen <- x$conceptA$chosenColorCode %||% NA_character_
+  conceptB_chosen <- x$conceptB$chosenColorCode %||% NA_character_
+  
+  assignments_raw <- x$assignments %||% NULL
+  if (is.null(assignments_raw)) return(NA)
+  
+  assignments_list <- as.list(assignments_raw)
+  
+  if (normalize_keys) {
+    # MG/French: normalize both assignment keys and concept ids
+    names(assignments_list) <- normalize_fr(names(assignments_list))
+    conceptA_id <- normalize_fr(conceptA_id)
+    conceptB_id <- normalize_fr(conceptB_id)
+  }
+  
+  conceptA_expected <- assignments_list[[conceptA_id]] %||% NA_character_
+  conceptB_expected <- assignments_list[[conceptB_id]] %||% NA_character_
+  
+  if (is.na(conceptA_expected) || is.na(conceptB_expected) ||
+      is.na(conceptA_chosen) || is.na(conceptB_chosen)) {
+    return(NA)
+  }
+  
+  (conceptA_chosen == conceptA_expected) &&
+    (conceptB_chosen == conceptB_expected)
+}
+
+get_attention_rows <- function(df, normalize_keys = FALSE, trial_pattern = "^attention_") {
+  df %>%
+    filter(
+      tolower(responseId) == "choice",
+      str_detect(trialId, trial_pattern)
+    ) %>%
+    mutate(
+      parsed = map(answer, ~ tryCatch(fromJSON(.x), error = function(e) NULL)),
+      attention_correct = map_lgl(parsed, ~ score_attention_from_parsed(.x, normalize_keys = normalize_keys))
+    )
+}
+
+get_attention_fail_ids <- function(df, fail_threshold = 1, normalize_keys = FALSE, trial_pattern = "^attention_") {
+  get_attention_rows(df, normalize_keys = normalize_keys, trial_pattern = trial_pattern) %>%
+    group_by(participantId) %>%
+    summarise(
+      n_attention = sum(!is.na(attention_correct)),
+      n_failed = sum(attention_correct == FALSE, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    filter(n_failed > fail_threshold) %>%
+    pull(participantId)
+}
