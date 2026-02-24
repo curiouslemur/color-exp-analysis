@@ -15,14 +15,9 @@ mg_pilot_df <- read_csv(paste(dataPath, "pilot-mg.csv", sep = ""), show_col_type
 us_pilot_df <- read_csv(paste(dataPath, "pilot-us.csv", sep = ""), show_col_types = FALSE)
 ```
 
-```{r generate dem data}
-# ip == Ishihara Plate
-ip_expected = c(8, 5, 29, 74, 7, 45, 2, 16, 35, 96)
-
-# id | countryRes | countryRes_len | countryLongest | 
-# lang_native | lang_other [ ..., ...]
-# age | gender | job | colorBlindness
-# ip_ans1 | ip_ans2 | ... | ip_ans10 
+```{r generate demographic data}
+mg_pilot_dem <- getDemographics(mg_pilot_df)
+us_pilot_dem <- getDemographics(us_pilot_df)
 ```
 
 ```{r filter out partial data}

@@ -15,6 +15,80 @@ conceptListEn = c('banana', 'mango', 'peach', 'death', 'justice', 'peace', 'safe
 conceptListFr = c('banane', 'mangue', 'pêche (fruit)', 'mort', 'justice', 'paix', 'sécurité',
                    'en colère', 'heureux', 'triste', 'malade', 'foudre', 'tempête de sable', 'arbre')
 
+#### function to get the demographic data from consent answers
+getConsentInfo <- function(df) {
+  tmp <- df %>%
+    filter(trialId == "consent") %>%
+    mutate(answer_json = map(answer, ~ fromJSON(.x))) %>%
+    filter(map_lgl(answer_json, ~ any(names(.x) %in% c(
+      "prolific_pid", "expLang", "consented", "signedAtISO",
+      "countryTaking", "yearsThere", "countryLongest",
+      "nativeLanguage", "otherLangauges", 
+      "age", "gender", "profession", "colorBlindness"
+    )))) %>% 
+    transmute(
+      participantId,
+      demo = answer_json
+    ) %>%
+    unnest_wider(demo) %>%
+    # otherLanguages as a string (if it's a vector)
+    mutate(
+      otherLanguages = map_chr(otherLanguages, ~ {
+        if (is.null(.x)) NA_character_ else paste(.x, collapse = "; ")
+      })
+    ) %>% group_by(participantId) %>%
+    slice(1) %>%
+    ungroup()
+  return(tmp)
+}
+
+safe_fromJSON <- function(x) {
+  if (is.na(x) || x == "undefined" || !str_starts(x, "\\{")) return(NULL)
+  tryCatch(jsonlite::fromJSON(x), error = function(e) NULL)
+} 
+
+getIshihara <- function(df){
+  tmp <- df %>%
+    filter(str_detect(trialId, "^ishihara_plate_")) %>%
+    transmute(
+      participantId,
+      plate = trialId,
+      ans = map(answer, safe_fromJSON)
+    ) %>%
+    mutate(
+      isCorrect = map(ans, ~{
+        if (is.null(.x)) {NA} 
+        else if (!"isCorrect" %in% names(.x)) {NA} 
+        else {.x$isCorrect}
+      }),
+      isCorrect = as.logical(unlist(isCorrect))
+    ) %>%
+    select(participantId, plate, isCorrect) %>%
+    distinct(participantId, plate, .keep_all = TRUE) %>%
+    filter(str_detect(plate, "^ishihara_plate_(10|[0-9])$")) %>%
+    pivot_wider(
+      names_from = plate,
+      values_from = isCorrect
+    )
+  return(tmp)
+}
+
+getDemographics <- function(df){
+  tmp_consent <- getConsentInfo(df)
+  tmp_ish <- getIshihara(df)
+  
+  tmp <- tmp_consent %>%
+    left_join(tmp_ish, by = "participantId") %>%
+    # (optional) guarantee all 0..10 columns exist, even if missing in data
+    mutate(across(
+      .cols = all_of(paste0("ishihara_plate_", 0:10)),
+      .fns  = ~ .x
+    ))
+  
+  return(tmp)
+}
+
+
 #### Function to get a parsed ('clean') data.
 getCleanData <- function(response_df){
   tmp <- response_df %>%
