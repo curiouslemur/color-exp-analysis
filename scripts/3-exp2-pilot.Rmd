@@ -46,7 +46,6 @@ us_exclude_ids <- union(us_ishihara_fail_ids, us_attention_fail_ids)
 
 mg_pilot_df_pass_all <- mg_pilot_df_finished %>%
   filter(!participantId %in% mg_exclude_ids)
-
 us_pilot_df_pass_all <- us_pilot_df_finished %>%
   filter(!participantId %in% us_exclude_ids)
 ```
@@ -82,11 +81,11 @@ us_clean_df <- getCleanData(us_ppt_response_df)
 ```
 
 ```{r save data}
-write.csv(mg_clean_df, "data/exp2/pilot-mg-df.csv", row.names = FALSE, fileEncoding = "UTF-8")
-write.csv(mg_pilot_dem, "data/exp2/pilot-mg-dem.csv", row.names = FALSE, fileEncoding = "UTF-8")
-
-write.csv(us_clean_df, "data/exp2/pilot-us-df.csv", row.names = FALSE, fileEncoding = "UTF-8")
-write.csv(us_pilot_dem, "data/exp2/pilot-us-dem.csv", row.names = FALSE, fileEncoding = "UTF-8")
+# write.csv(mg_clean_df, "data/exp2/pilot-mg-df.csv", row.names = FALSE, fileEncoding = "UTF-8")
+# write.csv(mg_pilot_dem, "data/exp2/pilot-mg-dem.csv", row.names = FALSE, fileEncoding = "UTF-8")
+# 
+# write.csv(us_clean_df, "data/exp2/pilot-us-df.csv", row.names = FALSE, fileEncoding = "UTF-8")
+# write.csv(us_pilot_dem, "data/exp2/pilot-us-dem.csv", row.names = FALSE, fileEncoding = "UTF-8")
 ```
 
 ## Analysing data
