@@ -34,7 +34,7 @@ us_pilot_df_finished <- us_pilot_df %>%
     max(percentComplete, na.rm = TRUE) == 100) %>% ungroup()
 ```
 
-```{r ilter out ppt who failed at least two ishihara tests and failed at at least one attention checks}
+```{r filter out ppt who failed at least two ishihara tests and failed at least one attention checks}
 mg_ishihara_fail_ids <- get_ishihara_fail_ids(mg_pilot_df_finished, fail_threshold = 2)
 us_ishihara_fail_ids <- get_ishihara_fail_ids(us_pilot_df_finished, fail_threshold = 2)
 
@@ -51,7 +51,8 @@ us_pilot_df_pass_all <- us_pilot_df_finished %>%
   filter(!participantId %in% us_exclude_ids)
 ```
 
-From here, working only with the data from ppt who completed the study.
+From here, working only with the data from ppt who:
+- completed the study > passed ishihara test > passed at least two attention checks
 
 ```{r generate demographic data}
 mg_pilot_dem <- getDemographics(mg_pilot_df_pass_all)
