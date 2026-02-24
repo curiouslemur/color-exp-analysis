@@ -15,9 +15,19 @@ mg_pilot_df <- read_csv(paste(dataPath, "pilot-mg.csv", sep = ""), show_col_type
 us_pilot_df <- read_csv(paste(dataPath, "pilot-us.csv", sep = ""), show_col_types = FALSE)
 ```
 
-```{r filtered out partial data}
-manual_keep_ids <- c("09b12105-8844-4979-b829-450cea06e9ee")
+```{r generate dem data}
+# ip == Ishihara Plate
+ip_expected = c(8, 5, 29, 74, 7, 45, 2, 16, 35, 96)
 
+# id | countryRes | countryRes_len | countryLongest | 
+# lang_native | lang_other [ ..., ...]
+# age | gender | job | colorBlindness
+# ip_ans1 | ip_ans2 | ... | ip_ans10 
+```
+
+```{r filter out partial data}
+# Keep only data w/ percentComplete 100%
+manual_keep_ids <- c("09b12105-8844-4979-b829-450cea06e9ee")
 mg_pilot_df_finished <- mg_pilot_df %>%
   mutate(
     percentComplete = na_if(percentComplete, "undefined"),
@@ -27,8 +37,7 @@ mg_pilot_df_finished <- mg_pilot_df %>%
   filter(
     (any(!is.na(percentComplete)) &&
       max(percentComplete, na.rm = TRUE) == 100
-    ) || any(participantId %in% manual_keep_ids)) %>%
-  ungroup()
+    ) || any(participantId %in% manual_keep_ids)) %>% ungroup()
 
 us_pilot_df_finished <- us_pilot_df %>%
   mutate(
@@ -38,8 +47,7 @@ us_pilot_df_finished <- us_pilot_df %>%
   group_by(participantId) %>%
   filter(
     any(!is.na(percentComplete)) &&
-    max(percentComplete, na.rm = TRUE) == 100) %>%
-  ungroup()
+    max(percentComplete, na.rm = TRUE) == 100) %>% ungroup()
 ```
 
 
@@ -51,23 +59,7 @@ mg_ppt_response_df <- mg_pilot_df_finished %>%
     str_detect(trialId, "^p[^_]*_s[^_]*_t[^_]*$")) %>%
   select(participantId, trialId, answer)
 
-mg_ppt_clean_data <- mg_ppt_response_df %>%
-  mutate(parsed = map(answer, fromJSON)) %>%
-  transmute(
-    participantId,
-    trialId,
-    answer,
-    conceptA = map_chr(parsed, ~ .x$conceptA$text),
-    conceptA_color = map_chr(parsed, ~ .x$conceptA$chosenColorCode),
-    conceptB = map_chr(parsed, ~ .x$conceptB$text),
-    conceptB_color = map_chr(parsed, ~ .x$conceptB$chosenColorCode),
-    responseTime = map_dbl(parsed, ~ as.numeric(.x$responseTime)),
-    mgLevel = map_chr(parsed, ~ .x$mgLevel),
-    usLevel = map_chr(parsed, ~ .x$usLevel),
-    leftColorCode = map_chr(parsed, ~ .x$leftColorCode),
-    rightColorCode = map_chr(parsed, ~ .x$rightColorCode),
-    leftHeight = map_dbl(parsed, ~ as.numeric(.x$leftHeight)),
-    rightHeight = map_dbl(parsed, ~ as.numeric(.x$rightHeight)))
+mg_clean_data <- getCleanData(mg_ppt_response_df) 
 
 us_ppt_response_df <- us_pilot_df_finished %>%
   filter(
@@ -75,26 +67,13 @@ us_ppt_response_df <- us_pilot_df_finished %>%
     str_detect(trialId, "^p[^_]*_s[^_]*_t[^_]*$")) %>%
   select(participantId, trialId, answer)
 
-us_ppt_clean_data <- us_ppt_response_df %>%
-  mutate(parsed = map(answer, fromJSON)) %>%
-  transmute(
-    participantId,
-    trialId,
-    answer,
-    conceptA = map_chr(parsed, ~ .x$conceptA$text),
-    conceptA_color = map_chr(parsed, ~ .x$conceptA$chosenColorCode),
-    conceptB = map_chr(parsed, ~ .x$conceptB$text),
-    conceptB_color = map_chr(parsed, ~ .x$conceptB$chosenColorCode),
-    responseTime = map_dbl(parsed, ~ as.numeric(.x$responseTime)),
-    mgLevel = map_chr(parsed, ~ .x$mgLevel),
-    usLevel = map_chr(parsed, ~ .x$usLevel),
-    leftColorCode = map_chr(parsed, ~ .x$leftColorCode),
-    rightColorCode = map_chr(parsed, ~ .x$rightColorCode),
-    leftHeight = map_dbl(parsed, ~ as.numeric(.x$leftHeight)),
-    rightHeight = map_dbl(parsed, ~ as.numeric(.x$rightHeight)))
+us_clean_data <- getCleanData(us_ppt_response_df)
 ```
 
 ```{r save data}
-write.csv(mg_ppt_clean_data, "data/exp2/pilot-mg-clean.csv", row.names = FALSE, fileEncoding = "UTF-8")
-write.csv(us_ppt_clean_data, "data/exp2/pilot-us-clean.csv", row.names = FALSE, fileEncoding = "UTF-8")
+write.csv(mg_clean_data, "data/exp2/pilot-mg-clean2.csv", row.names = FALSE, fileEncoding = "UTF-8")
+
+write.csv(us_clean_data, "data/exp2/pilot-us-clean.csv", row.names = FALSE, fileEncoding = "UTF-8")
 ```
+
+
