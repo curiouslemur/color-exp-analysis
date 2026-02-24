@@ -1,7 +1,7 @@
 ---
 title: "3-exp2-pilot"
 output: html_document
-date: "2026-02-23"
+date: "2026-02-24"
 ---
 
 ```{r}
@@ -9,25 +9,18 @@ knitr::opts_chunk$set(echo = TRUE)
 source(file = "./utils/exp2-utils.R") # loads all necessary packages
 ```
 
+## Preparing the data
 ```{r data load}
 dataPath <- "data/exp2/"
-mg_pilot_df <- read_csv(paste(dataPath, "pilot-mg.csv", sep = ""), show_col_types = FALSE)
-us_pilot_df <- read_csv(paste(dataPath, "pilot-us.csv", sep = ""), show_col_types = FALSE)
-```
-
-```{r generate demographic data}
-mg_pilot_dem <- getDemographics(mg_pilot_df)
-us_pilot_dem <- getDemographics(us_pilot_df)
+mg_pilot_df <- read_csv(paste(dataPath, "pilot-mg-raw.csv", sep = ""), show_col_types = FALSE)
+us_pilot_df <- read_csv(paste(dataPath, "pilot-us-raw.csv", sep = ""), show_col_types = FALSE)
 ```
 
 ```{r filter out partial data}
 # Keep only data w/ percentComplete 100% i.e. only ppt who finished the study
 manual_keep_ids <- c("09b12105-8844-4979-b829-450cea06e9ee")
 mg_pilot_df_finished <- mg_pilot_df %>%
-  mutate(
-    percentComplete = na_if(percentComplete, "undefined"),
-    percentComplete = na_if(percentComplete, "null"),
-    percentComplete = as.numeric(percentComplete)) %>%
+  getPercentComplete() %>%
   group_by(participantId) %>%
   filter(
     (any(!is.na(percentComplete)) &&
@@ -35,45 +28,67 @@ mg_pilot_df_finished <- mg_pilot_df %>%
     ) || any(participantId %in% manual_keep_ids)) %>% ungroup()
 
 us_pilot_df_finished <- us_pilot_df %>%
-  mutate(
-    percentComplete = na_if(percentComplete, "undefined"),
-    percentComplete = na_if(percentComplete, "null"),
-    percentComplete = as.numeric(percentComplete)) %>%
+  getPercentComplete() %>%
   group_by(participantId) %>%
   filter(any(!is.na(percentComplete)) &&
     max(percentComplete, na.rm = TRUE) == 100) %>% ungroup()
 ```
 
+From here, working only with the data from ppt who completed the study.
 
-```{r}
+```{r generate demographic data}
+mg_pilot_dem <- getDemographics(mg_pilot_df_finished)
+us_pilot_dem <- getDemographics(us_pilot_df_finished)
+```
+
+```{r get cleaner - parsed response data}
 # ID, Concept A, Concept B, Answer, Response Time, Category(MG_US_level), Color_left, Color_right, left_height, right_height
 mg_ppt_response_df <- mg_pilot_df_finished %>%
-  filter(
-    responseId == "choice",
+  filter(responseId == "choice",
     str_detect(trialId, "^p[^_]*_s[^_]*_t[^_]*$")) %>%
   select(participantId, trialId, answer)
 
-mg_clean_data <- getCleanData(mg_ppt_response_df) %>% 
+mg_clean_df <- getCleanData(mg_ppt_response_df) %>% 
   rename(conA_fr = conA, conB_fr = conB)
 # Translate concept vector: French -> English
 fr_to_en <- setNames(conceptListEn, conceptListFr)
-mg_clean_data <- mg_clean_data %>%
+mg_clean_df <- mg_clean_df %>%
   mutate(conA = fr_to_en[conA_fr], conB = fr_to_en[conB_fr], 
          .after = 'conA_fr') # %>% select(-c(conA_fr, conB_fr))
 
 us_ppt_response_df <- us_pilot_df_finished %>%
-  filter(
-    responseId == "choice",
+  filter(responseId == "choice",
     str_detect(trialId, "^p[^_]*_s[^_]*_t[^_]*$")) %>%
   select(participantId, trialId, answer)
-
-us_clean_data <- getCleanData(us_ppt_response_df)
+us_clean_df <- getCleanData(us_ppt_response_df)
 ```
 
 ```{r save data}
-write.csv(mg_clean_data, "data/exp2/pilot-mg-clean2.csv", row.names = FALSE, fileEncoding = "UTF-8")
+write.csv(mg_clean_df, "data/exp2/pilot-mg-df.csv", row.names = FALSE, fileEncoding = "UTF-8")
+write.csv(mg_pilot_dem, "data/exp2/pilot-mg-dem.csv", row.names = FALSE, fileEncoding = "UTF-8")
 
-write.csv(us_clean_data, "data/exp2/pilot-us-clean.csv", row.names = FALSE, fileEncoding = "UTF-8")
+write.csv(us_clean_df, "data/exp2/pilot-us-df.csv", row.names = FALSE, fileEncoding = "UTF-8")
+write.csv(us_pilot_dem, "data/exp2/pilot-us-dem.csv", row.names = FALSE, fileEncoding = "UTF-8")
 ```
+
+## Analysing data
+
+```{r data load}
+dataPath <- "data/exp2/"
+mg_df <- read_csv(paste(dataPath, "pilot-mg-df.csv", sep = ""), show_col_types = FALSE)
+mg_dem <- read_csv(paste(dataPath, "pilot-mg-dem.csv", sep = ""), show_col_types = FALSE)
+
+us_df <- read_csv(paste(dataPath, "pilot-us-df.csv", sep = ""), show_col_types = FALSE)
+us_dem <- read_csv(paste(dataPath, "pilot-us-dem.csv", sep = ""), show_col_types = FALSE)
+```
+
+TODO: Filter out ppt who:
+- failed at least two ishihara tests
+- failed at least two attention checks
+
+```{r}
+
+```
+
 
 

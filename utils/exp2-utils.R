@@ -9,13 +9,20 @@ library(grid)
 library(jsonlite)
 library(purrr)
 
-##### List of concepts used for experiment 1 (final set of 14 concepts)
+#### List of concepts used for experiment 1 (final set of 14 concepts)
 conceptListEn = c('banana', 'mango', 'peach', 'death', 'justice', 'peace', 'safety',
                    'angry', 'happy', 'sad', 'sick', 'lightning', 'sandstorm', 'tree')
 conceptListFr = c('banane', 'mangue', 'pêche (fruit)', 'mort', 'justice', 'paix', 'sécurité',
                    'en colère', 'heureux', 'triste', 'malade', 'foudre', 'tempête de sable', 'arbre')
 
-#### function to get the demographic data from consent answers
+#### getComplete status
+getPercentComplete <- function(df){
+  df %>% mutate(
+  percentComplete = na_if(percentComplete, "undefined"),
+  percentComplete = na_if(percentComplete, "null"),
+  percentComplete = as.numeric(percentComplete))}
+
+#### function to get the demographic data (from consent) and ishihara response status
 getConsentInfo <- function(df) {
   tmp <- df %>%
     filter(trialId == "consent") %>%
@@ -84,7 +91,6 @@ getDemographics <- function(df){
       .cols = all_of(paste0("ishihara_plate_", 0:10)),
       .fns  = ~ .x
     ))
-  
   return(tmp)
 }
 
