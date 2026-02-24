@@ -97,9 +97,59 @@ mg_dem <- read_csv(paste(dataPath, "pilot-mg-dem.csv", sep = ""), show_col_types
 
 us_df <- read_csv(paste(dataPath, "pilot-us-df.csv", sep = ""), show_col_types = FALSE)
 us_dem <- read_csv(paste(dataPath, "pilot-us-dem.csv", sep = ""), show_col_types = FALSE)
+
+stimuli <- read_csv(paste(dataPath, "exp2-stimuli.csv", sep = ""), show_col_types = FALSE)
 ```
 
 
+```{r merge pilot data to stimuli}
+us_df_with_answer <- us_df %>%
+  left_join(
+    stimuli %>% 
+      select(conA, conB, col1, col2, x1_us, x2_us, x3_us, x4_us, p_gt0_us, dX_us, dS_us, dS_diff) %>%
+      distinct(conA, conB, .keep_all = TRUE),
+    by = c("conA", "conB")
+    )
+
+us_df_with_answer <- us_df_with_answer %>%
+  mutate(
+    isCorrect = case_when(
+      dX_us > 0 &
+        col1 == conA_col_ans &
+        col2 == conB_col_ans ~ 1,
+
+      dX_us < 0 &
+        col1 == conB_col_ans &
+        col2 == conA_col_ans ~ 1,
+
+      TRUE ~ 0
+    )
+  )
+
+mg_df_with_answer <- mg_df %>%
+  left_join(
+    stimuli %>% 
+      select(conA, conB, col1, col2, x1_mg, x2_mg, x3_mg, x4_mg, p_gt0_mg, dX_mg, dS_mg, dS_diff) %>%
+      distinct(conA, conB, .keep_all = TRUE),
+    by = c("conA", "conB")
+    )
+
+mg_df_with_answer <- mg_df_with_answer %>%
+  mutate(
+    isCorrect = case_when(
+      dX_mg > 0 &
+        col1 == conA_col_ans &
+        col2 == conB_col_ans ~ 1,
+
+      dX_mg < 0 &
+        col1 == conB_col_ans &
+        col2 == conA_col_ans ~ 1,
+
+      TRUE ~ 0
+    )
+  )
+
+```
 
 
 
