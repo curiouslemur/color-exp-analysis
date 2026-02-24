@@ -26,7 +26,7 @@ ip_expected = c(8, 5, 29, 74, 7, 45, 2, 16, 35, 96)
 ```
 
 ```{r filter out partial data}
-# Keep only data w/ percentComplete 100%
+# Keep only data w/ percentComplete 100% i.e. only ppt who finished the study
 manual_keep_ids <- c("09b12105-8844-4979-b829-450cea06e9ee")
 mg_pilot_df_finished <- mg_pilot_df %>%
   mutate(
@@ -45,8 +45,7 @@ us_pilot_df_finished <- us_pilot_df %>%
     percentComplete = na_if(percentComplete, "null"),
     percentComplete = as.numeric(percentComplete)) %>%
   group_by(participantId) %>%
-  filter(
-    any(!is.na(percentComplete)) &&
+  filter(any(!is.na(percentComplete)) &&
     max(percentComplete, na.rm = TRUE) == 100) %>% ungroup()
 ```
 
@@ -59,7 +58,13 @@ mg_ppt_response_df <- mg_pilot_df_finished %>%
     str_detect(trialId, "^p[^_]*_s[^_]*_t[^_]*$")) %>%
   select(participantId, trialId, answer)
 
-mg_clean_data <- getCleanData(mg_ppt_response_df) 
+mg_clean_data <- getCleanData(mg_ppt_response_df) %>% 
+  rename(conA_fr = conA, conB_fr = conB)
+# Translate concept vector: French -> English
+fr_to_en <- setNames(conceptListEn, conceptListFr)
+mg_clean_data <- mg_clean_data %>%
+  mutate(conA = fr_to_en[conA_fr], conB = fr_to_en[conB_fr], 
+         .after = 'conA_fr') # %>% select(-c(conA_fr, conB_fr))
 
 us_ppt_response_df <- us_pilot_df_finished %>%
   filter(
