@@ -123,12 +123,13 @@ stimuli <- read_csv(paste(dataPath, "exp2-stimuli.csv", sep = ""), show_col_type
 #       TRUE ~ 0
 #     )); rm(us_df_with_answer)
 
-us_df_with_answer <- addStimuliInfo(us_df, stimuli, "_us")
-us_df_acc <- addAccuracy(us_df_with_answer); rm(us_df_with_answer)
-
 mg_df_with_answer <- addStimuliInfo(mg_df, stimuli, "_mg") %>% select(-c(conA_fr, conB_fr))
 mg_df_acc <- addAccuracy(mg_df_with_answer); rm(mg_df_with_answer)
+mg_df_acc$group = "mg"
 
+us_df_with_answer <- addStimuliInfo(us_df, stimuli, "_us")
+us_df_acc <- addAccuracy(us_df_with_answer); rm(us_df_with_answer)
+us_df_acc$group = "us"
 ```
 
 ```{r haha}

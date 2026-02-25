@@ -245,7 +245,10 @@ addStimuliInfo <- function(df, stimuli, suf){
                paste0("x1", suf), paste0("x2", suf), paste0("x3", suf), paste0("x4", suf), 
                paste0("p_gt0", suf), paste0("dX", suf), paste0("dS", suf), dS_diff) %>%
         distinct(conA, conB, .keep_all = TRUE),
-      by = c("conA", "conB"))  
+      by = c("conA", "conB"))  %>% 
+    mutate(
+      category = paste(mgLevel, usLevel, sep = "-")
+    )
   colnames(tmp) <- gsub(suf, "", colnames(tmp))
   return(tmp)
 }
