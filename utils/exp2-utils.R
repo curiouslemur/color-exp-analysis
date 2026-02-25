@@ -235,3 +235,33 @@ get_attention_fail_ids <- function(df, fail_threshold = 1, normalize_keys = FALS
     filter(n_failed > fail_threshold) %>%
     pull(participantId)
 }
+
+#### helpers for analysis
+addStimuliInfo <- function(df, stimuli, suf){
+  tmp <- df %>%
+    left_join(
+      stimuli %>% 
+        select(conA, conB, col1, col2,
+               paste0("x1", suf), paste0("x2", suf), paste0("x3", suf), paste0("x4", suf), 
+               paste0("p_gt0", suf), paste0("dX", suf), paste0("dS", suf), dS_diff) %>%
+        distinct(conA, conB, .keep_all = TRUE),
+      by = c("conA", "conB"))  
+  colnames(tmp) <- gsub(suf, "", colnames(tmp))
+  return(tmp)
+}
+
+addAccuracy <- function(df){
+  tmp <- df %>%
+    mutate(
+      accuracy = case_when(
+        dX > 0 &
+          col1 == conA_col_ans &
+          col2 == conB_col_ans ~ 1,
+        
+        dX < 0 &
+          col1 == conB_col_ans &
+          col2 == conA_col_ans ~ 1,
+        
+        TRUE ~ 0)
+    )
+}

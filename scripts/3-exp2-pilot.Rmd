@@ -103,57 +103,38 @@ stimuli <- read_csv(paste(dataPath, "exp2-stimuli.csv", sep = ""), show_col_type
 
 
 ```{r merge pilot data to stimuli}
-us_df_with_answer <- us_df %>%
-  left_join(
-    stimuli %>% 
-      select(conA, conB, col1, col2, x1_us, x2_us, x3_us, x4_us, p_gt0_us, dX_us, dS_us, dS_diff) %>%
-      distinct(conA, conB, .keep_all = TRUE),
-    by = c("conA", "conB"))
+# us_df_with_answer <- us_df %>%
+#   left_join(
+#     stimuli %>%
+#       select(conA, conB, col1, col2, x1_us, x2_us, x3_us, x4_us, p_gt0_us, dX_us, dS_us, dS_diff) %>%
+#       distinct(conA, conB, .keep_all = TRUE),by = c("conA", "conB"))
+# 
+# us_df_acc2 <- us_df_with_answer %>%
+#   mutate(
+#     accuracy = case_when(
+#       dX_us > 0 &
+#         col1 == conA_col_ans &
+#         col2 == conB_col_ans ~ 1,
+# 
+#       dX_us < 0 &
+#         col1 == conB_col_ans &
+#         col2 == conA_col_ans ~ 1,
+# 
+#       TRUE ~ 0
+#     )); rm(us_df_with_answer)
 
-us_df <- us_df_with_answer %>%
-  mutate(
-    accuracy = case_when(
-      dX_us > 0 &
-        col1 == conA_col_ans &
-        col2 == conB_col_ans ~ 1,
+us_df_with_answer <- addStimuliInfo(us_df, stimuli, "_us")
+us_df_acc <- addAccuracy(us_df_with_answer); rm(us_df_with_answer)
 
-      dX_us < 0 &
-        col1 == conB_col_ans &
-        col2 == conA_col_ans ~ 1,
+mg_df_with_answer <- addStimuliInfo(mg_df, stimuli, "_mg") %>% select(-c(conA_fr, conB_fr))
+mg_df_acc <- addAccuracy(mg_df_with_answer); rm(mg_df_with_answer)
 
-      TRUE ~ 0
-    )); rm(us_df_with_answer)
-
-mg_df_with_answer <- mg_df %>%
-  left_join(
-    stimuli %>% 
-      select(conA, conB, col1, col2, x1_mg, x2_mg, x3_mg, x4_mg, p_gt0_mg, dX_mg, dS_mg, dS_diff) %>%
-      distinct(conA, conB, .keep_all = TRUE),
-    by = c("conA", "conB")
-    )
-
-mg_df <- mg_df_with_answer %>%
-  mutate(
-    accuracy = case_when(
-      dX_mg > 0 &
-        col1 == conA_col_ans &
-        col2 == conB_col_ans ~ 1,
-
-      dX_mg < 0 &
-        col1 == conB_col_ans &
-        col2 == conA_col_ans ~ 1,
-
-      TRUE ~ 0
-    )
-  ); rm(mg_df_with_answer)
 ```
 
 ```{r haha}
 # US dataset
-xus <- us_df %>% filter(mgLevel == "MG_LOW", usLevel == "US_LOW") 
-
-
-summary(m1)
+us_ <- us_df %>% filter(mgLevel == "MG_LOW", usLevel == "US_LOW") 
+summary()
 ```
 
 
