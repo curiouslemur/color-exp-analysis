@@ -91,6 +91,7 @@ us_clean_df <- getCleanData(us_ppt_response_df)
 ## Analysing data
 
 ```{r data load}
+source(file = "./utils/exp2-utils.R") 
 dataPath <- "data/exp2/"
 mg_df <- read_csv(paste(dataPath, "pilot-mg-df.csv", sep = ""), show_col_types = FALSE)
 mg_dem <- read_csv(paste(dataPath, "pilot-mg-dem.csv", sep = ""), show_col_types = FALSE)
@@ -132,23 +133,43 @@ us_df_acc <- addAccuracy(us_df_with_answer); rm(us_df_with_answer)
 us_df_acc$group = "us"
 ```
 
-```{r haha}
-# US dataset
-us_ <- us_df %>% filter(mgLevel == "MG_LOW", usLevel == "US_LOW") 
-summary()
-```
-
-
 ```{r summary of accuracy}
-us_high_mg_high_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_HIGH", "US_HIGH")
-us_high_mg_high_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_HIGH", "US_HIGH")
+mg_high_us_high_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_HIGH", "US_HIGH")
+mg_high_us_high_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_HIGH", "US_HIGH")
 
-us_high_mg_low_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_LOW", "US_HIGH")
-us_high_mg_low_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_LOW", "US_HIGH")
+mg_low_us_high_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_LOW", "US_HIGH")
+mg_low_us_high_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_LOW", "US_HIGH")
 
-us_low_mg_high_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_HIGH", "US_LOW")
-us_low_mg_high_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_HIGH", "US_LOW")
+mg_high_us_low_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_HIGH", "US_LOW")
+mg_high_us_low_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_HIGH", "US_LOW")
 
-us_low_mg_low_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_LOW", "US_LOW")
-us_low_mg_low_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_LOW", "US_LOW")
+mg_low_us_low_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_LOW", "US_LOW")
+mg_low_us_low_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_LOW", "US_LOW")
 ```
+
+```{r plot accuracy}
+df_plot <- rbind(mg_low_us_high_acc, mg_low_us_low_acc,  mg_high_us_high_acc, mg_high_us_low_acc) 
+plot_accuracy(df_plot)
+```
+
+```{r plot accuracy across con pairs}
+library(scales)
+df_plot_pair <- rbind(mg_low_us_high_acc_by_pair, mg_low_us_low_acc_by_pair, mg_high_us_high_acc_by_pair, mg_high_us_low_acc_by_pair) 
+
+plot_accuracy_by_pair(df_plot_pair)
+```
+
+```{r JF:NR}
+# logit(P(accuracy=1))= β0 + 
+#   β1*country + β2*dSUS + β3*dSMG + 
+#   β4*(country*dSUS) +  β5*(countryc * dSMG) +
+#   β6*(dSUS * dSMG) + 
+#   β7*(country * dSUS * dSMG)
+# 
+# + b0 + b1 * dSUS + b2 * dSMG + b3 * (dSUS * dSMG)
+glme(accuracy ~ 1 + group*dS +  (1 + dS | participantId))
+
+# group | pId | conA | conB | col1 | col2 | dS_mg | dS_us | accuracy
+scale(df$dS_US, center = TRUE, scale = FALSE)
+```
+

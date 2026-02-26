@@ -278,9 +278,10 @@ overall_acc_by_group <- function(us_df_acc, mg_df_acc, mg_level, us_level) {
     summarise(
       n = n(),
       n_correct = sum(accuracy == 1, na.rm = TRUE),
-      pct_correct = mean(accuracy == 1, na.rm = TRUE) * 100,
+      pct_correct = round(mean(accuracy == 1, na.rm = TRUE), digits = 2),
       .groups = "drop"
-    )
+    ) %>% 
+    mutate(category = paste(mg_level, us_level, sep="-"))
 }
 
 pair_acc <- function(us_df_acc, mg_df_acc, mg_level, us_level) {
@@ -294,7 +295,7 @@ pair_acc <- function(us_df_acc, mg_df_acc, mg_level, us_level) {
       dS = dS[which(!is.na(dS))[1]],
       n = n(),
       n_correct = sum(accuracy == 1, na.rm = TRUE),
-      pct_correct = mean(accuracy == 1, na.rm = TRUE) * 100,
+      pct_correct = round(mean(accuracy == 1, na.rm = TRUE), digits = 2),
       .groups = "drop"
     ) %>%
     pivot_wider(
@@ -302,5 +303,75 @@ pair_acc <- function(us_df_acc, mg_df_acc, mg_level, us_level) {
       names_from = group,
       values_from = c(dX, dS, n, n_correct, pct_correct),
       names_glue = "{.value}_{group}"
+    ) %>% 
+    mutate(category = paste(mg_level, us_level, sep="-"))
+}
+
+#### Functions for plotting
+
+plot_accuracy <- function(df){
+  facet_levels <- c("MG_HIGH-US_LOW", "MG_HIGH-US_HIGH", "MG_LOW-US_LOW", "MG_LOW-US_HIGH")
+  df_plot <- df %>%
+    mutate(pct_incorrect = 1 - pct_correct) %>%
+    select(group, pct_correct, pct_incorrect, category) %>%
+    pivot_longer(
+      cols = c(pct_correct, pct_incorrect),
+      names_to = "response",
+      values_to = "proportion") %>%
+    mutate( response = recode(response, pct_incorrect = "Incorrect", pct_correct = "Correct" )) %>%
+    mutate(response = factor(response, levels = c("Incorrect", "Correct"))) %>% 
+    mutate(category = factor(category, levels = facet_levels))
+  
+  ggplot(df_plot, aes(x = group, y = proportion, fill = response)) +
+    geom_bar(stat = "identity", width = 0.85) +
+    geom_text(aes(label = proportion),
+              position = position_stack(vjust = 0.5),
+              color = "white", size = 3) +
+    scale_y_continuous() +
+    theme_minimal(base_size = 14) +
+    scale_fill_manual(values = c( "Correct" = "#2C7BB6","Incorrect" = "#cb017d"), name = "accuracy") + 
+    theme(legend.position = "right") +
+    facet_wrap(~ category, ncol = 2) 
+}
+
+plot_accuracy_by_pair <- function(df_pair){
+  
+  df_long <- df_pair %>%
+    mutate(
+      category = factor(category, levels = facet_levels),
+      pair = paste(conA, conB, sep = " × ")   # keep as character (not a global factor)
+    ) %>%
+    pivot_longer(
+      cols = c(pct_correct_mg, pct_correct_us),
+      names_to = "group",
+      values_to = "pct_correct"
+    ) %>%
+    mutate(
+      group = recode(group,
+                     pct_correct_mg = "mg",
+                     pct_correct_us = "us"),
+      group = factor(group, levels = c("mg", "us"))
+    )
+  
+  ggplot(df_long, aes(x = pair, y = pct_correct, fill = group)) +
+    geom_col(position = position_dodge(width = 0.8), width = 0.75) +
+    geom_text(
+      aes(label = pct_correct),
+      position = position_dodge(width = 0.8),
+      vjust = -0.3,
+      size = 3
+    ) +
+    facet_wrap(~category, ncol = 2, scales = "free_x") +
+    scale_x_discrete(drop = TRUE) +
+    scale_y_continuous(
+      limits = c(0, 1),
+      expand = expansion(mult = c(0, 0.10))
+    ) +
+    labs(x = "Concept pair", y = "Percent correct", fill = "Group") +
+    theme_minimal(base_size = 14) +
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1),
+      strip.text = element_text(face = "bold"),
+      legend.position = "right"
     )
 }
