@@ -268,3 +268,39 @@ addAccuracy <- function(df){
         TRUE ~ 0)
     )
 }
+
+overall_acc_by_group <- function(us_df_acc, mg_df_acc, mg_level, us_level) {
+  bind_rows(
+    us_df_acc %>% filter(mgLevel == mg_level, usLevel == us_level),
+    mg_df_acc %>% filter(mgLevel == mg_level, usLevel == us_level)
+  ) %>%
+    group_by(group) %>%
+    summarise(
+      n = n(),
+      n_correct = sum(accuracy == 1, na.rm = TRUE),
+      pct_correct = mean(accuracy == 1, na.rm = TRUE) * 100,
+      .groups = "drop"
+    )
+}
+
+pair_acc <- function(us_df_acc, mg_df_acc, mg_level, us_level) {
+  bind_rows(
+    us_df_acc %>% filter(mgLevel == mg_level, usLevel == us_level),
+    mg_df_acc %>% filter(mgLevel == mg_level, usLevel == us_level)
+  ) %>%
+    group_by(group, conA, conB, col1, col2) %>%
+    summarise(
+      dX = dX[which(!is.na(dX))[1]],
+      dS = dS[which(!is.na(dS))[1]],
+      n = n(),
+      n_correct = sum(accuracy == 1, na.rm = TRUE),
+      pct_correct = mean(accuracy == 1, na.rm = TRUE) * 100,
+      .groups = "drop"
+    ) %>%
+    pivot_wider(
+      id_cols = c(conA, conB, col1, col2),
+      names_from = group,
+      values_from = c(dX, dS, n, n_correct, pct_correct),
+      names_glue = "{.value}_{group}"
+    )
+}

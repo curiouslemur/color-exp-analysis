@@ -139,4 +139,16 @@ summary()
 ```
 
 
+```{r summary of accuracy}
+us_high_mg_high_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_HIGH", "US_HIGH")
+us_high_mg_high_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_HIGH", "US_HIGH")
 
+us_high_mg_low_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_LOW", "US_HIGH")
+us_high_mg_low_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_LOW", "US_HIGH")
+
+us_low_mg_high_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_HIGH", "US_LOW")
+us_low_mg_high_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_HIGH", "US_LOW")
+
+us_low_mg_low_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_LOW", "US_LOW")
+us_low_mg_low_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_LOW", "US_LOW")
+```
