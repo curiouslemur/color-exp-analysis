@@ -131,6 +131,24 @@ mg_df_acc$group = "mg"
 us_df_with_answer <- addStimuliInfo(us_df, stimuli, "_us")
 us_df_acc <- addAccuracy(us_df_with_answer); rm(us_df_with_answer)
 us_df_acc$group = "us"
+
+mg_df_acc <- mg_df_acc %>% 
+  rename(dX_mg = dX, dS_mg = dS)
+
+us_df_acc <- us_df_acc %>% 
+  rename(dX_us = dX, dS_us = dS)
+
+mg_df_acc_2 <- left_join(
+  mg_df_acc %>% select(participantId, group, conA, conB, col1, col2, accuracy),
+  stimuli %>% select(conA, conB, col1, col2, dS_mg, dS_us),
+  by = c("conA", "conB", "col1", "col2"))
+
+us_df_acc_2 <- left_join(
+  us_df_acc %>% select(participantId, group, conA, conB, col1, col2, accuracy),
+  stimuli %>% select(conA, conB, col1, col2, dS_mg, dS_us),
+  by = c("conA", "conB", "col1", "col2"))
+
+df_acc <- rbind(mg_df_acc_2, us_df_acc_2)
 ```
 
 ```{r summary of accuracy}
