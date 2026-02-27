@@ -155,6 +155,7 @@ df_acc <- rbind(mg_df_acc_2, us_df_acc_2)
 mg_high_us_high_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_HIGH", "US_HIGH")
 mg_high_us_high_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_HIGH", "US_HIGH")
 
+
 mg_low_us_high_acc <- overall_acc_by_group(us_df_acc, mg_df_acc, "MG_LOW", "US_HIGH")
 mg_low_us_high_acc_by_pair <- pair_acc(us_df_acc, mg_df_acc, "MG_LOW", "US_HIGH")
 

@@ -56,7 +56,7 @@ bcp37hex <- select(bcp37,color, hex)
 #   'sécheresse', 'arbre', 'en bonne santé', 'malade')
 
 ##### List of concepts used for pilot study #3 (final set of 14 concepts)
-conceptListEn3 = c('banana', 'mango', 'peach', 'death', 'justice', 'peace', 'safety',
+conceptListEn = c('banana', 'mango', 'peach', 'death', 'justice', 'peace', 'safety',
                    'angry', 'happy', 'sad', 'sick', 'lightning', 'sandstorm', 'tree')
 conceptListFr3 = c('banane', 'mangue', 'pêche', 'mort', 'justice', 'paix', 'sécurité',
                    'en colère', 'heureux', 'triste', 'malade', 'foudre', 'tempête de sable', 'arbre')

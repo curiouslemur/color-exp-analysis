@@ -147,7 +147,7 @@ translateConcepts <- function(df, concept_fr, concept_en){
 
 #### ----------- Function to plot the association weights (sorted)
 plotWeight_Err <- function(data, title){
-  data$con = factor(data$concept, levels=conceptListEn3) # to order the facet strips 
+  data$con = factor(data$concept, levels=conceptListEn) # to order the facet strips 
   p1 <- data %>% 
     # filter(concept %in% c("mango", "tree", "angry", "happy", "death")) %>%
     # ggplot(aes(reorder_within(color, mean_rating, concept), mean_rating, fill = hex, color = barStroke)) + 
